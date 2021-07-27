@@ -138,7 +138,7 @@ import {
   ElInputNumber,
 } from "element-plus";
 import { Popup } from "vant";
-import { animationList } from "@/utils/animate";
+import { animationList } from "@/data/animate";
 export default defineComponent({
   components: {
     ElDivider,

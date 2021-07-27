@@ -4,40 +4,42 @@
   <p>{{ eleInfo.title }}</p>
 </template>
 <script lang='ts'>
-import { defineComponent, reactive, onMounted } from "vue";
+import { defineComponent, computed } from "vue";
 export default defineComponent({
   props: ["item"],
   setup(props) {
-    const eleInfo = reactive({
-      icon: "",
-      title: "",
-    });
-    function getEleIcon(name: string) {
+    const eleInfo = computed(() => {
+      let name = props.item.name;
       switch (name) {
-        case "plug-image":
-          eleInfo.icon = "fa-picture-o";
-          eleInfo.title = "图片";
-          break;
-        case "plug-button":
-          eleInfo.icon = "fa-stop";
-          eleInfo.title = props.item.props.text;
-          break;
-        case "plug-video":
-          eleInfo.icon = "fa-file-movie-o";
-          eleInfo.title = "视频";
-          break;
         case "plug-bg-audio":
-          eleInfo.icon = "fa-file-audio-o";
-          eleInfo.title = "音乐";
-          break;
+          return { icon: "fa-music", title: "音乐" };
+        case "plug-button":
+          return { icon: "fa-hand-pointer-o", title: props.item.props.text };
+        case "plug-image":
+          return { icon: "fa-picture-o", title: "图片" };
+        case "plug-swiper":
+          return { icon: "el-icon-picture", title: "轮播图" };
+        case "plug-text":
+          return { icon: "fa-file-text-o", title: "富文本" };
+        case "plug-video":
+          return { icon: "fa-file-movie-o", title: "视频" };
+        case "plug-form-button":
+          return { icon: "fa-send-o", title: props.item.props.text };
+        case "plug-form-input":
+          return { icon: "el-icon-edit", title: props.item.props.name };
+        case "plug-form-rate":
+          return { icon: "fa-star-half-o", title: props.item.props.name };
+        case "plug-form-radio":
+          return { icon: "fa-dot-circle-o", title: props.item.props.name };
+        case "plug-form-checkbox":
+          return { icon: "fa-check-square", title: props.item.props.name };
+        case "plug-form-datetime":
+          return { icon: "el-icon-date", title: props.item.props.name };
+        case "plug-form-area":
+          return { icon: "el-icon-map-location", title: props.item.props.name };
         default:
-          eleInfo.icon = "fa-file-o";
-          eleInfo.title = "未识别元素";
-          break;
+          return { icon: "fa-file-o", title: "未识别元素" };
       }
-    }
-    onMounted(() => {
-      getEleIcon(props.item.name);
     });
     return { eleInfo };
   },

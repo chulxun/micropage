@@ -1,7 +1,7 @@
 <template>
   <div class="login_page">
     <div class="login">
-      <div class="title">微页平台登录</div>
+      <div class="title"><span>微页</span>平台登录</div>
       <div class="input_div">
         <el-input
           placeholder="请输入用户名"
@@ -114,6 +114,12 @@ export default defineComponent({
     font-size: 24px;
     font-weight: bold;
     color: var(--primaryColor);
+    span {
+      border: 1px solid var(--primaryColor);
+      border-radius: 0 8px 0 8px;
+      padding: 2px 5px;
+      margin-right: 10px;
+    }
   }
   .input_div {
     margin-top: 20px;

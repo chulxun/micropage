@@ -5,7 +5,7 @@ module.exports = class Index {
   static async addForm(params, isImport) {
     let { user_id, work_id, work_title, wx_info, wx_openid, form_data } = params;
     let data = {
-      createTime: isImport ? params.createTime : Date.now(),
+      create_at: isImport ? params.create_at : Date.now(),
       user_id,
       work_title,
       work_id,

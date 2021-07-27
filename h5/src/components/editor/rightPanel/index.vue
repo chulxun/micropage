@@ -2,11 +2,17 @@
   <el-aside width="360px" class="editor_right">
     <layers></layers>
     <workSetting></workSetting>
-    <el-tabs type="border-card">
-      <el-tab-pane label="属性"><pluginProps></pluginProps></el-tab-pane>
-      <el-tab-pane label="动画"><animateProps></animateProps></el-tab-pane>
-      <el-tab-pane label="页面"><pageProps></pageProps></el-tab-pane>
-      <el-tab-pane label="脚本"
+    <el-tabs type="border-card" v-model="tabIndex">
+      <el-tab-pane label="属性" name="props"
+        ><pluginProps></pluginProps
+      ></el-tab-pane>
+      <el-tab-pane label="动画" name="animation"
+        ><animateProps></animateProps
+      ></el-tab-pane>
+      <el-tab-pane label="页面" name="page"
+        ><pageProps></pageProps
+      ></el-tab-pane>
+      <el-tab-pane label="脚本" name="script"
         ><scriptProps></scriptProps
       ></el-tab-pane> </el-tabs
   ></el-aside>
@@ -19,7 +25,9 @@ import pluginProps from "./pluginProps.vue";
 import animateProps from "./animateProps.vue";
 import pageProps from "./pageProps.vue";
 import scriptProps from "./scriptProps.vue";
-export default {
+import { defineComponent, ref, watch, computed } from "vue";
+import { useStore } from "@/store/index";
+export default defineComponent({
   components: {
     ElAside,
     ElButton,
@@ -32,20 +40,39 @@ export default {
     layers,
     workSetting,
   },
-  data() {
-    return {
-      drawer: false,
-    };
+  setup() {
+    const store = useStore();
+    const editingElement: any = computed(
+      () => store.state.editor.editingElement
+    );
+    const editingPageProps: any = computed(
+      () => store.state.editor.editingPageProps
+    );
+    const setSourceStack = (preload: any) =>
+      store.commit("common/setSourceStack", preload);
+    const tabIndex = ref("props");
+    //监听tab切换，找到图片
+    watch(
+      () => tabIndex.value,
+      function (val) {
+        if (
+          val == "props" &&
+          editingElement.value.props.hasOwnProperty("imgUrl")
+        ) {
+          setSourceStack({
+            stack: editingPageProps.value.props,
+            key: "imgUrl",
+          });
+        } else if (val == "page") {
+          setSourceStack({ stack: editingPageProps.value, key: "imgUrl" });
+        } else {
+          setSourceStack({ stack: null, key: "" });
+        }
+      }
+    );
+    return { tabIndex };
   },
-  methods: {
-    onShow() {
-      this.drawer = true;
-    },
-    handleClose() {
-      this.drawer = false;
-    },
-  },
-};
+});
 </script>
 <style lang='less' scoped>
 .editor_right {
@@ -62,5 +89,15 @@ export default {
     max-height: calc(100vh - 100px);
     overflow-y: auto;
   }
+}
+//编辑器的公共属性：多次复用的样式
+:deep(.el-form-item__label) {
+  white-space: nowrap;
+}
+:deep(.tips) {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.2;
+  padding-top: 10px;
 }
 </style>

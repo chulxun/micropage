@@ -46,7 +46,7 @@
 </template>
 <script lang='ts'>
 import { ElImage, ElButton } from "element-plus";
-import { defineComponent, ref, onMounted, nextTick, watch } from "vue";
+import { defineComponent, ref, onMounted, nextTick } from "vue";
 import { useStore } from "@/store/index";
 import videoPreview from "@/components/common/videoPreview.vue";
 export default defineComponent({
@@ -54,10 +54,6 @@ export default defineComponent({
     imgUrl: {
       default: "",
       type: String,
-    },
-    type: {
-      default: 0, // 0 编辑元素  1 背景图
-      type: Number,
     },
     sourceType: {
       type: Number,
@@ -73,20 +69,14 @@ export default defineComponent({
     const store = useStore();
     const setOperaType = (type: any) =>
       store.commit("common/setOperaType", type);
-    const setChangeImgType = (type: any) =>
-      store.commit("common/setChangeImgType", type);
     const setChangeSourceType = (type: any) =>
       store.commit("common/setChangeSourceType", type);
     function onRemove() {
       ctx.emit("update:imgUrl", "");
     }
     const video = ref(null);
-    // watch(props.imgUrl, (val) => {
-    //   if (props.sourceType == 2) video.value.load();
-    // });
     function onShowSourceList() {
-      setOperaType(1);
-      setChangeImgType(props.type);
+      setOperaType(4);
       setChangeSourceType(props.sourceType);
     }
     const audio = ref(null);

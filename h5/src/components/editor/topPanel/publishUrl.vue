@@ -53,7 +53,8 @@ export default defineComponent({
       ctx.emit("update:publishVisible", val);
     });
     onMounted(async () => {
-      mobileUrl.value = window.location.origin + "/viewer/" + props.workId;
+      mobileUrl.value =
+        window.location.origin + "/viewer/?workId=" + props.workId;
       await nextTick();
       drawQRcode();
       let clipboard = new ClipboardJS(copyBtn.value.$el); //这里用ref.$el取dom元素，不然复制没反应

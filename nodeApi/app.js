@@ -31,7 +31,7 @@ const whitePath = [
   "/api/user/login",
   "/api/user/register",
   "/api/form/submitData",
-  "/api/works/getWorkPreview",
+  "/api/works/getWorkDetail",
 
 ];
 

@@ -2,11 +2,10 @@
   <div>
     <el-divider content-position="left">属性</el-divider>
     <el-form label-width="80px">
-      <el-form-item label="上传mp3:">
+      <el-form-item label="上传mp3:" required>
         <imgEditor
           v-model:imgUrl="element.props.audioUrl"
           :sourceType="3"
-          :type="0"
         ></imgEditor>
       </el-form-item>
       <el-form-item label="自动播放:">

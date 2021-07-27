@@ -7,6 +7,7 @@
     ref="rotate"
     v-if="element.name != 'plug-page' && !element.props.hide"
   >
+    <animation :element="element"> <slot></slot></animation>
     <template v-if="editingElement == element">
       <!-- 放大缩小圆点 -->
       <div
@@ -33,7 +34,6 @@
         }}°
       </div>
     </template>
-    <animation :element="element"> <slot></slot></animation>
   </div>
   <div
     v-else-if="!element.props.hide"
@@ -239,6 +239,7 @@ export default defineComponent({
 .drag {
   position: absolute;
   user-select: none;
+  z-index: 1;
 }
 .drag_active {
   outline: 1px dashed #70c0ff !important;
@@ -283,6 +284,7 @@ export default defineComponent({
   width: 10px;
   height: 10px;
   background: #fff;
+  z-index: 1;
   &:nth-child(1) {
     top: 0;
     left: 0;

@@ -3,6 +3,8 @@
     :title="videoUrl ? '视频预览' : '音频预览'"
     v-model="previewShow"
     width="740px"
+    destroy-on-close
+    append-to-body
   >
     <div class="preview_content" v-if="videoUrl">
       <video
@@ -17,8 +19,9 @@
       </video>
     </div>
     <div class="preview_content" v-else-if="audioUrl">
-      <audio :src="audioUrl" controls></audio></div
-  ></el-dialog>
+      <audio :src="audioUrl" controls></audio>
+    </div>
+  </el-dialog>
 </template>
 <script lang='ts'>
 import { defineComponent, ref, watch } from "vue";
@@ -31,10 +34,6 @@ export default defineComponent({
     const previewShow = ref(props.previewVisible);
     watch(previewShow, (val, oldval) => {
       ctx.emit("update:previewVisible", val);
-      if (val == false) {
-        ctx.emit("update:audioUrl", "");
-        ctx.emit("update:videoUrl", "");
-      }
     });
     return { previewShow };
   },

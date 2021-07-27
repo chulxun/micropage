@@ -46,13 +46,11 @@ export default defineComponent({
 </script>
 <style lang='less' scoped>
 .video {
-  width: 100%;
-  height: 100%;
-}
-video {
-  object-fit: cover;
-  background-color: #fff;
-  width: 100%;
-  height: 100%;
+  video {
+    object-fit: cover;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

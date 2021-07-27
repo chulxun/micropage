@@ -97,8 +97,10 @@ export default defineComponent({
         if (typeof window.parent.getWorkInfo == "function") {
           window.parent.getWorkInfo(res.property); //不用localstorage，直接调用父窗口的方法，是考虑到后期可能不同源的情况
         }
+
         Object.assign(work, res.property);
         if (work && work.pages && work.pages.length > 0) {
+          document.title = work.title;
           pageHeight.value = work.pages[0].elements[0].props.pageHeight;
         }
       } else {
@@ -167,7 +169,8 @@ export default defineComponent({
   },
 });
 </script>
-<style lang='less' scoped>
+<style lang='less'>
+@import "@/css/reset.less";
 .work_app {
   position: relative;
   overflow-x: hidden;

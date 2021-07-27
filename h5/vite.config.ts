@@ -57,7 +57,9 @@ export default defineConfig({//defineConfig 帮手函数，这样不用 jsdoc �
         manualChunks: {
           lodash: ['lodash'],
           'element-plus': ['element-plus'],
-          vant: ['vant']
+          vant: ['vant'],
+          tinymce: ['tinymce'],
+          swiper: ['swiper'],
         }
       }
     }

@@ -47,7 +47,7 @@ export default defineComponent({
     }),
       //监听动画面板
       watch(
-        props.element.animations,
+        () => props.element.animations,
         function (val) {
           anis = val.filter((item) => {
             return item.playing == true;
@@ -74,5 +74,6 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   position: absolute;
+  z-index: 1;
 }
 </style>

@@ -12,7 +12,7 @@
           >{{ item.name }}</el-button
         >
       </el-form-item>
-      <el-form-item label="按钮文字:">
+      <el-form-item label="按钮文字:" required>
         <el-input v-model="element.props.text" maxlength="100"></el-input>
       </el-form-item>
       <el-form-item label="背景颜色:">

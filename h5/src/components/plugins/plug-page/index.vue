@@ -15,6 +15,12 @@ export default defineComponent({
       if (props.props.bgSize) {
         style.backgroundSize = props.props.bgSize;
       }
+      if (props.props.bgPosition) {
+        style.backgroundPosition = props.props.bgPosition;
+      }
+      if (props.props.bgRepeat) {
+        style.backgroundRepeat = props.props.bgRepeat;
+      }
       return style;
     });
 

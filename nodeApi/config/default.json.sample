@@ -3,8 +3,8 @@
   "host": "0.0.0.0",
   "mongodb": "mongodb://micropage:123456@localhost:27017/micropageDB",
   "qiniu": {
-    "accessKey": "七牛云accessKey",
-    "secretKey": "七牛云secretKey",
+    "accessKey": "七牛云密匙",
+    "secretKey": "七牛云密匙",
     "bucket": "七牛云bucket"
   },
   "jwt": {

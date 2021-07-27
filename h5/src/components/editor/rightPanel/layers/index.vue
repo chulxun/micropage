@@ -16,6 +16,7 @@
           editingPage && editingPage.elements && editingPage.elements.length > 1
         "
         @dragstart="onDragStart"
+        @drop="onDrop"
         @dragover="onDragOver"
       >
         <template v-for="(item, index) in editingPage.elements" :key="index">
@@ -86,10 +87,16 @@ export default defineComponent({
     }
     //拖动图层排序
     let draging: any = null;
+    //当被鼠标拖动的对象进入其容器范围内时触发
     function onDragStart(event: DragEvent) {
       draging = event.target;
     }
+    //当某被拖动的对象在另一对象容器范围内拖动时触发
     function onDragOver(event: DragEvent) {
+      event.preventDefault();
+    }
+    //在一个拖动过程中，释放鼠标键时触发
+    function onDrop(event: DragEvent) {
       event.preventDefault();
       const target: any = event.target;
       if (target.classList.contains("item") == true && target != draging) {
@@ -105,7 +112,7 @@ export default defineComponent({
           //加1s时间防止多次触发排序，造成排序看起来没效果
           setTimeout(() => {
             target.moving = false;
-          }, 1000);
+          }, 1500);
           operateElement({
             type: "swap",
             value: {
@@ -127,6 +134,7 @@ export default defineComponent({
       chooseElement,
       onDragStart,
       onDragOver,
+      onDrop,
     };
   },
 });

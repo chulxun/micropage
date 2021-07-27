@@ -1,6 +1,18 @@
 <template>
   <master defaultActive="/about">
-    <div class="content">关于微页</div>
+    <div class="content">
+      <h2>微页 1.0</h2>
+      <p>
+        一个注重交互的H5编辑器开源项目，旨在提高工作效率，快速开发小型运营活动页面，以及日常H5需求。
+      </p>
+      <p>技术站：Vue 3 + Typescript + Vite</p>
+      <p>
+        github:
+        <a href="https://github.com/chulxun/micropage" target="_blank"
+          >https://github.com/chulxun/micropage</a
+        >
+      </p>
+    </div>
   </master>
 </template>
 <script lang="ts">

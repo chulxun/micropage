@@ -12,7 +12,9 @@
         text-color="#fff"
         active-text-color="#ff"
       >
-        <el-menu-item index="1" disabled>gitHub</el-menu-item>
+        <el-menu-item index="github"
+          ><i class="fa fa-github" style="font-size: 24px"></i
+        ></el-menu-item>
         <el-submenu index="2" v-if="userInfo.token">
           <template #title>{{ userInfo.user_name }}</template>
           <el-menu-item index="/works">我的作品</el-menu-item>
@@ -43,7 +45,9 @@ export default defineComponent({
     const userInfo = computed(() => store.state.user.userInfo);
     const delUserInfo = () => store.commit("user/delUserInfo");
     function handleSelect(index: string) {
-      if (index == "loginout") {
+      if (index == "github") {
+        window.open("https://github.com/chulxun/micropage", "_blank");
+      } else if (index == "loginout") {
         //退出登录
         delUserInfo();
         router.push("/login");

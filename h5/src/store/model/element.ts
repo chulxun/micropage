@@ -14,7 +14,6 @@ const defaultStyle = {
   left: 127,
   width: 100,
   height: 40,
-  textAlign: 'center',
   color: '#000000',
   fontSize: 14
 }

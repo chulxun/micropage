@@ -8,6 +8,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@tinymce/tinymce-vue": "^4.0.4",
     "axios": "^0.21.1",
     "clipboard": "^2.0.8",
     "element-plus": "^1.0.2-beta.63",
@@ -15,12 +16,14 @@
     "qrcode": "^1.4.4",
     "qs": "^6.10.1",
     "swiper": "^6.7.5",
+    "tinymce": "^5.8.2",
     "vant": "^3.1.1",
     "vue": "^3.0.5",
     "vue-router": "^4.0.10",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@vant/area-data": "^1.1.1",
     "@vitejs/plugin-vue": "^1.2.1",
     "@vue/compiler-sfc": "^3.0.5",
     "less": "^4.1.1",

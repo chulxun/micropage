@@ -23,6 +23,8 @@
 │   │       └── element.vue  //插件使用前封装
 │   ├── css    
 │   │   └── reset.less  //公用css
+│   ├── data     //所有静态数据
+│   │    
 │   ├──router    //路由
 │   │   └── index.ts
 │   ├──store          //状态管理

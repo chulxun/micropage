@@ -72,20 +72,8 @@
             </div>
           </div>
         </div>
-
-        <videoPreview
-          v-model:videoUrl="videoUrl"
-          v-model:audioUrl="audioUrl"
-          v-model:previewVisible="previewVisible"
-          v-if="previewVisible"
-        ></videoPreview>
-        <el-image-viewer
-          v-if="showImgViewer"
-          @close="closeImgViewer"
-          :initial-index="imgIndex"
-          :url-list="imgList"
-        />
       </div>
+
       <div class="pages">
         <el-pagination
           :hide-on-single-page="true"
@@ -101,6 +89,18 @@
     <el-empty v-else description="暂无数据">
       <uploader :sourceType="sourceType" @refreshData="loadData"></uploader>
     </el-empty>
+    <videoPreview
+      v-model:videoUrl="videoUrl"
+      v-model:audioUrl="audioUrl"
+      v-model:previewVisible="previewVisible"
+      v-if="previewVisible"
+    ></videoPreview>
+    <el-image-viewer
+      v-if="showImgViewer"
+      @close="closeImgViewer"
+      :initial-index="imgIndex"
+      :url-list="imgList"
+    />
   </div>
 </template>
 
@@ -145,20 +145,17 @@ export default defineComponent({
   },
   setup(props, ctx) {
     const store = useStore();
-    const operaType = computed(() => store.state.common.operaType);
-    const changeImgType = computed(() => store.state.common.changeImgType);
+    const sourceStack = computed(() => store.state.common.sourceStack);
     const changeSourceType = computed(
       () => store.state.common.changeSourceType
     );
     const setOperaType = (type: any) =>
       store.commit("common/setOperaType", type);
-    const setChangeImgType = (type: any) =>
-      store.commit("common/setChangeImgType", type);
+
     const setChangeSourceType = (type: any) =>
       store.commit("common/setChangeSourceType", type);
     function closedThis() {
       setOperaType(0);
-      setChangeImgType(0);
       setChangeSourceType(1);
     }
     const editingElement: any = computed(
@@ -194,7 +191,7 @@ export default defineComponent({
         .then(async () => {
           const res = await deleteResources({ id });
           if (res && res.code == 0) {
-            ElMessage.error("删除成功");
+            ElMessage.success("删除成功");
             dataList.splice(index, 1);
           } else {
             ElMessage.error(res.message);
@@ -205,7 +202,12 @@ export default defineComponent({
     //使用
     function onUse(item: any) {
       if (
-        changeImgType.value == 0 &&
+        sourceType.value == 1 &&
+        sourceStack.value.stack &&
+        (editingElement.value || editingPageProps.value)
+      ) {
+        sourceStack.value.stack[sourceStack.value.key] = item;
+      } else if (
         sourceType.value == 1 &&
         editingElement.value &&
         editingElement.value.props.hasOwnProperty("imgUrl") == true
@@ -213,7 +215,6 @@ export default defineComponent({
         editingElement.value.props.imgUrl = item;
         setEditingElement(editingElement.value);
       } else if (
-        changeImgType.value == 0 &&
         sourceType.value == 2 &&
         editingElement.value &&
         editingElement.value.props.hasOwnProperty("videoUrl") == true
@@ -221,19 +222,14 @@ export default defineComponent({
         editingElement.value.props.videoUrl = item;
         setEditingElement(editingElement.value);
       } else if (
-        changeImgType.value == 0 &&
         sourceType.value == 3 &&
         editingElement.value &&
         editingElement.value.props.hasOwnProperty("audioUrl") == true
       ) {
         editingElement.value.props.audioUrl = item;
         setEditingElement(editingElement.value);
-      } else if (
-        changeImgType.value == 1 &&
-        editingPageProps.value &&
-        editingPageProps.value.hasOwnProperty("imgUrl") == true
-      ) {
-        editingPageProps.value.imgUrl = item;
+      } else {
+        ElMessage.warning("选中一个元素才能使用成功");
       }
     }
     //预览图片、视频、音乐
@@ -248,13 +244,15 @@ export default defineComponent({
         showImgViewer.value = true;
       } else if (sourceType.value == 2) {
         previewVisible.value = true;
+        audioUrl.value = "";
         videoUrl.value = item.url;
       } else if (sourceType.value == 3) {
         previewVisible.value = true;
+        videoUrl.value = "";
         audioUrl.value = item.url;
       }
     }
-
+    //关闭图片预览
     function closeImgViewer() {
       showImgViewer.value = false;
     }
@@ -375,6 +373,9 @@ export default defineComponent({
       align-items: center;
       font-size: 40px;
       background: #f1f1f1;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
     .audio {
       flex-direction: column;
@@ -386,6 +387,10 @@ export default defineComponent({
       p {
         word-break: break-all;
         font-size: 10px;
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
     }
     .abs {
@@ -401,7 +406,8 @@ export default defineComponent({
       justify-content: center;
       flex-direction: column;
       opacity: 0;
-      transform: translateY(100%);
+      //加transform动画会引起：弹出视频、音乐预览后关闭，该条item不显示
+      // transform: translateY(100%);
       transition: all 0.3s ease-out;
       padding: 0 5px;
       > div {
@@ -416,7 +422,7 @@ export default defineComponent({
     }
     &:hover .abs {
       opacity: 1;
-      transform: translateY(0);
+      // transform: translateY(0);
     }
   }
 }

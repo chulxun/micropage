@@ -2,8 +2,8 @@
   <div>
     <el-divider content-position="left">属性</el-divider>
     <el-form label-width="80px">
-      <el-form-item label="上传图片:">
-        <imgEditor v-model:imgUrl="element.props.imgUrl" :type="0"></imgEditor>
+      <el-form-item label="上传图片:" required>
+        <imgEditor v-model:imgUrl="element.props.imgUrl"></imgEditor>
       </el-form-item>
       <el-form-item label="">
         <el-button type="primary" @click="resetWH">重置图片宽高</el-button>

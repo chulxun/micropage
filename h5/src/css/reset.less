@@ -1,5 +1,6 @@
 
-// 样式重置
+// 样式reset  编辑器+作品预览通用
+
 * {padding: 0;margin: 0;box-sizing: border-box;}
 html {-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%; text-size-adjust: 100%;} /*避免字体大小被重置*/
 a{color:#333; text-decoration: none;outline:none;}
@@ -10,6 +11,12 @@ input,button{outline: none;-webkit-appearance: none;appearance: none;cursor: poi
 input,textarea,select{outline: none;border:0;background-color:transparent;resize: none;}
 html,body{ -webkit-tap-highlight-color: transparent;}/*去除apple设备点击底色*/
 body{font-size:14px;font-family: "Helvetica Neue",Helvetica, Arial, 'Microsoft YaHei';-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
+h1 {font-size: 2em;}
+h2 {font-size: 1.5em;}
+h3 {font-size: 1.17em;}
+h4 {font-size: 1.00em;}
+h5 {font-size: 0.83em;}
+h6 {font-size: 0.67em;}
 :root{
   --bgColor:#2E3E4E;
   --primaryColor:#3981EB;//主色调
@@ -20,24 +27,4 @@ body{font-size:14px;font-family: "Helvetica Neue",Helvetica, Arial, 'Microsoft Y
   --successColor:#67C23A;  
   --lightBgColor:#f5f5f5;//浅灰背景
 }
-.el-header{
-  background: var(--bgColor);
-  color:#fff;
-  display: flex;
-  align-items: center;
-}
-.el-container.is-vertical{
-  height:100vh;
-}
-#app{
-  // element plus 样式重置
-.el-form--label-top .el-form-item__label{
-  padding:0;
-}
-.el-form-item{
-  margin-bottom:15px;
-}
-.el-form--label-top .el-form-item{
-  margin-bottom:10px;
-}
-}
+

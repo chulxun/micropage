@@ -92,30 +92,35 @@ export default defineComponent({
         form_data: {},
       };
       inputs.forEach(
-        (input) => (params.form_data[input.dataset.ukey] = input.value)
+        (input) => (params.form_data[input.dataset.id] = input.value)
       );
+      console.log(params.form_data);
       params.form_data = encodeURIComponent(JSON.stringify(params.form_data));
       const res = await submitData(params);
-      //成功提交后
-      let html = "";
-      if (props.props.imgUrl) {
-        html =
-          "<img src=" +
-          props.props.imgUrl +
-          " style='max-width:100%;max-height:100%;' />";
-      }
-      Dialog.alert({
-        title: props.props.successToast || "表单成功提交",
-        allowHtml: true,
-        message: `${html}`,
-      }).then(() => {
-        //预览或者作品页 刷新
-        if (props.props.successHref) {
-          window.location.href = props.props.successHref;
-        } else {
-          window.location.reload();
+      if (res && res.code == 0) {
+        //成功提交后
+        let html = "";
+        if (props.props.imgUrl) {
+          html =
+            "<img src=" +
+            props.props.imgUrl +
+            " style='max-width:100%;max-height:100%;' />";
         }
-      });
+        Dialog.alert({
+          title: props.props.successToast || "表单成功提交",
+          allowHtml: true,
+          message: `${html}`,
+        }).then(() => {
+          //预览或者作品页 刷新
+          if (props.props.successHref) {
+            window.location.href = props.props.successHref;
+          } else {
+            window.location.reload();
+          }
+        });
+      } else {
+        Toast(res.massage);
+      }
     }
     return { onSubmit };
   },

@@ -118,6 +118,7 @@ const mutations = {
         let startEle = elements[startIndex]
         elements[startIndex] = elements[endIndex]
         elements[endIndex] = startEle
+        console.log(elements)
         break
       case 'copy'://复制元素
         if (!editingElement) return

@@ -97,6 +97,7 @@ export default defineComponent({
           if (hotKey.CTRL.status) undoRedoHistory.redo();
           break;
         case hotKey.X.val: //剪切
+          if (/input|textarea/gi.test(e.target.nodeName.toLowerCase())) return; //?监控按键所在的标签
           if (hotKey.CTRL.status)
             operateElement({
               type: "cut",
@@ -104,6 +105,7 @@ export default defineComponent({
             });
           break;
         case hotKey.V.val: //粘贴
+          if (/input|textarea/gi.test(e.target.nodeName.toLowerCase())) return; //?监控按键所在的标签
           if (hotKey.CTRL.status)
             operateElement({
               type: "paste",
@@ -111,6 +113,7 @@ export default defineComponent({
             });
           break;
         case hotKey.C.val: //复制
+          if (/input|textarea/gi.test(e.target.nodeName.toLowerCase())) return; //?监控按键所在的标签
           if (hotKey.CTRL.status) {
             operateElement({
               type: "copy",
@@ -124,6 +127,7 @@ export default defineComponent({
           break;
         case hotKey.D.val: //删除
         case hotKey.DELETE.val: //删除
+          if (/input|textarea/gi.test(e.target.nodeName.toLowerCase())) return; //?监控按键所在的标签
           if (hotKey.CTRL.status)
             operateElement({
               type: "delete",

@@ -1,13 +1,13 @@
 <template>
   <div>
     <div v-for="(item, index) in pluginList" :key="index">
-      <div class="plugin_list" v-if="pluginType == index + 1">
+      <div class="plugin_list" v-if="operaType == index + 1">
         <div class="item">
           <div class="title">
             {{ item.title
             }}<i class="el-icon-close closed" @click="closedThis"></i>
           </div>
-          <div class="con img_list">
+          <div class="con img_list" v-if="item.children.length > 0">
             <div
               class="plug_item"
               v-for="(item1, index1) in item.children"
@@ -31,22 +31,26 @@
               <p>{{ item1.title }}</p>
             </div>
           </div>
+          <el-empty v-else description="开发中，下个版本见"></el-empty>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import { useStore } from "@/store/index";
 import importPlugs from "@/mixins/importPlugs.ts";
+import { ElEmpty } from "element-plus";
 export default defineComponent({
   mixins: [importPlugs],
-  props: ["pluginType"],
-  components: {},
+  components: { ElEmpty },
 
   setup(props, ctx) {
     const store = useStore();
+    const operaType = computed(() => store.state.common.operaType);
+    const setOperaType = (type: any) =>
+      store.commit("common/setOperaType", type);
     const operateElement = (preload: any) =>
       store.commit("editor/operateElement", preload);
     //元素开始拖拽
@@ -69,9 +73,9 @@ export default defineComponent({
       });
     }
     function closedThis() {
-      ctx.emit("update:pluginType", 0);
+      setOperaType(0);
     }
-    return { addElement, onDragStart, closedThis };
+    return { operaType, addElement, onDragStart, closedThis };
   },
 });
 </script>
@@ -90,7 +94,6 @@ export default defineComponent({
   padding: 0 16px;
   color: #333;
   .item {
-    border-bottom: 1px solid var(--borderColor);
     padding: 16px 0;
     .title {
       font-weight: bold;

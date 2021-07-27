@@ -18,8 +18,8 @@ class Work {
     // 通用属性
     this.title = work.title || '标题'
     this.description = work.description || '描述'
-    this.preview_img_url = work.preview_img_url || 'https://public.fanjinyan.com/weiye_default_img.png'
-    this.share_img_url = work.share_img_url || 'https://public.fanjinyan.com/weiye_default_img.png'
+    this.preview_img_url = work.preview_img_url || 'https://public.fanjinyan.com/weiye_default_img_squre.png'
+    this.share_img_url = work.share_img_url || 'https://public.fanjinyan.com/weiye_default_img_squre.png'
     this.page_type = work.page_type || 1 //页面类型 1长页 2多页
     let pages = [{
       ukey: 1,
@@ -30,7 +30,7 @@ class Work {
           props: {
             bgColor: '#fff',
             imgUrl: '',
-            pageHeight: 667
+            pageHeight: 667,
           },
           style: {
             width: '100%',

@@ -1,11 +1,10 @@
 <template>
-  <div>todo，下个版本开发</div>
+  <div><el-empty description="开发中，下个版本见"></el-empty></div>
 </template>
 <script lang="ts">
 import { defineComponent, computed, reactive } from "vue";
 import { ElEmpty, ElForm, ElFormItem, ElInput } from "element-plus";
 import { useStore } from "@/store/index";
-
 export default defineComponent({
   components: {
     ElEmpty,

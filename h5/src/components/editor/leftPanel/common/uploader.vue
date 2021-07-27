@@ -27,7 +27,7 @@ import { ElButton, ElUpload, ElMessage } from "element-plus";
 import { defineComponent, ref, reactive, watch, onMounted } from "vue";
 import { addResources } from "@/api/resources";
 import qiniuUpload from "@/mixins/qiniuUpload";
-import { cdnDomain } from "@/utils/constant";
+import { cdnDomain } from "@/data/constant";
 export default defineComponent({
   props: ["sourceType"],
   components: {
@@ -100,6 +100,9 @@ export default defineComponent({
       });
       if (uploadResult.length == 0) upload.value.clearFiles();
       let url = cdnDomain + response.key;
+      if (props.sourceType == 1) {
+        url += "?imageView2/0/w/750/q/75";
+      }
       let params = {
         url: url,
         size: file.size / 1000 + "kb",

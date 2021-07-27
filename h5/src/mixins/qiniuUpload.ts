@@ -1,7 +1,7 @@
 import { getToken } from "@/api/common";
 import { axPost } from "@/api/request";
 import { ref } from 'vue';
-import { cdnDomain } from "@/utils/constant";
+import { cdnDomain } from "@/data/constant";
 export default function () {
   const token = ref(''); //qiniu token
   //获取七牛云token
@@ -34,7 +34,7 @@ export default function () {
       true
     );
     if (res && res.key) {
-      return cdnDomain + res.key;
+      return cdnDomain + res.key + "?imageView2/0/w/400/q/75";
     }
   }
   return { token, getQiniuToken, uploadBase64Img }

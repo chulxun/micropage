@@ -57,6 +57,11 @@ export default defineComponent({
       if (elestyle.fontWeight) {
         style.fontWeight = elestyle.fontWeight;
       }
+      if (elestyle.padding) {
+        style.padding = isRem
+          ? pxToRem(elestyle.padding)
+          : elestyle.padding + "px";
+      }
       return style;
     });
     return {
@@ -74,5 +79,13 @@ export default defineComponent({
   border-style: solid;
   border-width: 0;
   position: absolute;
+}
+:deep(.input_title) {
+  padding-bottom: 0.3em;
+  font-size: 1.2em;
+  .red {
+    color: red;
+    font-weight: bold;
+  }
 }
 </style>

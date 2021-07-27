@@ -13,7 +13,7 @@ export default defineComponent({
       height: 120,
     },
     props: {
-      imgUrl: "https://public.fanjinyan.com/weiye_default_img.png",
+      imgUrl: "https://public.fanjinyan.com/weiye_default_img_squre.png",
       clickType: 0,
       clickContent: "",
     },
