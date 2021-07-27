@@ -1,0 +1,43 @@
+
+// 样式重置
+* {padding: 0;margin: 0;box-sizing: border-box;}
+html {-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%; text-size-adjust: 100%;} /*避免字体大小被重置*/
+a{color:#333; text-decoration: none;outline:none;}
+a:hover,a:active,a:focus{ background:none;text-decoration: none;color:#333; }
+p,dt,ul,dl{margin:0; list-style:none;} 
+img{border:0;vertical-align: middle;}
+input,button{outline: none;-webkit-appearance: none;appearance: none;cursor: pointer;border:0;background-color: transparent;}
+input,textarea,select{outline: none;border:0;background-color:transparent;resize: none;}
+html,body{ -webkit-tap-highlight-color: transparent;}/*去除apple设备点击底色*/
+body{font-size:14px;font-family: "Helvetica Neue",Helvetica, Arial, 'Microsoft YaHei';-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
+:root{
+  --bgColor:#2E3E4E;
+  --primaryColor:#3981EB;//主色调
+  --borderColor:#e6e6e6;
+  --lightColor:#ecf5ff;//浅蓝色背景
+  --warningColor:#E6A23C;
+  --dangerColor:#F56C6C;
+  --successColor:#67C23A;  
+  --lightBgColor:#f5f5f5;//浅灰背景
+}
+.el-header{
+  background: var(--bgColor);
+  color:#fff;
+  display: flex;
+  align-items: center;
+}
+.el-container.is-vertical{
+  height:100vh;
+}
+#app{
+  // element plus 样式重置
+.el-form--label-top .el-form-item__label{
+  padding:0;
+}
+.el-form-item{
+  margin-bottom:15px;
+}
+.el-form--label-top .el-form-item{
+  margin-bottom:10px;
+}
+}

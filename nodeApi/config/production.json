@@ -1,0 +1,16 @@
+{
+  "port": 8000,
+  "host": "0.0.0.0",
+  "mongodb": "mongodb://micropage:123456@localhost:27017/micropageDB",
+  "qiniu": {
+    "accessKey": "七牛云accessKey",
+    "secretKey": "七牛云secretKey",
+    "bucket": "七牛云bucket"
+  },
+  "jwt": {
+    "expire": "1 days",
+    "secret": "koa-project-secret"
+  },
+  "logType": "application",
+  "logPath": "log"
+}
