@@ -38,8 +38,9 @@
       ></el-tooltip>
     </div>
     <pluginList v-if="[1, 2, 3].includes(operaType)"></pluginList>
-    <sourceList v-if="operaType == 4"></sourceList>
-    <keyList v-if="operaType == 6"></keyList>
+    <sourceList v-else-if="operaType == 4"></sourceList>
+    <keyList v-else-if="operaType == 6"></keyList>
+    <help v-else-if="operaType == 5"></help>
   </el-aside>
 </template>
 <script lang="ts">
@@ -47,6 +48,7 @@ import { ElAside, ElButton, ElDrawer, ElTooltip } from "element-plus";
 import pluginList from "./common/pluginList.vue";
 import keyList from "./common/keyList.vue";
 import sourceList from "./common/sourceList.vue";
+import help from "./common/help.vue";
 import { defineComponent, ref, computed } from "vue";
 import { useStore } from "@/store/index";
 export default defineComponent({
@@ -58,6 +60,7 @@ export default defineComponent({
     keyList,
     sourceList,
     ElTooltip,
+    help,
   },
   setup() {
     const store = useStore();

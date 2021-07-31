@@ -12,6 +12,7 @@
           >https://github.com/chulxun/micropage</a
         >
       </p>
+      <p>文档后续更新...</p>
     </div>
   </master>
 </template>
@@ -36,5 +37,11 @@ export default defineComponent({
   min-height: calc(100% - 40px);
   border-radius: 5px;
   padding: 20px;
+  > * {
+    margin-bottom: 10px;
+  }
+  a {
+    color: var(--primaryColor);
+  }
 }
 </style>

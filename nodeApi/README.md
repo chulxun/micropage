@@ -49,6 +49,7 @@ db.createUser({
 ```
 1、安装依赖 npm install
 2、配置上传接口所需对象存储平台的密匙(目前是七牛云，其他平台代码需要自己实现)
+ 将config文件下文件名改为以下，并配置
   config/default.json
   config/production.json
 3、配置mongodb数据库连接信息
