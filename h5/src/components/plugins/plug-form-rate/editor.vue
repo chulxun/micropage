@@ -15,7 +15,6 @@
           :max="100"
           :step="1"
           label="px"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="标题粗细:">
@@ -30,7 +29,6 @@
           :min="1"
           :max="100"
           :step="1"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
 
@@ -74,7 +72,6 @@
           :min="1"
           :max="100"
           :step="1"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="允许半选:">

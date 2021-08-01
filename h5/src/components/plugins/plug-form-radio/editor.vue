@@ -15,7 +15,6 @@
           :max="100"
           :step="1"
           label="px"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="文字粗细:">

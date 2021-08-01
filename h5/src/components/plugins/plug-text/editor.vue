@@ -16,7 +16,6 @@
           :max="100"
           :step="1"
           label="px"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
 
@@ -33,7 +32,6 @@
           :max="100"
           :step="1"
           label="px"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="内边距:">
@@ -43,7 +41,6 @@
           :max="100"
           :step="1"
           label="px"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
     </el-form>

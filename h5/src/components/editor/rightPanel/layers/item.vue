@@ -23,6 +23,21 @@ export default defineComponent({
           return { icon: "iconfont icon-28fuwenbenkuang", title: "富文本" };
         case "plug-video":
           return { icon: "iconfont icon-shipin", title: "视频" };
+        case "plug-countdown":
+          return {
+            icon: "iconfont icon-daojishi",
+            title: props.item.props.name,
+          };
+        case "plug-noticebar":
+          return {
+            icon: "el-icon-bell",
+            title: props.item.props.name,
+          };
+        case "plug-tabs":
+          return {
+            icon: "iconfont icon-tabs",
+            title: props.item.props.name,
+          };
         case "plug-form-button":
           return {
             icon: "iconfont icon-anniuguanli-02",
@@ -49,6 +64,12 @@ export default defineComponent({
           return { icon: "el-icon-date", title: props.item.props.name };
         case "plug-form-area":
           return { icon: "el-icon-map-location", title: props.item.props.name };
+        case "plug-form-picker":
+          return {
+            icon: "iconfont icon-icon__xuanzekemu",
+            title: props.item.props.name,
+          };
+
         default:
           return { icon: "el-icon-folder", title: "未识别元素" };
       }

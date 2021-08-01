@@ -3,27 +3,6 @@
     <cellEditor :element="element"></cellEditor>
     <el-divider content-position="left">属性</el-divider>
     <el-form label-width="80px" size="small">
-      <el-form-item label="类型:">
-        <el-select
-          style="width: 100%"
-          v-model="element.props.type"
-          placeholder="请选择类型"
-        >
-          <el-option
-            v-for="item in typeOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="占位文字:">
-        <el-input
-          v-model="element.props.placeholder"
-          maxlength="100"
-        ></el-input>
-      </el-form-item>
       <el-form-item label="标题:" required>
         <el-input v-model="element.props.name" maxlength="100"></el-input>
       </el-form-item>
@@ -39,23 +18,16 @@
           label="px"
         ></el-input-number>
       </el-form-item>
-      <el-form-item label="最大长度:">
-        <el-input-number
-          v-model.number="element.props.maxlength"
-          :min="1"
-          :max="10000"
-          :step="1"
-          label="px"
-        ></el-input-number>
-      </el-form-item>
+
       <el-form-item label="必填:">
         <el-switch v-model="element.props.required"></el-switch>
       </el-form-item>
-      <el-divider content-position="left">多行文本框属性</el-divider>
-      <el-form-item label="字数统计:">
-        <el-switch v-model="element.props.showWordLimit"></el-switch>
+      <el-form-item label="picker标题:">
+        <el-input v-model="element.props.title" maxlength="100"></el-input>
       </el-form-item>
     </el-form>
+    <p class="tips">目前只支持配置一列选择</p>
+    <optionsEditor :element="element"></optionsEditor>
   </div>
 </template>
 <script lang="ts">
@@ -75,6 +47,7 @@ import {
   ElSwitch,
 } from "element-plus";
 import cellEditor from "../commonProps/cellEditor.vue";
+import optionsEditor from "../commonProps/optionsEditor.vue";
 export default defineComponent({
   components: {
     ElForm,
@@ -90,32 +63,11 @@ export default defineComponent({
     ElOption,
     ElSwitch,
     cellEditor,
+    optionsEditor,
   },
   props: ["element"],
   setup(props, ctx) {
-    const typeOptions = [
-      {
-        label: "文字",
-        value: "text",
-      },
-      {
-        label: "密码",
-        value: "password",
-      },
-      {
-        label: "邮箱",
-        value: "email",
-      },
-      {
-        label: "手机号",
-        value: "tel",
-      },
-      {
-        label: "多行文本框",
-        value: "textarea",
-      },
-    ];
-    return { typeOptions };
+    return {};
   },
 });
 </script>

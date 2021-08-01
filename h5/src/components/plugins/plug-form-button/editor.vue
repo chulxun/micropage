@@ -34,7 +34,6 @@
           :max="100"
           :step="1"
           label="px"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="字号:">
@@ -44,7 +43,6 @@
           :max="100"
           :step="1"
           label="px"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="文字粗细:">
@@ -73,7 +71,6 @@
           :max="100"
           :step="1"
           label="px"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="边框颜色:">
@@ -89,7 +86,6 @@
           :max="100"
           :step="1"
           label="px"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
     </el-form>

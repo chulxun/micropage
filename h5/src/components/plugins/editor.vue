@@ -18,6 +18,11 @@ export default defineComponent({
     plugBgAudio: defineAsyncComponent(
       () => import("./plug-bg-audio/editor.vue")
     ),
+    plugTimer: defineAsyncComponent(() => import("./plug-timer/editor.vue")),
+    plugNoticebar: defineAsyncComponent(
+      () => import("./plug-noticebar/editor.vue")
+    ),
+    plugTabs: defineAsyncComponent(() => import("./plug-tabs/editor.vue")),
     plugFormInput: defineAsyncComponent(
       () => import("./plug-form-input/editor.vue")
     ),
@@ -38,6 +43,9 @@ export default defineComponent({
     ),
     plugFormArea: defineAsyncComponent(
       () => import("./plug-form-area/editor.vue")
+    ),
+    plugFormPicker: defineAsyncComponent(
+      () => import("./plug-form-picker/editor.vue")
     ),
   },
   setup(props) {},

@@ -7,6 +7,9 @@ import plugButton from "@/components/plugins/plug-button/index.vue";
 import plugText from "@/components/plugins/plug-text/index.vue";
 import plugVideo from "@/components/plugins/plug-video/index.vue";
 import plugBgAudio from "@/components/plugins/plug-bg-audio/index.vue";
+import plugTimer from "@/components/plugins/plug-timer/index.vue";
+import plugNoticebar from "@/components/plugins/plug-noticebar/index.vue";
+import plugTabs from "@/components/plugins/plug-tabs/index.vue";
 import plugFormInput from "@/components/plugins/plug-form-input/index.vue";
 import plugFormButton from "@/components/plugins/plug-form-button/index.vue";
 import plugFormCheckbox from "@/components/plugins/plug-form-checkbox/index.vue";
@@ -14,10 +17,12 @@ import plugFormRadio from "@/components/plugins/plug-form-radio/index.vue";
 import plugFormRate from "@/components/plugins/plug-form-rate/index.vue";
 import plugFormDatetime from "@/components/plugins/plug-form-datetime/index.vue";
 import plugFormArea from "@/components/plugins/plug-form-area/index.vue";
+import plugFormPicker from "@/components/plugins/plug-form-picker/index.vue";
+
 export default {
   components: {
-    plugPage, plugImage, plugButton, plugVideo, plugBgAudio, plugSwiper, plugText,
-    plugFormInput, plugFormButton, plugFormCheckbox, plugFormRadio, plugFormRate, plugFormDatetime, plugFormArea
+    plugPage, plugImage, plugButton, plugVideo, plugBgAudio, plugSwiper, plugText, plugNoticebar, plugTimer, plugTabs,
+    plugFormInput, plugFormButton, plugFormCheckbox, plugFormRadio, plugFormRate, plugFormDatetime, plugFormArea, plugFormPicker
   },
   data() {
     return {
@@ -59,7 +64,27 @@ export default {
               title: '音乐',
               icon: 'iconfont icon-music',
               component: plugBgAudio
+            },
+            {
+              name: 'plug-timer',
+              title: '倒计时',
+              icon: 'iconfont icon-daojishi',
+              component: plugTimer
+            },
+            {
+              name: 'plug-noticebar',
+              title: '通知栏',
+              icon: 'el-icon-bell',
+              component: plugNoticebar
+            },
+            {
+              name: 'plug-tabs',
+              title: 'Tab标签栏',
+              icon: 'iconfont icon-tabs',
+              component: plugTabs
             }
+
+
           ]
         },
         {
@@ -88,6 +113,12 @@ export default {
               title: '多选框',
               icon: 'iconfont icon-duoxuankuang',
               component: plugFormCheckbox
+            },
+            {
+              name: 'plug-form-picker',
+              title: '选择器',
+              icon: 'iconfont icon-icon__xuanzekemu',
+              component: plugFormPicker
             },
             {
               name: 'plug-form-datetime',

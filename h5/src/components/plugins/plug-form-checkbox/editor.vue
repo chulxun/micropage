@@ -15,7 +15,6 @@
           :max="100"
           :step="1"
           label="px"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="文字粗细:">
@@ -60,7 +59,6 @@
           :min="0"
           :max="100"
           :step="1"
-          controls-position="right"
         ></el-input-number>
         <p class="tips">最大可选数，0 为无限制</p>
       </el-form-item>

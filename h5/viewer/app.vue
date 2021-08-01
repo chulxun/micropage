@@ -63,6 +63,7 @@ import "swiper/components/pagination/pagination.scss";
 SwiperCore.use([Pagination]);
 import { useWindowSize } from "@vant/use";
 import { getSearchQueryString } from "@/utils/index";
+import "@vant/touch-emulator";
 export default defineComponent({
   props: ["workId", "mode"],
   components: {

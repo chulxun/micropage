@@ -18,7 +18,6 @@
           :min="1000"
           :max="10000"
           :step="100"
-          controls-position="right"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="显示指示器:">
