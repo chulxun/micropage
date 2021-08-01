@@ -2,9 +2,9 @@
   <div>
     <el-divider content-position="left">属性</el-divider>
 
-    <el-form label-width="80px">
+    <el-form label-width="80px" size="small">
       <el-form-item label="滑动方向:">
-        <el-radio-group v-model="element.props.direction" size="small">
+        <el-radio-group v-model="element.props.direction">
           <el-radio-button label="horizontal">水平</el-radio-button>
           <el-radio-button label="vertical">垂直</el-radio-button>
         </el-radio-group>
@@ -19,14 +19,13 @@
           :max="10000"
           :step="100"
           controls-position="right"
-          size="small"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="显示指示器:">
         <el-switch v-model="element.props.showPage"></el-switch>
       </el-form-item>
       <el-form-item label="指示器样式:">
-        <el-radio-group v-model="element.props.pagType" size="small">
+        <el-radio-group v-model="element.props.pagType">
           <el-radio-button label="bullets">圆点</el-radio-button>
           <el-radio-button label="fraction">分式</el-radio-button>
           <el-radio-button label="progressbar">进度条</el-radio-button>
@@ -35,7 +34,6 @@
       <el-form-item label="指示器颜色:">
         <el-color-picker
           v-model="element.props.indicatorColor"
-          size="small"
         ></el-color-picker>
       </el-form-item>
       <el-divider content-position="left">图片管理</el-divider>

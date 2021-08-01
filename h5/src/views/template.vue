@@ -23,7 +23,7 @@
             :style="'background-image:url(' + work.preview_img_url + ')'"
           >
             <div class="abs right" @mouseenter="work.showQrcode = true">
-              <i class="fa fa-qrcode"></i>
+              <i class="iconfont icon-erweima"></i>
             </div>
             <transition name="el-zoom-in-center">
               <div
@@ -47,7 +47,7 @@
             <div class="icon_list">
               <div class="icon" @click="onUse(work.work_id)">
                 <el-tooltip effect="dark" content="使用" placement="top">
-                  <i class="fa fa-plus"></i
+                  <i class="el-icon-circle-plus-outline"></i
                 ></el-tooltip>
               </div>
               <div
@@ -55,12 +55,12 @@
                 @click="onDelete(work.work_id, index)"
               >
                 <el-tooltip effect="dark" content="删除" placement="top">
-                  <i class="fa fa-trash-o"></i>
+                  <i class="el-icon-delete"></i>
                 </el-tooltip>
               </div>
               <div class="icon" @click="onPreview(work.work_id)">
                 <el-tooltip effect="dark" content="预览" placement="top">
-                  <i class="fa fa-eye"></i
+                  <i class="el-icon-view"></i
                 ></el-tooltip>
               </div>
             </div>

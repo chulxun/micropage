@@ -2,7 +2,7 @@
   <master defaultActive="/formdata">
     <div class="detail_top">
       <div class="title">
-        <i class="fa fa-map-marker"></i>&ensp;<strong>作品名称：</strong
+        <i class="el-icon-place"></i>&ensp;<strong>作品名称：</strong
         ><el-link :href="'/pcviewer/' + workId" target="_blank">{{
           work.title
         }}</el-link>

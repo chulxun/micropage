@@ -3,7 +3,7 @@
 <template>
   <div>
     <el-divider content-position="left">编辑选项</el-divider>
-    <el-form label-width="80px">
+    <el-form label-width="80px" size="small">
       <el-form-item
         v-for="(option, index) in element.props.options"
         :label="'选项' + (index + 1)"

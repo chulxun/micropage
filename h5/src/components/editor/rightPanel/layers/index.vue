@@ -2,13 +2,14 @@
   <div class="layer_container">
     <el-tooltip content="图层管理" placement="left">
       <div class="layer_icon" @click="toggleLayer" v-show="!showLayer">
-        <i class="fa fa-object-ungroup"></i>
+        <i class="iconfont icon-tuceng"></i>
+        <p>图层</p>
       </div>
     </el-tooltip>
     <div class="container" v-show="showLayer">
       <div class="title">
         <p>图层管理</p>
-        <i class="fa fa-angle-double-right" @click="toggleLayer"></i>
+        <i class="el-icon-d-arrow-right" @click="toggleLayer"></i>
       </div>
       <div
         class="list"
@@ -34,9 +35,8 @@
             <layerItem :item="item"></layerItem>
             <i
               :class="{
-                fa: true,
-                'fa-eye-slash': item.props.hide,
-                'fa-eye': !item.props.hide,
+                'iconfont icon-yincang': item.props.hide,
+                'el-icon-view': !item.props.hide,
               }"
               @click.stop="onHide(item)"
             ></i>
@@ -148,13 +148,16 @@ export default defineComponent({
   z-index: 1;
 }
 .layer_icon {
-  width: 50px;
+  width: 70px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #fff;
   border: 1px solid var(--borderColor);
+  p {
+    margin-left: 6px;
+  }
 }
 .container {
   height: calc(100vh - 60px);

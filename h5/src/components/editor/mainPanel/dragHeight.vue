@@ -4,9 +4,9 @@
     style="position: absolute"
     @mousedown.stop="onMousedownDrag"
   >
-    <i class="fa fa-caret-up"></i>
+    <i class="el-icon-caret-top"></i>
     <p>拖动调节页面高度 {{ editingPageProps.pageHeight }}px</p>
-    <i class="fa fa-caret-down"></i>
+    <i class="el-icon-caret-bottom"></i>
   </div>
 </template>
 <script lang='ts'>

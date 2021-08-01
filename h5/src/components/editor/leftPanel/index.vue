@@ -2,37 +2,45 @@
   <el-aside width="80px" class="editor_left"
     ><div class="menu">
       <div @click="changeOperaType(1)" :class="{ cur: operaType == 1 }">
-        <i class="fa fa-bars"></i>
+        <i class="iconfont icon-mokuai"></i>
         <p>基础</p>
-        <i class="fa fa-caret-left arrow"></i>
+        <i class="el-icon-caret-left arrow"></i>
       </div>
       <div @click="changeOperaType(2)" :class="{ cur: operaType == 2 }">
-        <i class="fa fa-file-text-o"></i>
+        <i class="iconfont icon-form"></i>
         <p>表单</p>
-        <i class="fa fa-caret-left arrow"></i>
+        <i class="el-icon-caret-left arrow"></i>
       </div>
       <div @click="changeOperaType(3)" :class="{ cur: operaType == 3 }">
-        <i class="fa fa-cubes"></i>
+        <i class="iconfont icon-hudong"></i>
         <p>互动</p>
-        <i class="fa fa-caret-left arrow"></i>
+        <i class="el-icon-caret-left arrow"></i>
       </div>
     </div>
     <div class="bottom">
       <el-tooltip content="上传资源" placement="right" effect="light">
         <i
-          :class="{ fa: true, 'fa-cloud-upload': true, cur: operaType == 4 }"
+          :class="{ 'el-icon-upload': true, cur: operaType == 4 }"
           @click="changeOperaType(4)"
         ></i
       ></el-tooltip>
       <el-tooltip content="使用帮助" placement="right" effect="light">
         <i
-          :class="{ fa: true, 'fa-leanpub': true, cur: operaType == 5 }"
+          :class="{
+            iconfont: true,
+            'icon-shiyongbangzhu': true,
+            cur: operaType == 5,
+          }"
           @click="changeOperaType(5)"
         ></i
       ></el-tooltip>
       <el-tooltip content="快捷键" placement="right" effect="light">
         <i
-          :class="{ fa: true, 'fa-keyboard-o': true, cur: operaType == 6 }"
+          :class="{
+            iconfont: true,
+            'icon-kuaijiejianshezhi': true,
+            cur: operaType == 6,
+          }"
           @click="changeOperaType(6)"
         ></i
       ></el-tooltip>
@@ -104,9 +112,10 @@ export default defineComponent({
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
+    overflow: hidden;
     .arrow {
       position: absolute;
-      right: 0;
+      right: -8px;
       top: 50%;
       transform: translateY(-50%);
       opacity: 0;
@@ -131,6 +140,9 @@ export default defineComponent({
   i {
     margin: 10px 0;
     cursor: pointer;
+    &.el-icon-upload {
+      font-size: 1.8em;
+    }
     &.cur {
       color: var(--primaryColor);
     }

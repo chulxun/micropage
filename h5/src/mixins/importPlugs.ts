@@ -39,25 +39,25 @@ export default {
             {
               name: 'plug-text',
               title: '富文本',
-              icon: 'fa fa-file-text-o',
+              icon: 'iconfont icon-28fuwenbenkuang',
               component: plugText
             },
             {
               name: 'plug-button',
               title: '按钮',
-              icon: 'fa fa-hand-pointer-o',
+              icon: 'iconfont icon-anniu',
               component: plugButton
             },
             {
               name: 'plug-video',
               title: '视频',
-              icon: 'el-icon-video-camera',
+              icon: 'iconfont icon-shipin',
               component: plugVideo
             },
             {
               name: 'plug-bg-audio',
               title: '音乐',
-              icon: 'fa fa-music',
+              icon: 'iconfont icon-music',
               component: plugBgAudio
             }
           ]
@@ -68,7 +68,7 @@ export default {
             {
               name: 'plug-form-button',
               title: '提交按钮',
-              icon: 'fa fa-send-o',
+              icon: 'iconfont icon-anniuguanli-02',
               component: plugFormButton
             },
             {
@@ -80,13 +80,13 @@ export default {
             {
               name: 'plug-form-radio',
               title: '单选框',
-              icon: 'fa fa-dot-circle-o',
+              icon: 'iconfont icon-danxuankuang',
               component: plugFormRadio
             },
             {
               name: 'plug-form-checkbox',
               title: '多选框',
-              icon: 'fa fa-check-square',
+              icon: 'iconfont icon-duoxuankuang',
               component: plugFormCheckbox
             },
             {
@@ -104,7 +104,7 @@ export default {
             {
               name: 'plug-form-rate',
               title: '评分',
-              icon: 'fa fa-star-half-o',
+              icon: 'iconfont icon-pingfen',
               component: plugFormRate
             },
           ]

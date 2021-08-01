@@ -21,15 +21,19 @@ export default {
   height: 100vh;
 }
 .el-form {
-  .el-form--label-top .el-form-item__label {
-    padding: 0;
+  //   .el-form--label-top .el-form-item__label {
+  //     padding: 0;
+  //   }
+  //   .el-form-item {
+  //     margin-bottom: 10px;
+  //   }
+  .el-form-item__label,
+  .el-form-item__content {
+    line-height: 30px !important;
   }
-  .el-form-item {
-    margin-bottom: 15px;
-  }
-  .el-form--label-top .el-form-item {
-    margin-bottom: 10px;
-  }
+  //   .el-form--label-top .el-form-item {
+  //     margin-bottom: 10px;
+  //   }
 }
 .el-divider {
   &.el-divider--horizontal {

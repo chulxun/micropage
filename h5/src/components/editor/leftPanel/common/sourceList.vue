@@ -31,7 +31,7 @@
               fit="cover"
             ></el-image>
             <div class="audio" v-else-if="sourceType == 3">
-              <i class="fa fa-volume-up"></i>
+              <i class="iconfont icon-vynil"></i>
               <p>
                 {{ item.url }}
               </p>
@@ -383,6 +383,7 @@ export default defineComponent({
       padding: 0 10px;
       i {
         margin-bottom: 10px;
+        font-size: 26px;
       }
       p {
         word-break: break-all;

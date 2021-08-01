@@ -22,6 +22,7 @@ export default defineComponent({
       borderColor: "#fff",
       borderWidth: 0,
       fontWeight: "normal",
+      padding: 10,
     },
     props: {
       text: "提交",

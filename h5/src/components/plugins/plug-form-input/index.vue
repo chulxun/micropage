@@ -75,15 +75,10 @@ export default defineComponent({
 </script>
 <style lang='less' scoped>
 :deep(.van-cell) {
-  background: transparent;
-  height: 100%;
   .van-field__label,
   .van-cell__value {
-    display: flex;
-    align-items: center;
     .van-field__body {
       flex: 1;
-      height: 100%;
       textarea {
         height: 100%;
       }
@@ -94,9 +89,7 @@ export default defineComponent({
       right: 0;
     }
   }
-  .hide {
-    display: none;
-  }
+
   .textareaLabel {
     align-items: flex-start;
   }

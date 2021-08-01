@@ -57,6 +57,7 @@ export default defineComponent({
       function (val) {
         if (
           val == "props" &&
+          editingElement.value &&
           editingElement.value.props.hasOwnProperty("imgUrl")
         ) {
           setSourceStack({

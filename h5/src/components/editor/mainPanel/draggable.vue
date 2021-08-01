@@ -18,7 +18,10 @@
         @mousedown.stop="mousedownScale(item, $event)"
       ></div>
       <!-- 旋转按钮 -->
-      <i class="fa fa-undo rotate_btn" @mousedown.stop="mousedownRotate"></i>
+      <i
+        class="el-icon-refresh-left rotate_btn"
+        @mousedown.stop="mousedownRotate"
+      ></i>
       <!-- 尺寸展示 -->
       <div class="size_detail">
         {{ element.style.width + "*" + element.style.height }}

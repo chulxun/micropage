@@ -1,40 +1,45 @@
 <template>
   <div class="top_panel">
     <div class="icon_list">
-      <el-popover placement="bottom" :width="350" trigger="click">
+      <div :class="{ icon_btn: true }" @click.stop="onRule">
+        <p>标尺</p>
+        <i class="iconfont icon-biaochi"></i>
+      </div>
+      <el-popover placement="bottom" :width="380" trigger="click">
         <template #reference>
           <div :class="{ icon_btn: true, disabled: !editingElement }">
             <p>对齐</p>
-            <i class="fa fa-dedent"></i>
+            <i class="el-icon-s-grid"></i>
           </div>
         </template>
         <alignment></alignment>
       </el-popover>
+
       <div
         :class="{ icon_btn: true, disabled: !editingElement }"
         @click.stop="hideElement"
       >
         <p>隐藏</p>
-        <i class="fa fa-eye-slash"></i>
+        <i class="iconfont icon-yincang"></i>
       </div>
       <div
         :class="{ icon_btn: true, disabled: !editingElement }"
         @click="deleteElement"
       >
         <p>删除</p>
-        <i class="fa fa-trash-o"></i>
+        <i class="el-icon-delete"></i>
       </div>
       <div :class="{ icon_btn: true, disabled: !canUndo }" @click="onUndo">
         <p>撤销</p>
-        <i class="fa fa-reply"></i>
+        <i class="el-icon-refresh-left"></i>
       </div>
       <div :class="{ icon_btn: true, disabled: !canRedo }" @click="onRedo">
         <p>重做</p>
-        <i class="fa fa-share"></i>
+        <i class="el-icon-refresh-right"></i>
       </div>
       <div class="icon_btn" @click="saveWork">
         <p>保存</p>
-        <i class="fa fa-save"></i>
+        <i class="iconfont icon-baocun"></i>
       </div>
     </div>
     <div class="precent_div">
@@ -116,6 +121,9 @@ export default defineComponent({
     const saveWork = () => store.dispatch("editor/saveWork"); //保存作品方法
     const work = computed(() => store.state.editor.work);
     const scaleValue = computed(() => store.state.common.scaleValue); //当前画布缩放值
+    const rulerVisible = computed(() => store.state.common.rulerVisible);
+    const setRulerVisible = (visible: boolean) =>
+      store.commit("common/setRulerVisible", visible);
     const editingElement: any = computed(
       () => store.state.editor.editingElement
     ); //当前正在被编辑的元素
@@ -219,6 +227,10 @@ export default defineComponent({
     function onRedo() {
       undoRedoHistory.redo();
     }
+    //显示隐藏标尺
+    function onRule() {
+      setRulerVisible(!rulerVisible.value);
+    }
     return {
       previewVisible,
       publishVisible,
@@ -235,6 +247,7 @@ export default defineComponent({
       canRedo,
       onUndo,
       onRedo,
+      onRule,
     };
   },
 });
@@ -274,7 +287,7 @@ export default defineComponent({
     padding: 0 14px;
   }
   :deep(button) {
-    padding: 9px;
+    padding: 7px;
     i {
       font-weight: bold;
     }

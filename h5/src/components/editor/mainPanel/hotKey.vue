@@ -179,7 +179,13 @@ export default defineComponent({
       document.addEventListener(
         "keydown",
         function (e) {
-          const arr = [hotKey.D.val, hotKey.Z.val, hotKey.Y.val, hotKey.S.val];
+          const arr = [
+            hotKey.D.val,
+            hotKey.Z.val,
+            hotKey.Y.val,
+            hotKey.R.val,
+            hotKey.S.val,
+          ];
           if (
             arr.includes(e.keyCode) &&
             (hotKey.CTRL.status || hotKey.ALT.status || hotKey.SHIFT.status)

@@ -35,7 +35,7 @@
           <canvas ref="qrcodeImg"></canvas>
           <div>
             <a :href="mobileUrl" target="_blank"
-              ><i class="fa fa-hand-o-right"></i> 打开新页面预览</a
+              ><i class="el-icon-top-right"></i> 打开新页面预览</a
             >
           </div>
         </div>

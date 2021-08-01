@@ -10,17 +10,8 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  computed,
-  ref,
-  reactive,
-  onMounted,
-  nextTick,
-  watch,
-} from "vue";
+import { defineComponent } from "vue";
 import { ElEmpty, ElButton } from "element-plus";
-
 import { useStore } from "@/store/index";
 export default defineComponent({
   props: ["pluginType"],

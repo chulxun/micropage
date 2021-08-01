@@ -13,7 +13,7 @@
         active-text-color="#ff"
       >
         <el-menu-item index="github"
-          ><i class="fa fa-github" style="font-size: 24px"></i
+          ><i class="iconfont icon-github" style="font-size: 24px"></i
         ></el-menu-item>
         <el-submenu index="2" v-if="userInfo.token">
           <template #title>{{ userInfo.user_name }}</template>

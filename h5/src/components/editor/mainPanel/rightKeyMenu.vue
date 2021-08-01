@@ -1,16 +1,16 @@
 <template>
   <div class="right_key_menu">
     <div @click.stop="onCopy" @mousedown.stop="">
-      <i class="fa fa-copy"></i>复制
+      <i class="el-icon-document-copy"></i>复制
     </div>
     <div class="del" @click.stop="onDelete" @mousedown.stop="">
-      <i class="fa fa-trash-o"></i>删除
+      <i class="el-icon-delete"></i>删除
     </div>
     <div @click.stop="onMoveUp" @mousedown.stop="">
-      <i class="fa fa-hand-o-up"></i>上移
+      <i class="el-icon-top"></i>上移
     </div>
     <div @click.stop="onMoveDown" @mousedown.stop="">
-      <i class="fa fa-hand-o-down"></i>下移
+      <i class="el-icon-bottom"></i>下移
     </div>
     <div class="tips">在图层中执行更多操作</div>
   </div>

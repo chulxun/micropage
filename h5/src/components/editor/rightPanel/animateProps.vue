@@ -287,4 +287,7 @@ export default defineComponent({
   position: absolute;
   padding: 10px 15px;
 }
+:deep(.el-button.is-circle) {
+  padding: 8px;
+}
 </style>

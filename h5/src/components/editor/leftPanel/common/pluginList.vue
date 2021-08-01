@@ -7,6 +7,8 @@
             {{ item.title
             }}<i class="el-icon-close closed" @click="closedThis"></i>
           </div>
+          <el-alert show-icon title="点击或拖拽组件到编辑器" type="warning">
+          </el-alert>
           <div class="con img_list" v-if="item.children.length > 0">
             <div
               class="plug_item"
@@ -41,10 +43,10 @@
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store/index";
 import importPlugs from "@/mixins/importPlugs.ts";
-import { ElEmpty } from "element-plus";
+import { ElEmpty, ElAlert } from "element-plus";
 export default defineComponent({
   mixins: [importPlugs],
-  components: { ElEmpty },
+  components: { ElEmpty, ElAlert },
 
   setup(props, ctx) {
     const store = useStore();
@@ -101,6 +103,7 @@ export default defineComponent({
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding-bottom: 16px;
       .closed {
         cursor: pointer;
       }

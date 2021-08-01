@@ -6,7 +6,7 @@
       :key="item.type"
       @click="onChangeAlign(item.type)"
     >
-      <i class="fa fa-align-left"></i> <strong>{{ item.title }}</strong>
+      <i :class="'iconfont ' + item.icon"></i> <strong>{{ item.title }}</strong>
       <p>{{ item.keycode }}</p>
     </div>
   </div>
@@ -21,37 +21,37 @@ export default defineComponent({
         title: "左对齐",
         keycode: "Shift + L",
         type: 0,
-        icon: "",
+        icon: "icon-duiqi",
       },
       {
         title: "右对齐",
         keycode: "Shift + R",
         type: 1,
-        icon: "",
+        icon: "icon-youduiqi",
       },
       {
         title: "垂直居中",
         keycode: "Shift + M",
         type: 2,
-        icon: "",
+        icon: "icon-chuizhijuzhongduiqi",
       },
       {
         title: "水平居中",
         keycode: "Shift + C",
         type: 3,
-        icon: "",
+        icon: "icon-shuipingjuzhongduiqi",
       },
       {
         title: "顶对齐",
         keycode: "Shift + T",
         type: 4,
-        icon: "",
+        icon: "icon-dingduanduiqi",
       },
       {
         title: "底对齐",
         keycode: "Shift + B",
         type: 5,
-        icon: "",
+        icon: "icon-xiaduiqi",
       },
     ];
     const store = useStore();

@@ -2,16 +2,17 @@
   <div :class="{ layer_container: true, open: show }">
     <el-tooltip content="作品设置" placement="left">
       <div class="layer_icon" v-show="!show" @click="toggleShow">
-        <i class="fa fa-cog"></i>
+        <i class="el-icon-setting"></i>
+        <p>设置</p>
       </div>
     </el-tooltip>
     <div class="container" v-show="show">
       <div class="title">
         <p>作品设置</p>
-        <i class="fa fa-angle-double-right" @click="toggleShow"></i>
+        <i class="el-icon-d-arrow-right" @click="toggleShow"></i>
       </div>
       <div class="form_content">
-        <el-form ref="form" :model="work" label-position="top">
+        <el-form ref="form" :model="work" label-position="top" size="small">
           <el-form-item label="作品标题">
             <el-input v-model="work.title" maxlength="50"></el-input>
           </el-form-item>
@@ -69,13 +70,16 @@ export default defineComponent({
   }
 }
 .layer_icon {
-  width: 50px;
+  width: 70px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #fff;
   border: 1px solid var(--borderColor);
+  p {
+    margin-left: 6px;
+  }
 }
 .container {
   height: calc(100vh - 60px);

@@ -55,6 +55,8 @@ export default {
     const store = useStore();
     const router = useRouter();
     const isLoading = ref(true);
+    const setOperaType = (type: any) =>
+      store.commit("common/setOperaType", type);
     const setWorkInfo = (payload: any) =>
       store.dispatch("editor/setWorkInfo", payload);
     const work = computed(() => store.state.editor.work);
@@ -67,10 +69,12 @@ export default {
       isLoading.value = false;
     }
     fetchWorkInfo();
+    setOperaType(1);
     //去查看我的作品
     function goWorks() {
       router.replace("/works");
     }
+
     return { work, goWorks, isLoading };
   },
   mounted() {

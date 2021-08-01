@@ -14,7 +14,7 @@
     <div class="work_list">
       <div class="item">
         <div class="bg add" @click="addVisible = true">
-          <i class="fa fa-plus-circle"></i>
+          <i class="el-icon-circle-plus"></i>
           <p>创建新作品</p>
         </div>
       </div>
@@ -28,7 +28,7 @@
               未发布
             </div>
             <div class="abs right" @mouseenter="work.showQrcode = true">
-              <i class="fa fa-qrcode"></i>
+              <i class="iconfont icon-erweima"></i>
             </div>
             <transition name="el-zoom-in-center">
               <div
@@ -52,22 +52,22 @@
             <div class="icon_list">
               <div class="icon" @click="onEdit(work.work_id)">
                 <el-tooltip effect="dark" content="编辑" placement="top">
-                  <i class="fa fa-pencil"></i
+                  <i class="el-icon-edit-outline"></i
                 ></el-tooltip>
               </div>
               <div class="icon" @click="onDelete(work.work_id, index)">
                 <el-tooltip effect="dark" content="删除" placement="top">
-                  <i class="fa fa-trash-o"></i>
+                  <i class="el-icon-delete"></i>
                 </el-tooltip>
               </div>
               <div class="icon" @click="onPreview(work.work_id)">
                 <el-tooltip effect="dark" content="预览" placement="top">
-                  <i class="fa fa-eye"></i
+                  <i class="el-icon-view"></i
                 ></el-tooltip>
               </div>
               <div class="icon" @click="onViewData(work.work_id)">
                 <el-tooltip effect="dark" content="数据" placement="top">
-                  <i class="fa fa-bar-chart"></i>
+                  <i class="el-icon-s-data"></i>
                 </el-tooltip>
               </div>
             </div>

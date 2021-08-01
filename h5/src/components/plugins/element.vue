@@ -58,9 +58,13 @@ export default defineComponent({
         style.fontWeight = elestyle.fontWeight;
       }
       if (elestyle.padding) {
-        style.padding = isRem
-          ? pxToRem(elestyle.padding)
-          : elestyle.padding + "px";
+        let pd = isRem ? pxToRem(elestyle.padding) : elestyle.padding + "px";
+        if ((props.element.name = "plug-text")) {
+          style.padding = pd;
+        } else {
+          style.paddingLeft = pd;
+          style.paddingRight = pd;
+        }
       }
       return style;
     });
@@ -86,6 +90,30 @@ export default defineComponent({
   .red {
     color: red;
     font-weight: bold;
+  }
+}
+:deep(.van-cell) {
+  background: transparent;
+  height: 100%;
+  font-size: inherit;
+  color: inherit;
+  .van-field__label,
+  .van-cell__value {
+    color: inherit;
+    display: flex;
+    align-items: center;
+    text-align: inherit;
+    .van-field__body {
+      flex: 1;
+      height: 100%;
+      text-align: inherit;
+      input {
+        text-align: inherit;
+      }
+    }
+  }
+  .hide {
+    display: none;
   }
 }
 </style>

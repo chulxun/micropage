@@ -23,7 +23,7 @@
       </li>
     </ul>
     <el-tooltip content="新增页面" placement="top">
-      <i class="fa fa-plus" @click="addPage"></i>
+      <i class="el-icon-plus" @click="addPage"></i>
     </el-tooltip>
   </div>
 </template>

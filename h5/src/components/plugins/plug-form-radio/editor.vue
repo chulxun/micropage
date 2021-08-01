@@ -1,12 +1,11 @@
 <template>
   <div>
     <el-divider content-position="left">样式</el-divider>
-    <el-form label-width="80px">
+    <el-form label-width="80px" size="small">
       <el-form-item label="文字颜色:">
         <el-color-picker
           v-model="element.style.color"
           show-alpha
-          size="small"
         ></el-color-picker>
       </el-form-item>
       <el-form-item label="字号:">
@@ -17,23 +16,22 @@
           :step="1"
           label="px"
           controls-position="right"
-          size="small"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="文字粗细:">
-        <el-radio-group v-model="element.style.fontWeight" size="small">
+        <el-radio-group v-model="element.style.fontWeight">
           <el-radio-button label="normal">正常</el-radio-button>
           <el-radio-button label="bold">加粗</el-radio-button>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="排列方式:">
-        <el-radio-group v-model="element.props.direction" size="small">
+        <el-radio-group v-model="element.props.direction">
           <el-radio-button label="vertical">上下</el-radio-button>
           <el-radio-button label="horizontal">水平</el-radio-button>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="形状:">
-        <el-radio-group v-model="element.props.shape" size="small">
+        <el-radio-group v-model="element.props.shape">
           <el-radio-button label="round">圆形</el-radio-button>
           <el-radio-button label="square">方形</el-radio-button>
         </el-radio-group>
@@ -42,7 +40,6 @@
         <el-color-picker
           v-model="element.props.checkedColor"
           show-alpha
-          size="small"
         ></el-color-picker>
       </el-form-item>
     </el-form>

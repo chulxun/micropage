@@ -1,12 +1,11 @@
 <template>
   <div>
     <el-divider content-position="left">属性</el-divider>
-    <el-form label-width="80px">
+    <el-form label-width="80px" size="small">
       <el-form-item label="背景颜色:">
         <el-color-picker
           v-model="element.style.backgroundColor"
           show-alpha
-          size="small"
         ></el-color-picker>
       </el-form-item>
 
@@ -18,7 +17,6 @@
           :step="1"
           label="px"
           controls-position="right"
-          size="small"
         ></el-input-number>
       </el-form-item>
 
@@ -26,7 +24,6 @@
         <el-color-picker
           v-model="element.style.borderColor"
           show-alpha
-          size="small"
         ></el-color-picker>
       </el-form-item>
       <el-form-item label="边框宽度:">
@@ -36,7 +33,6 @@
           :max="100"
           :step="1"
           label="px"
-          size="small"
           controls-position="right"
         ></el-input-number>
       </el-form-item>
@@ -47,7 +43,6 @@
           :max="100"
           :step="1"
           label="px"
-          size="small"
           controls-position="right"
         ></el-input-number>
       </el-form-item>

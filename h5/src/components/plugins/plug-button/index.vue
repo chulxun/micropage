@@ -19,6 +19,7 @@ export default defineComponent({
       borderColor: "#fff",
       borderWidth: 0,
       fontWeight: "normal",
+      padding: 10,
     },
     props: {
       text: "按钮文案",
@@ -30,6 +31,4 @@ export default defineComponent({
 });
 </script>
 <style lang='less' scoped>
-.plug-btn {
-}
 </style>

@@ -3,7 +3,7 @@
 <template>
   <div>
     <el-divider content-position="left">位置</el-divider>
-    <el-form :model="element" label-width="80px">
+    <el-form :model="element" size="small" label-width="80px">
       <el-form-item label="唯一标识:">
         <el-input v-model="element.ukey" disabled></el-input>
       </el-form-item>
@@ -49,6 +49,7 @@ import {
   ElInput,
   ElInputNumber,
   ElDivider,
+  ElButton,
 } from "element-plus";
 import { defineComponent } from "vue";
 export default defineComponent({
@@ -59,6 +60,7 @@ export default defineComponent({
     ElInput,
     ElInputNumber,
     ElDivider,
+    ElButton,
   },
   setup() {
     return {};

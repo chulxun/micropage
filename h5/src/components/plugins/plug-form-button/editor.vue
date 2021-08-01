@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-divider content-position="left">属性</el-divider>
-    <el-form label-width="80px">
+    <el-form label-width="80px" size="small">
       <el-form-item label="快捷样式:">
         <el-button
           :type="item.name"
@@ -19,14 +19,12 @@
         <el-color-picker
           v-model="element.style.backgroundColor"
           show-alpha
-          size="small"
         ></el-color-picker>
       </el-form-item>
       <el-form-item label="文字颜色:">
         <el-color-picker
           v-model="element.style.color"
           show-alpha
-          size="small"
         ></el-color-picker>
       </el-form-item>
       <el-form-item label="圆角:">
@@ -37,7 +35,6 @@
           :step="1"
           label="px"
           controls-position="right"
-          size="small"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="字号:">
@@ -48,33 +45,41 @@
           :step="1"
           label="px"
           controls-position="right"
-          size="small"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="文字粗细:">
-        <el-radio-group v-model="element.style.fontWeight" size="small">
+        <el-radio-group v-model="element.style.fontWeight">
           <el-radio-button label="normal">正常</el-radio-button>
           <el-radio-button label="bold">加粗</el-radio-button>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="文字对齐:">
-        <el-radio-group v-model="element.style.textAlign" size="small">
+        <el-radio-group v-model="element.style.textAlign">
           <el-radio-button label="left"
-            ><i class="fa fa-align-left"></i
+            ><i class="iconfont icon-align-left"></i
           ></el-radio-button>
           <el-radio-button label="center"
-            ><i class="fa fa-align-center"></i
+            ><i class="iconfont icon-align-center"></i
           ></el-radio-button>
           <el-radio-button label="right"
-            ><i class="fa fa-align-right"></i
+            ><i class="iconfont icon-align-right"></i
           ></el-radio-button>
         </el-radio-group>
+      </el-form-item>
+      <el-form-item label="左右内边距:">
+        <el-input-number
+          v-model.number="element.style.padding"
+          :min="0"
+          :max="100"
+          :step="1"
+          label="px"
+          controls-position="right"
+        ></el-input-number>
       </el-form-item>
       <el-form-item label="边框颜色:">
         <el-color-picker
           v-model="element.style.borderColor"
           show-alpha
-          size="small"
         ></el-color-picker>
       </el-form-item>
       <el-form-item label="边框宽度:">
@@ -84,7 +89,6 @@
           :max="100"
           :step="1"
           label="px"
-          size="small"
           controls-position="right"
         ></el-input-number>
       </el-form-item>
@@ -100,7 +104,7 @@
       <el-form-item label="成功图片:">
         <imgEditor v-model:imgUrl="element.props.imgUrl"></imgEditor>
         <p class="tips">
-          <i class="fa fa-hand-o-right"></i>
+          <i class="el-icon-warning-outline"></i>
           表单成功提交后弹框展示图，尺寸请控制在一屏内
         </p>
       </el-form-item>
@@ -110,7 +114,7 @@
           maxlength="100"
         ></el-input>
         <p class="tips">
-          <i class="fa fa-hand-o-right"></i> 成功提交表单后跳转外链
+          <i class="el-icon-warning-outline"></i> 成功提交表单后跳转外链
         </p>
       </el-form-item>
     </el-form>

@@ -10,11 +10,11 @@
           :router="true"
         >
           <el-menu-item index="/works">
-            <i class="fa fa-files-o"></i>
+            <i class="el-icon-suitcase"></i>
             <template #title>我的作品</template>
           </el-menu-item>
           <el-menu-item index="/formdata">
-            <i class="fa fa-database"></i>
+            <i class="el-icon-data-analysis"></i>
             <template #title>我的数据</template>
           </el-menu-item>
           <el-menu-item index="/template">
@@ -22,11 +22,11 @@
             <template #title>模版中心</template>
           </el-menu-item>
           <el-menu-item index="/userEdit">
-            <i class="fa fa-user-circle-o"></i>
+            <i class="el-icon-user"></i>
             <template #title>账户管理</template>
           </el-menu-item>
           <el-menu-item index="/about">
-            <i class="fa fa-leaf"></i>
+            <i class="el-icon-postcard"></i>
             <template #title>关于微页</template>
           </el-menu-item>
         </el-menu>
@@ -72,7 +72,7 @@ export default defineComponent({
 <style lang="less"  scoped>
 .el-menu-left {
   height: 100%;
-  .fa {
+  .iconfont {
     margin-right: 5px;
     width: 24px;
     text-align: center;
