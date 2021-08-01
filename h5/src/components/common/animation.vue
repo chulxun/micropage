@@ -3,7 +3,7 @@
     :class="{ 'animation-box': true, animCan: hasAnimate }"
     :style="curAnimate"
     ref="animationBox"
-    @click="onClickEvent"
+    @click.stop="onClickEvent"
   >
     <slot></slot>
   </div>

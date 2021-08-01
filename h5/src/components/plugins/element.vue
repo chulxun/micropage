@@ -59,7 +59,7 @@ export default defineComponent({
       }
       if (elestyle.padding) {
         let pd = isRem ? pxToRem(elestyle.padding) : elestyle.padding + "px";
-        if ((props.element.name = "plug-text")) {
+        if (props.element.name == "plug-text") {
           style.padding = pd;
         } else {
           style.paddingLeft = pd;

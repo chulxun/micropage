@@ -61,7 +61,7 @@ export default defineComponent({
 <style lang='less' scoped>
 .layer_container {
   left: 0;
-  top: 40px;
+  top: 44px;
   position: absolute;
   transform: translateX(-100%);
   &.open {
@@ -71,7 +71,7 @@ export default defineComponent({
 }
 .layer_icon {
   width: 70px;
-  height: 40px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;

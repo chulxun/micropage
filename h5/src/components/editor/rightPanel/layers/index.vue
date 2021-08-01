@@ -149,7 +149,7 @@ export default defineComponent({
 }
 .layer_icon {
   width: 70px;
-  height: 40px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -202,6 +202,10 @@ export default defineComponent({
       pointer-events: none;
       flex: 1;
       padding: 0 5px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 0;
+      white-space: nowrap;
     }
     :deep(.icon) {
       pointer-events: none;

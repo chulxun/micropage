@@ -21,7 +21,7 @@ import plugFormPicker from "@/components/plugins/plug-form-picker/index.vue";
 
 export default {
   components: {
-    plugPage, plugImage, plugButton, plugVideo, plugBgAudio, plugSwiper, plugText, plugNoticebar, plugTimer, plugTabs,
+    plugPage, plugImage, plugButton, plugVideo, plugBgAudio, plugSwiper, plugText, plugTimer, plugTabs, plugNoticebar,
     plugFormInput, plugFormButton, plugFormCheckbox, plugFormRadio, plugFormRate, plugFormDatetime, plugFormArea, plugFormPicker
   },
   data() {

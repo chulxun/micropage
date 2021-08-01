@@ -31,7 +31,7 @@ export default defineComponent({
         case "plug-noticebar":
           return {
             icon: "el-icon-bell",
-            title: props.item.props.name,
+            title: props.item.props.text,
           };
         case "plug-tabs":
           return {

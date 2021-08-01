@@ -5,7 +5,7 @@
 import { computed, defineComponent } from "vue";
 export default defineComponent({
   props: ["props", "workMode"],
-  name: "plug-button",
+  name: "plug-tabs",
   //默认组件 参数
   defaultElement: {
     style: {

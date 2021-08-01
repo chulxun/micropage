@@ -320,7 +320,7 @@ export default defineComponent({
   top: 60px;
   z-index: 1000;
   width: 400px;
-  height: 100%;
+  height: calc(100% - 60px);
   background: #fff;
   border-right: 1px solid var(--borderColor);
   box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.07);
@@ -355,6 +355,8 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   padding: 0 8px;
+  overflow-y: auto;
+  flex: 1;
   .item {
     > div {
       position: relative;
@@ -428,7 +430,7 @@ export default defineComponent({
   }
 }
 .pages {
-  padding: 30px 20px;
+  padding: 25px 20px;
   display: flex;
   justify-content: center;
   :deep(.el-pager li) {

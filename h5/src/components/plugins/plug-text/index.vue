@@ -5,7 +5,7 @@
 import { computed, defineComponent } from "vue";
 export default defineComponent({
   props: ["props", "workMode"],
-  name: "plug-button",
+  name: "plug-text",
   //默认组件 参数
   defaultElement: {
     style: {
@@ -20,7 +20,7 @@ export default defineComponent({
       padding: 10,
     },
     props: {
-      text: "text",
+      text: "富文本内容编辑区域，请在属性面板中编辑内容。",
     },
   },
   setup(props) {},
