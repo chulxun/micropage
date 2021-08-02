@@ -352,12 +352,11 @@ export default defineComponent({
   padding: 0 10px 8px;
 }
 .source_list {
-  display: flex;
-  flex-wrap: wrap;
   padding: 0 8px;
   overflow-y: auto;
   flex: 1;
   .item {
+    float: left;
     > div {
       position: relative;
       border-radius: 5px;
