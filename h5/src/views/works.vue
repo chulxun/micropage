@@ -87,6 +87,7 @@
       >
       </el-pagination>
     </div>
+    <el-empty v-if="worksList.length == 0" description="没有数据"></el-empty>
     <el-dialog
       title="选择作品类型"
       v-model="addVisible"
@@ -117,6 +118,7 @@ import {
   ElPagination,
   ElLoading,
   ElMessage,
+  ElEmpty,
 } from "element-plus";
 import master from "@/components/common/master.vue";
 import createWork from "@/components/common/createWork.vue";
@@ -137,6 +139,7 @@ export default defineComponent({
     createWork,
     ElPagination,
     preview,
+    ElEmpty,
   },
   setup() {
     const router = useRouter();

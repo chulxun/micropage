@@ -80,6 +80,10 @@
       >
       </el-pagination>
     </div>
+    <el-empty
+      v-if="templatesList.length == 0"
+      description="没有数据"
+    ></el-empty>
     <preview
       :workId="workId"
       v-model="previewVisible"
@@ -100,6 +104,7 @@ import {
   ElLoading,
   ElMessage,
   ElMessageBox,
+  ElEmpty,
 } from "element-plus";
 import master from "@/components/common/master.vue";
 import { defineComponent, ref, reactive, computed, nextTick } from "vue";
@@ -119,6 +124,7 @@ export default defineComponent({
     ElDialog,
     ElPagination,
     preview,
+    ElEmpty,
   },
   setup() {
     const router = useRouter();

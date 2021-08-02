@@ -89,6 +89,7 @@ export default defineComponent({
   pointer-events: none;
 }
 .swiper-item {
+  width: 100% !important;
   height: 100% !important;
 }
 .img {

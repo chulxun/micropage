@@ -2,7 +2,7 @@
   &-wrapper {
     left: 0;
     top: 0;
-    z-index: 999;
+    // z-index: 999;
     overflow: hidden;
     user-select: none;
     pointer-events: none;
@@ -20,7 +20,7 @@
     left: 0;
     top: 0;
     overflow: hidden;
-    z-index: 999;
+    // z-index: 999;
   }
   &-h,
   &-v,
@@ -32,7 +32,7 @@
     left: 0;
     top: 0;
     overflow: hidden;
-    z-index: 999;
+    // z-index: 999;
   }
 
   &-h {
