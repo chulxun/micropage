@@ -44,7 +44,17 @@ export default defineComponent({
         style.color = elestyle.color;
       }
       if (elestyle.textAlign) {
-        style.textAlign = elestyle.textAlign;
+        if (props.element.name == "plug-timer") {
+          if (elestyle.textAlign == "right") {
+            style.justifyContent = "flex-end";
+          } else if (elestyle.textAlign == "left") {
+            style.justifyContent = "flex-start";
+          } else {
+            style.justifyContent = elestyle.textAlign;
+          }
+        } else {
+          style.textAlign = elestyle.textAlign;
+        }
       }
       if (elestyle.borderWidth) {
         style.borderWidth = isRem

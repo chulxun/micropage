@@ -1,19 +1,22 @@
 <template>
   <div class="countdown" v-if="!hide">
+    <van-icon v-if="props.icon" :name="props.icon" />
     <van-count-down
       :time="countTime"
       :format="props.format"
+      :auto-start="props.autostart"
       @finish="onFinish"
     />
   </div>
 </template>
 <script lang="ts">
 import { computed, defineComponent, ref } from "vue";
-import { CountDown, Toast } from "vant";
+import { CountDown, Toast, Icon } from "vant";
 export default defineComponent({
   props: ["props", "workMode"],
   components: {
     [CountDown.name]: CountDown,
+    [Icon.name]: Icon,
   },
   name: "plug-timer",
   //默认组件 参数
@@ -34,6 +37,8 @@ export default defineComponent({
     props: {
       time: new Date().setDate(new Date().getDate() + 1),
       format: "HH:mm:ss",
+      icon: "underway-o",
+      autostart: true,
       finishType: 0,
       finishContent: "",
     },
@@ -70,8 +75,11 @@ export default defineComponent({
 .countdown {
   display: flex;
   align-items: center;
+  .van-icon {
+    margin-right: 8px;
+  }
   .van-count-down {
-    flex: 1;
+    font-size: inherit;
   }
 }
 </style>

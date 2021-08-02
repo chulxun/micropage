@@ -43,9 +43,6 @@
       <el-form-item label="左图标:">
         <iconEditor v-model:iconUrl="element.props.icon"></iconEditor>
       </el-form-item>
-      <el-form-item label="显示左图标:">
-        <el-switch v-model="element.props.showIcon"></el-switch>
-      </el-form-item>
       <el-form-item label="展示类型:">
         <el-radio-group v-model="element.props.type">
           <el-radio-button label="scrollable">单行滚动</el-radio-button>

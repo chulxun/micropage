@@ -3,7 +3,10 @@
 <template>
   <div class="flex">
     <van-icon :name="iconUrl" size="25" :color="color" />
-    <ElButton type="primary" plain size="mini" @click="onShow">更换</ElButton>
+    <ElButton v-if="removeBtn" type="primary" plain size="mini" @click="onShow"
+      >更换</ElButton
+    >
+    <ElButton plain size="mini" @click="onRemove">移除</ElButton>
     <el-dialog title="更换图标" v-model="visible" width="740px" append-to-body>
       <div class="dialog_content" v-if="visible">
         <el-tabs type="card" v-model="tabIndex">
@@ -60,6 +63,10 @@ export default defineComponent({
       default: "",
       type: String,
     },
+    removeBtn: {
+      default: true,
+      type: Boolean,
+    },
   },
   components: {
     ElImage,
@@ -75,6 +82,9 @@ export default defineComponent({
     function onShow() {
       visible.value = true;
     }
+    function onRemove() {
+      ctx.emit("update:iconUrl", "");
+    }
     function useThis(item) {
       visible.value = false;
       ctx.emit("update:iconUrl", item);
@@ -85,6 +95,7 @@ export default defineComponent({
       solidIconList,
       baseIconList,
       onShow,
+      onRemove,
       visible,
       useThis,
     };

@@ -36,12 +36,14 @@
         <iconEditor
           v-model:iconUrl="element.props.voidIcon"
           :color="element.props.voidColor"
+          :removeBtn="false"
         ></iconEditor>
       </el-form-item>
       <el-form-item label="选中图标:" required>
         <iconEditor
           v-model:iconUrl="element.props.icon"
           :color="element.props.color"
+          :removeBtn="false"
         ></iconEditor>
       </el-form-item>
       <el-form-item label="未选颜色:">

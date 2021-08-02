@@ -1,8 +1,18 @@
 <template>
   <div>
     <cellEditor :element="element"></cellEditor>
+
     <el-divider content-position="left">属性</el-divider>
     <el-form label-width="80px" size="small">
+      <el-form-item label="倒计时间:" required>
+        <el-date-picker
+          v-model="element.props.time"
+          type="datetime"
+          placeholder="选择倒计时时间"
+          :default-time="element.props.time"
+        >
+        </el-date-picker>
+      </el-form-item>
       <el-form-item label="时间格式:">
         <el-select
           style="width: 100%"
@@ -18,17 +28,22 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="时间:" required>
-        <el-date-picker
-          v-model="element.props.time"
-          type="datetime"
-          placeholder="选择时间"
-          :default-time="element.props.time"
-        >
-        </el-date-picker>
+
+      <el-form-item label="开启倒计时:">
+        <el-switch v-model="element.props.autostart" />
+        <p class="tips">仅展示时间，不倒计时</p>
       </el-form-item>
-      <el-form-item label="必填:">
-        <el-switch v-model="element.props.required"></el-switch>
+      <el-form-item label="左图标:">
+        <iconEditor v-model:iconUrl="element.props.icon"></iconEditor>
+      </el-form-item>
+      <el-form-item label="左右内边距:">
+        <el-input-number
+          v-model.number="element.style.padding"
+          :min="0"
+          :max="100"
+          :step="1"
+          label="px"
+        ></el-input-number>
       </el-form-item>
       <el-form-item label="结束时触发:">
         <el-select
@@ -72,6 +87,7 @@ import {
   ElSwitch,
   ElDatePicker,
 } from "element-plus";
+import iconEditor from "../commonProps/iconEditor.vue";
 import cellEditor from "../commonProps/cellEditor.vue";
 export default defineComponent({
   components: {
@@ -89,6 +105,7 @@ export default defineComponent({
     ElSwitch,
     ElDatePicker,
     cellEditor,
+    iconEditor,
   },
   props: ["element"],
   setup(props, ctx) {

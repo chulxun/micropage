@@ -2,7 +2,7 @@
   <van-notice-bar
     :scrollable="props.type == 'scrollable'"
     :wrapable="props.type == 'wrapable'"
-    :left-icon="props.showIcon ? props.icon : ''"
+    :left-icon="props.icon"
     :mode="props.mode"
     background="transparent"
   >
@@ -25,9 +25,9 @@ export default defineComponent({
       height: 40,
       left: 0,
       top: 0,
-      backgroundColor: "#fff",
+      backgroundColor: "#fff7cc",
       borderRadius: 3,
-      color: "#333",
+      color: "#f60",
       fontSize: 14,
       borderColor: "#fff",
       borderWidth: 0,
@@ -39,7 +39,6 @@ export default defineComponent({
       icon: "volume-o",
       mode: "",
       type: "scrollable",
-      showIcon: true,
       clickType: 0,
       clickContent: "",
     },
