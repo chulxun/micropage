@@ -1,87 +1,40 @@
 <template>
   <div>
-    <el-divider content-position="left">属性</el-divider>
+    <el-divider content-position="left">样式</el-divider>
     <el-form label-width="80px" size="small">
-      <el-form-item label="快捷样式:">
-        <el-button
-          :type="item.name"
-          v-for="(item, index) in themeList"
-          :key="index"
-          @click="useThisStyle(item)"
-          style="margin: 0 10px 10px 0"
-          >{{ item.name }}</el-button
-        >
-      </el-form-item>
-      <el-form-item label="按钮文字:" required>
-        <el-input v-model="element.props.text" maxlength="100"></el-input>
-      </el-form-item>
-      <el-form-item label="背景颜色:">
+      <el-form-item label="整体背景色:">
         <el-color-picker
           v-model="element.style.backgroundColor"
           show-alpha
         ></el-color-picker>
       </el-form-item>
-      <el-form-item label="文字颜色:">
+      <el-form-item label="标签选中色:">
         <el-color-picker
-          v-model="element.style.color"
+          v-model="element.props.color"
           show-alpha
         ></el-color-picker>
       </el-form-item>
-      <el-form-item label="圆角:">
-        <el-input-number
-          v-model.number="element.style.borderRadius"
-          :min="0"
-          :max="100"
-          :step="1"
-          label="px"
-        ></el-input-number>
-      </el-form-item>
-      <el-form-item label="字号:">
-        <el-input-number
-          v-model.number="element.style.fontSize"
-          :min="8"
-          :max="100"
-          :step="1"
-          label="px"
-        ></el-input-number>
-      </el-form-item>
-      <el-form-item label="文字粗细:">
-        <el-radio-group v-model="element.style.fontWeight">
-          <el-radio-button label="normal">正常</el-radio-button>
-          <el-radio-button label="bold">加粗</el-radio-button>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="文字对齐:">
-        <el-radio-group v-model="element.style.textAlign">
-          <el-radio-button label="left"
-            ><i class="iconfont icon-align-left"></i
-          ></el-radio-button>
-          <el-radio-button label="center"
-            ><i class="iconfont icon-align-center"></i
-          ></el-radio-button>
-          <el-radio-button label="right"
-            ><i class="iconfont icon-align-right"></i
-          ></el-radio-button>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="左右内边距:">
-        <el-input-number
-          v-model.number="element.style.padding"
-          :min="0"
-          :max="100"
-          :step="1"
-          label="px"
-        ></el-input-number>
-      </el-form-item>
-      <el-form-item label="边框颜色:">
+      <el-form-item label="标签背景色:">
         <el-color-picker
-          v-model="element.style.borderColor"
+          v-model="element.props.background"
           show-alpha
         ></el-color-picker>
       </el-form-item>
-      <el-form-item label="边框宽度:">
+      <el-form-item label="标题默认色:">
+        <el-color-picker
+          v-model="element.props.titleInactiveColor"
+          show-alpha
+        ></el-color-picker>
+      </el-form-item>
+      <el-form-item label="标题选中色:">
+        <el-color-picker
+          v-model="element.props.titleActiveColor"
+          show-alpha
+        ></el-color-picker>
+      </el-form-item>
+      <el-form-item label="内边距:">
         <el-input-number
-          v-model.number="element.style.borderWidth"
+          v-model.number="element.props.padding"
           :min="0"
           :max="100"
           :step="1"
@@ -89,11 +42,75 @@
         ></el-input-number>
       </el-form-item>
     </el-form>
-    <clickEditor :element="element"></clickEditor>
+    <el-divider content-position="left">属性</el-divider>
+    <el-form label-width="80px" size="small">
+      <el-form-item label="风格类型:">
+        <el-radio-group v-model="element.props.type">
+          <el-radio-button label="line">line</el-radio-button>
+          <el-radio-button label="card">card</el-radio-button>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="默认选中:">
+        <el-select
+          style="width: 100%"
+          v-model="element.props.active"
+          placeholder="请选择类型"
+        >
+          <el-option
+            v-for="(item, index) in element.props.options"
+            :key="index"
+            :label="item.title"
+            :value="index"
+          >
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="转场动画:">
+        <el-switch v-model="element.props.animated" />
+      </el-form-item>
+      <el-form-item label="粘性定位:">
+        <el-switch v-model="element.props.sticky" />
+      </el-form-item>
+      <el-divider content-position="left">标签管理</el-divider>
+      <div class="swiper_btns">
+        <div
+          :class="{ btn: true, disabled: element.props.options.length < 2 }"
+          @click="onMinus"
+        >
+          <i class="el-icon-minus"></i>
+        </div>
+        <el-pagination
+          background
+          layout="pager"
+          v-model:currentPage="curIndex"
+          :page-count="element.props.options.length"
+          :pager-count="5"
+        >
+        </el-pagination>
+        <div
+          class="btn"
+          :class="{ btn: true, disabled: element.props.options.length > 9 }"
+          @click="onPlus"
+        >
+          <i class="el-icon-plus"></i>
+        </div>
+      </div>
+      <template v-for="(item, index) in element.props.options">
+        <div :key="index" v-if="index + 1 == curIndex">
+          <el-form-item label="标签名称:" required>
+            <el-input
+              v-model="item.title"
+              placeholder="请输入标签名称"
+            ></el-input>
+          </el-form-item>
+          <textEditor v-model:text="item.content"></textEditor>
+        </div>
+      </template>
+    </el-form>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, defineAsyncComponent } from "vue";
 import {
   ElForm,
   ElFormItem,
@@ -104,8 +121,11 @@ import {
   ElDivider,
   ElRadioGroup,
   ElRadioButton,
+  ElSwitch,
+  ElPagination,
+  ElSelect,
+  ElOption,
 } from "element-plus";
-import clickEditor from "../commonProps/clickEditor.vue";
 
 export default defineComponent({
   components: {
@@ -116,72 +136,53 @@ export default defineComponent({
     ElInput,
     ElButton,
     ElDivider,
-    clickEditor,
     ElRadioGroup,
     ElRadioButton,
+    ElSwitch,
+    ElPagination,
+    ElSelect,
+    ElOption,
+    textEditor: defineAsyncComponent(
+      () => import("../commonProps/textEditor.vue")
+    ),
   },
   props: ["element"],
   setup(props, ctx) {
-    const themeList = [
-      {
-        name: "default",
-        backgroundColor: "#fff",
-        color: "rgba(0,0,0,.65)",
-        fontSize: 14,
-        borderWidth: 1,
-        borderRadius: 4,
-        borderColor: "#d9d9d9",
-      },
-      {
-        name: "primary",
-        backgroundColor: "#1890ff",
-        color: "#fff",
-        fontSize: 14,
-        borderWidth: 0,
-        borderRadius: 4,
-      },
-
-      {
-        name: "success",
-        backgroundColor: "#67C23A",
-        color: "#fff",
-        fontSize: 14,
-        borderWidth: 0,
-        borderRadius: 4,
-      },
-      {
-        name: "warning",
-        backgroundColor: "#E6A23C",
-        color: "#fff",
-        fontSize: 14,
-        borderWidth: 0,
-        borderRadius: 4,
-      },
-      {
-        name: "danger",
-        backgroundColor: "#ff4d4f",
-        color: "#fff",
-        fontSize: 14,
-        borderWidth: 0,
-        borderRadius: 4,
-      },
-      {
-        name: "info",
-        backgroundColor: "#909399",
-        color: "#fff",
-        fontSize: 14,
-        borderWidth: 0,
-        borderRadius: 4,
-      },
-    ];
-    function useThisStyle(item: any) {
-      let style = JSON.parse(JSON.stringify(item));
-      delete style.name;
-      Object.assign(props.element.style, style);
+    const curIndex = ref(1);
+    function onMinus() {
+      if (curIndex.value == props.element.props.options.length) {
+        curIndex.value -= 1;
+      }
+      props.element.props.options.splice(-1, 1);
     }
-    return { themeList, useThisStyle };
+    function onPlus() {
+      let index = props.element.props.options.length + 1;
+      props.element.props.options.push({
+        title: "标签" + index,
+        content: "内容" + index,
+      });
+    }
+    return { curIndex, onMinus, onPlus };
   },
 });
 </script>
 <style lang='less' scoped>
+.swiper_btns {
+  display: flex;
+  align-items: center;
+  padding-bottom: 15px;
+  .btn {
+    background-color: #f4f4f5;
+    min-width: 30px;
+    border-radius: 2px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.disabled {
+      pointer-events: none;
+      color: #999;
+    }
+  }
+}
 </style>

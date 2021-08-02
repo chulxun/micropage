@@ -44,7 +44,7 @@
         ></el-input-number>
       </el-form-item>
     </el-form>
-    <textEditor :element="element"></textEditor>
+    <textEditor v-model:text="element.props.text"></textEditor>
   </div>
 </template>
 <script lang="ts">

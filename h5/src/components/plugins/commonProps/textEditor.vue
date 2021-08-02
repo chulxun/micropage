@@ -1,8 +1,8 @@
 <template>
-  <editor v-model="element.props.text" :init="init" />
+  <editor v-model="content" :init="init" />
 </template>
 <script lang='ts'>
-import { defineComponent, onMounted, nextTick } from "vue";
+import { defineComponent, onMounted, nextTick, ref, watch } from "vue";
 import tinymce from "tinymce/tinymce";
 import Editor from "@tinymce/tinymce-vue";
 // import "tinymce/themes/silver/theme"; // 引用主题文件
@@ -13,11 +13,12 @@ import "tinymce/plugins/table";
 import "tinymce/plugins/lists";
 import "tinymce/plugins/fullscreen"; //全屏插件
 export default defineComponent({
-  props: ["element"],
+  props: ["text"],
   components: {
     editor: Editor,
   },
-  setup() {
+  setup(props, ctx) {
+    const content = ref(props.text);
     const init = {
       theme_url: "/tinymce/silver/theme.min.js",
       language_url: "/tinymce/langs/zh_CN.js", // 中文语言包路径
@@ -37,11 +38,19 @@ export default defineComponent({
       elementpath: false, //隐藏底栏的元素路径
       statusbar: false, // 隐藏底部状态栏
     };
+    // 监听编辑器内容变化，自定义处理内容
+    watch(
+      () => content.value,
+      (val) => {
+        ctx.emit("update:text", val);
+      }
+    );
+
     onMounted(async () => {
       await nextTick();
       tinymce.init({}); // 初始化
     });
-    return { init };
+    return { init, content };
   },
 });
 </script>
