@@ -23,7 +23,9 @@
         <el-input
           v-model="element.props.clickContent"
           :placeholder="placeHolder"
-          maxlength="100"
+          maxlength="5000"
+          :type="element.props.clickType == 3 ? 'textarea' : 'text'"
+          :rows="8"
         ></el-input>
       </el-form-item>
     </el-form>
@@ -62,6 +64,10 @@ export default defineComponent({
       {
         value: 2,
         label: "toast提示",
+      },
+      {
+        value: 3,
+        label: "弹出层展示文案",
       },
     ];
     let placeHolder = computed(() => {

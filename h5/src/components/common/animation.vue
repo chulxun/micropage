@@ -6,17 +6,35 @@
     @click.stop="onClickEvent"
   >
     <slot></slot>
+    <van-popup
+      teleport="#app"
+      v-if="element.props.clickType == 3"
+      v-model:show="show"
+      round
+      :style="{
+        width: '80%',
+        minHeight: '30%',
+        maxHeight: '80%',
+        padding: '16px 0',
+        display: 'flex',
+      }"
+      ><div class="text">{{ element.props.clickContent }}</div></van-popup
+    >
   </div>
 </template>
 <script lang='ts'>
 import { defineComponent, ref, onMounted } from "vue";
-import { Toast } from "vant";
+import { Toast, Popup } from "vant";
 export default defineComponent({
   props: ["element"],
+  components: {
+    [Popup.name]: Popup,
+  },
   setup(props) {
     const animationBox = ref(null);
     const curAnimate = ref({});
     const hasAnimate = ref(false);
+    const show = ref(false);
     let index = 0;
     let anis = [];
     // //播放一个动画
@@ -47,6 +65,9 @@ export default defineComponent({
             break;
           case 2:
             Toast(clickContent);
+            break;
+          case 3:
+            show.value = true;
             break;
           default:
             break;
@@ -79,6 +100,7 @@ export default defineComponent({
       curAnimate,
       playAnimation,
       onClickEvent,
+      show,
     };
   },
 });
@@ -92,5 +114,12 @@ export default defineComponent({
 }
 .animCan {
   animation-play-state: paused;
+}
+.text {
+  padding: 0 16px;
+  word-break: break-all;
+  white-space: pre-line;
+  flex: 1;
+  overflow-y: auto;
 }
 </style>

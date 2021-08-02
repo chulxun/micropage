@@ -26,7 +26,7 @@ export default defineComponent({
         case "plug-countdown":
           return {
             icon: "iconfont icon-daojishi",
-            title: props.item.props.name,
+            title: "倒计时",
           };
         case "plug-noticebar":
           return {
@@ -36,7 +36,7 @@ export default defineComponent({
         case "plug-tabs":
           return {
             icon: "iconfont icon-tabs",
-            title: props.item.props.name,
+            title: "Tab标签栏",
           };
         case "plug-form-button":
           return {
