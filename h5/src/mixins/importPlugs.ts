@@ -10,6 +10,8 @@ import plugBgAudio from "@/components/plugins/plug-bg-audio/index.vue";
 import plugTimer from "@/components/plugins/plug-timer/index.vue";
 import plugNoticebar from "@/components/plugins/plug-noticebar/index.vue";
 import plugTabs from "@/components/plugins/plug-tabs/index.vue";
+import plugCollapse from "@/components/plugins/plug-collapse/index.vue";
+
 import plugFormInput from "@/components/plugins/plug-form-input/index.vue";
 import plugFormButton from "@/components/plugins/plug-form-button/index.vue";
 import plugFormCheckbox from "@/components/plugins/plug-form-checkbox/index.vue";
@@ -21,7 +23,7 @@ import plugFormPicker from "@/components/plugins/plug-form-picker/index.vue";
 
 export default {
   components: {
-    plugPage, plugImage, plugButton, plugVideo, plugBgAudio, plugSwiper, plugText, plugTimer, plugTabs, plugNoticebar,
+    plugPage, plugImage, plugButton, plugVideo, plugBgAudio, plugSwiper, plugText, plugTimer, plugTabs, plugNoticebar, plugCollapse,
     plugFormInput, plugFormButton, plugFormCheckbox, plugFormRadio, plugFormRate, plugFormDatetime, plugFormArea, plugFormPicker
   },
   data() {
@@ -82,6 +84,12 @@ export default {
               title: 'Tab标签栏',
               icon: 'iconfont icon-tabs',
               component: plugTabs
+            },
+            {
+              name: 'plug-collapse',
+              title: '折叠面板',
+              icon: 'iconfont icon-zhediemianban',
+              component: plugCollapse
             }
 
 

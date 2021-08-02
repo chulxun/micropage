@@ -23,6 +23,9 @@ export default defineComponent({
       () => import("./plug-noticebar/editor.vue")
     ),
     plugTabs: defineAsyncComponent(() => import("./plug-tabs/editor.vue")),
+    plugCollapse: defineAsyncComponent(
+      () => import("./plug-collapse/editor.vue")
+    ),
     plugFormInput: defineAsyncComponent(
       () => import("./plug-form-input/editor.vue")
     ),

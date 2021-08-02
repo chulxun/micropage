@@ -38,6 +38,11 @@ export default defineComponent({
             icon: "iconfont icon-tabs",
             title: "Tab标签栏",
           };
+        case "plug-collapse":
+          return {
+            icon: "iconfont icon-zhediemianban",
+            title: "折叠面板",
+          };
         case "plug-form-button":
           return {
             icon: "iconfont icon-anniuguanli-02",
