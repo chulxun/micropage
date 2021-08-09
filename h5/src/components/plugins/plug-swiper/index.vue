@@ -8,6 +8,7 @@
       props.showPage ? { clickable: true, type: props.pagType } : false
     "
     :autoplay="props.autoplay && workMode == 'formal' ? true : false"
+    v-if="ismounted"
   >
     <swiper-slide
       class="swiper-item"
@@ -19,7 +20,7 @@
   </swiper>
 </template>
 <script lang="ts">
-import { defineComponent, watch, ref } from "vue";
+import { defineComponent, watch, ref,onMounted, nextTick} from "vue";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/swiper.scss";
@@ -55,7 +56,7 @@ export default defineComponent({
   },
   setup(props) {
     const activeColor = ref("");
-
+    const ismounted=ref(false);
     //监听分页颜色设置
     watch(
       () => props.props.indicatorColor,
@@ -79,8 +80,11 @@ export default defineComponent({
         }
       }
     );
-
-    return { activeColor };
+    onMounted(async()=>{
+      await nextTick();
+      ismounted.value=true
+    })
+    return {ismounted, activeColor };
   },
 });
 </script>

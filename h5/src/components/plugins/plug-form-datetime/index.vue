@@ -19,7 +19,7 @@
       "
       @click="onShowDate"
     />
-    <van-popup v-model:show="state.showPicker" position="bottom">
+    <van-popup v-model:show="state.showPicker" position="bottom" teleport="body">
       <van-datetime-picker
         :type="props.type"
         :title="props.title"

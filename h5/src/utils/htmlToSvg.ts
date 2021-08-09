@@ -14,18 +14,18 @@ export async function onCreateImgBySvg() {
   cloneDom.appendChild(style);
   var styleList = document.querySelectorAll('style');
   var styleouter = '';
-  // var linkList:any = document.querySelectorAll('link[rel=stylesheet]');
-  // for (let i = 0; i < linkList.length; i++) {
-  //   let url = linkList[i].href;
-  //   let _csstext = '';
-  //   try {
-  //       let response = await fetch(url);
-  //       _csstext = await response.text();
-  //   } catch (err) { }
-  //   if (_csstext) {
-  //     styleouter += _csstext;
-  //   }
-  // }
+  var linkList: any = document.querySelectorAll('link[rel=stylesheet]');
+  for (let i = 0; i < linkList.length; i++) {
+    let url = linkList[i].href;
+    let _csstext = '';
+    try {
+      let response = await fetch(url);
+      _csstext = await response.text();
+    } catch (err) { }
+    if (_csstext) {
+      styleouter += _csstext;
+    }
+  }
   for (let i = 0; i < styleList.length; i++) {
     styleouter += styleList[i].innerHTML;
   }

@@ -19,7 +19,7 @@
       "
       @click="onShowArea"
     />
-    <van-popup v-model:show="state.showPicker" position="bottom">
+    <van-popup v-model:show="state.showPicker" position="bottom" teleport="body">
       <van-area
         :title="props.title"
         @confirm="onConfirm"

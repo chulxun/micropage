@@ -199,4 +199,15 @@ export default defineComponent({
 .swiper-slide-active .animCan {
   animation-play-state: running;
 }
+::-webkit-scrollbar {
+  width:4px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background-color: rgba(0,0,0,0.1);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: #aaa;
+}
 </style>

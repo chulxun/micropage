@@ -34,7 +34,7 @@ export default function () {
       true
     );
     if (res && res.key) {
-      return cdnDomain + res.key + "?imageView2/0/w/400/q/75";
+      return cdnDomain + res.key + "?imageView2/0/w/750/q/75";
     }
   }
   return { token, getQiniuToken, uploadBase64Img }
