@@ -1,7 +1,7 @@
 # 微页 1.0
+预览地址：<https://weiye.fanjinyan.com/>
 ```
 一个注重交互的H5编辑器开源项目，旨在提高工作效率，快速开发小型运营活动页面，以及日常H5需求。
-预览地址：<https://weiye.fanjinyan.com/>
 技术站：Vue 3 + Typescript + Vite
 编辑器使用的框架：element-plus
 作品使用的框架：vant
