@@ -1,4 +1,6 @@
 import { creatUkey } from '../../utils/index'
+import { cloneDeep } from "lodash";
+import Element from './element';
 interface workInitnal {
   title: string;
   description: string;
@@ -22,84 +24,33 @@ class Work {
     this.share_img_url = work.share_img_url || 'https://public.fanjinyan.com/weiye_default_img_squre.png'
     this.page_type = work.page_type || 1 //页面类型 1长页 2多页
     let pages = [{
-      ukey: 1,
-      elements: [
-        {
-          ukey: creatUkey(),
-          name: 'plug-page',
-          props: {
-            bgColor: '#fff',
-            imgUrl: '',
-            pageHeight: 667,
-          },
-          style: {
-            width: '100%',
-            height: '100%',
-            top: 0,
-            left: 0,
-          }
-        }]
+      ukey: creatUkey(),
+      elements: [Element.createPageEle()]
     }]
     if (work.page_type == 2) {
-      pages = [{
-        ukey: 1,
-        elements: [
-          {
-            ukey: creatUkey(),
-            name: 'plug-page',
-            props: {
-              bgColor: '#fff',
-              imgUrl: '',
-              pageHeight: 667
-            },
-            style: {
-              width: '100%',
-              height: '100%',
-              top: 0,
-              left: 0,
-            }
-          }]
-      }, {
-        ukey: 2,
-        elements: [
-          {
-            ukey: creatUkey(),
-            name: 'plug-page',
-            props: {
-              bgColor: '#fff',
-              imgUrl: '',
-              pageHeight: 667
-            },
-            style: {
-              width: '100%',
-              height: '100%',
-              top: 0,
-              left: 0,
-            }
-          }]
-      }]
+      pages.push({
+        ukey: creatUkey(),
+        elements: [Element.createPageEle()]
+      })
     }
     this.pages = work.pages || pages
   }
+  //添加一个空页面
   static addPage(pages: any) {
     pages.push({
       ukey: creatUkey(),
-      elements: [
-        {
-          ukey: creatUkey(),
-          name: 'plug-page',
-          props: {
-            bgColor: '#fff',
-            imgUrl: '',
-            pageHeight: 667
-          },
-          style: {
-            width: '100%',
-            height: '100%',
-            top: 0,
-            left: 0,
-          }
-        }]
+      elements: [Element.createPageEle()]
+    })
+  }
+  //复制页面
+  static copyPage(pages: any, page: any) {
+    let eles = cloneDeep(page.elements).map((item: any) => {
+      item.ukey = creatUkey()
+      return item
+    })
+    pages.push({
+      ukey: creatUkey(),
+      elements: eles
     })
   }
 }

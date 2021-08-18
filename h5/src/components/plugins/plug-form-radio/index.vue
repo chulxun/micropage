@@ -1,5 +1,6 @@
 <template>
   <div>
+ 
     <div class="input_title" v-if="props.showTitle">
       <span class="red" v-if="props.required">*</span>{{ props.name }}
     </div>
@@ -28,7 +29,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, ref, defineComponent } from "vue";
+import {  ref, defineComponent } from "vue";
 import { RadioGroup, Radio } from "vant";
 export default defineComponent({
   props: ["props", "workMode", "dataUkey"],

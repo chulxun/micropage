@@ -1,4 +1,5 @@
 import { cloneDeep } from "lodash";
+import { creatUkey } from '../../utils/index'
 interface elementInitnal {
   ukey: string; //唯一标识
   name: string; //组件名称
@@ -25,7 +26,7 @@ class Element {
   animations: object[];
   constructor(element: elementInitnal) {
     // 通用属性
-    this.ukey = element.ukey || new Date().getTime() + ""
+    this.ukey = element.ukey || creatUkey()
     this.name = element.name || ""
     if (element.style && typeof element.style == 'object') {
       this.style = Object.assign({}, defaultStyle, element.style)
@@ -44,12 +45,34 @@ class Element {
     }
 
   }
-  static copyEle(element: elementInitnal) {
+  //直接复制一个元素
+  static copyEle(element: elementInitnal, isMove = true) {
     const copy_element = cloneDeep(element)
-    copy_element.ukey = new Date().getTime() + ""
-    copy_element.style.top += 20;
-    copy_element.style.left += 20;
+    copy_element.ukey = creatUkey()
+    if (isMove) {
+      copy_element.style.top += 20;
+      copy_element.style.left += 20;
+    }
     return new Element(copy_element)
+  }
+  //创建一个plug-page
+  static createPageEle() {
+    let ele = {
+      ukey: creatUkey(),
+      name: 'plug-page',
+      props: {
+        bgColor: '#fff',
+        imgUrl: '',
+        pageHeight: 667,
+      },
+      style: {
+        width: '100%',
+        height: '100%',
+        top: 0,
+        left: 0,
+      }
+    };
+    return ele
   }
 
 }

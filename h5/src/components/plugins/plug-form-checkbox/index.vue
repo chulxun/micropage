@@ -58,6 +58,7 @@ export default defineComponent({
       checkedColor: "#1989fa",
       direction: "vertical",
       max: 0,
+      
     },
   },
   setup(props) {

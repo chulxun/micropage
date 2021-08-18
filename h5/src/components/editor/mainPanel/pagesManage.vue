@@ -1,26 +1,30 @@
 <template>
   <div class="pages" v-if="work.page_type == 2">
     <ul>
-      <li
-        :class="{ current: editingPage.ukey == item.ukey }"
+      <el-tooltip
+        placement="top"
         v-for="(item, index) in work.pages"
         :key="index"
-        @click="choosePage(item)"
       >
-        {{ index + 1 }}
-        <el-popconfirm
-          v-if="work.pages.length > 1"
-          title="确定删除该页面吗？"
-          confirmButtonType="danger"
-          cancelButtonText="取消"
-          confirmButtonText="删除"
-          @confirm="deletePage(item, index)"
+        <template #content>
+          <div class="icons">
+            <span
+              class="el-icon-copy-document"
+              @click="copyPage(item, index)"
+            ></span>
+            <span
+              class="el-icon-delete close"
+              @click="deletePage(item, index)"
+            ></span>
+          </div>
+        </template>
+        <li
+          :class="{ current: editingPage.ukey == item.ukey }"
+          @click="choosePage(item)"
         >
-          <template #reference>
-            <span class="el-icon-close close"></span>
-          </template>
-        </el-popconfirm>
-      </li>
+          {{ index + 1 }}
+        </li>
+      </el-tooltip>
     </ul>
     <el-tooltip content="新增页面" placement="top">
       <i class="el-icon-plus" @click="addPage"></i>
@@ -29,13 +33,12 @@
 </template>
 <script lang='ts'>
 import { defineComponent, computed } from "vue";
-import { ElTooltip, ElPopconfirm } from "element-plus";
+import { ElTooltip, ElMessageBox, ElMessage } from "element-plus";
 import { useStore } from "@/store/index";
 import Work from "@/store/model/work";
 export default defineComponent({
   components: {
     ElTooltip,
-    ElPopconfirm,
   },
   setup() {
     const store = useStore();
@@ -60,20 +63,36 @@ export default defineComponent({
       setEditingElement(null);
     }
     //删除page
-    function deletePage(item, index) {
-      if (editingPage.value.ukey == item.ukey) {
-        setEditingElement(null);
-        if (index < work.value.pages.length - 1) {
-          setEditingPage(work.value.pages[index + 1]);
-          setEditingPageProps(work.value.pages[index + 1].elements[0].props);
-        } else {
-          setEditingPage(work.value.pages[0]);
-          setEditingPageProps(work.value.pages[0].elements[0].props);
-        }
-      }
-      work.value.pages.splice(index, 1);
+    function deletePage(item: any, index: number) {
+      ElMessageBox.confirm("确定删除该页面吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          if (editingPage.value.ukey == item.ukey) {
+            setEditingElement(null);
+            if (index < work.value.pages.length - 1) {
+              setEditingPage(work.value.pages[index + 1]);
+              setEditingPageProps(
+                work.value.pages[index + 1].elements[0].props
+              );
+            } else {
+              setEditingPage(work.value.pages[0]);
+              setEditingPageProps(work.value.pages[0].elements[0].props);
+            }
+          }
+          work.value.pages.splice(index, 1);
+          ElMessage.success("删除成功");
+        })
+        .catch(() => {});
     }
-    return { work, editingPage, addPage, choosePage, deletePage };
+    //复制page
+    function copyPage(item: any, index: number) {
+      Work.copyPage(work.value.pages, item);
+      ElMessage.success("复制页面成功");
+    }
+    return { work, editingPage, addPage, choosePage, deletePage, copyPage };
   },
 });
 </script>
@@ -96,20 +115,21 @@ export default defineComponent({
   }
   li {
     position: relative;
-    span {
-      position: absolute;
-      top: -15px;
-      right: -15px;
-      background: rgba(0, 0, 0, 0.5);
-      color: #fff;
-      border-radius: 50%;
-      padding: 5px;
-      display: none;
-    }
-    &:hover span {
-      display: inline-block;
-    }
+    // span {
+    //   position: absolute;
+    //   top: -15px;
+    //   right: -15px;
+    //   background: rgba(0, 0, 0, 0.5);
+    //   color: #fff;
+    //   border-radius: 50%;
+    //   padding: 5px;
+    //   display: none;
+    // }
+    // &:hover span {
+    //   display: inline-block;
+    // }
   }
+
   li,
   i {
     user-select: none;
@@ -124,6 +144,16 @@ export default defineComponent({
       color: var(--primaryColor);
       border-color: var(--primaryColor);
     }
+  }
+}
+.icons {
+  width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  span {
+    font-size: 18px;
+    cursor: pointer;
   }
 }
 </style>
