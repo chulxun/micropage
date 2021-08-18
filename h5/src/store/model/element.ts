@@ -33,7 +33,7 @@ class Element {
       this.style = cloneObj(defaultStyle)
     }
     if (element.props && typeof element.props == 'object') {
-      this.props = Object.assign({}, element.props)
+      this.props = cloneDeep(element.props)//必须深拷贝
     } else {
       this.props = {}
     }
@@ -42,6 +42,7 @@ class Element {
     } else {
       this.animations = []
     }
+
   }
   static copyEle(element: elementInitnal) {
     const copy_element = cloneDeep(element)

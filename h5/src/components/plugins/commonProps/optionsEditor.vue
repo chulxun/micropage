@@ -7,7 +7,7 @@
       <el-form-item
         v-for="(option, index) in element.props.options"
         :label="'选项' + (index + 1)"
-        :key="index"
+        :key="(element.ukey+index)"
         class="button_option"
       >
         <el-input v-model="option.val"></el-input

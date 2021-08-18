@@ -2,9 +2,15 @@
   <div>
     <el-divider content-position="left">样式</el-divider>
     <el-form label-width="80px" size="small">
-      <el-form-item label="文字颜色:">
+      <el-form-item label="标题颜色:">
         <el-color-picker
           v-model="element.style.color"
+          show-alpha
+        ></el-color-picker>
+      </el-form-item>
+      <el-form-item label="options颜色:">
+        <el-color-picker
+          v-model="element.props.color"
           show-alpha
         ></el-color-picker>
       </el-form-item>

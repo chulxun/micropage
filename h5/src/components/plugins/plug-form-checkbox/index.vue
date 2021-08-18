@@ -9,6 +9,7 @@
       :direction="props.direction"
       :max="props.max"
       :readonly="workMode == 'editor'"
+      :style="{color:props.color}"
     >
       <van-checkbox
         :name="item.val"
@@ -53,6 +54,7 @@ export default defineComponent({
       required: true,
       options: [{ val: "复选框 1" }, { val: "复选框 2" }],
       shape: "round",
+      color: "#333",
       checkedColor: "#1989fa",
       direction: "vertical",
       max: 0,

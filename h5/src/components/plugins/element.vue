@@ -102,6 +102,12 @@ export default defineComponent({
     font-weight: bold;
   }
 }
+:deep(.van-radio__label){
+  color: inherit;
+}
+:deep(.van-checkbox__label){
+  color: inherit;
+}
 :deep(.van-cell) {
   background: transparent;
   height: 100%;
