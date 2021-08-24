@@ -1,5 +1,9 @@
 <template>
-  <div class="animation-box" :style="curAnimate" ref="animationBox">
+  <div
+    :class="{ 'animation-box': true, noani: element.name == 'plug-page' }"
+    :style="curAnimate"
+    ref="animationBox"
+  >
     <slot></slot>
   </div>
 </template>
@@ -75,5 +79,8 @@ export default defineComponent({
   height: 100%;
   position: absolute;
   z-index: 1;
+  &.noani {
+    z-index: 0;
+  }
 }
 </style>

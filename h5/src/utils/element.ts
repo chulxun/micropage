@@ -2,7 +2,7 @@
 //组装 element的style
 export function getElementStyle(styles: any, isRem: boolean = false) {
 
-  let newStyle = {}
+  let newStyle = Object.assign({}, styles)
   if (!styles.position) {
     newStyle.position = 'absolute'
   }

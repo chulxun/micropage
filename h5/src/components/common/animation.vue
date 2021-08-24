@@ -1,6 +1,10 @@
 <template>
   <div
-    :class="{ 'animation-box': true, animCan: hasAnimate }"
+    :class="{
+      'animation-box': true,
+      animCan: hasAnimate,
+      noani: element.name == 'plug-page',
+    }"
     :style="curAnimate"
     ref="animationBox"
     @click.stop="onClickEvent"
@@ -111,6 +115,9 @@ export default defineComponent({
   height: 100%;
   position: absolute;
   z-index: 1;
+  &.noani {
+    z-index: 0;
+  }
 }
 .animCan {
   animation-play-state: paused;
