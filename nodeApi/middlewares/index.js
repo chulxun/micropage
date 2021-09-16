@@ -1,6 +1,6 @@
 const { logger, accessLogger } = require("../utils/log")
 const { typeOf } = require("../utils/index")
-const { UserProxy } = require("../proxy")
+const { UsersProxy } = require("../proxy")
 
 const codeMap = {
   "-1": "操作失败",
@@ -53,17 +53,20 @@ module.exports = class Middleware {
 
   static hasAdminRole(role) {
     return async function (ctx, next) {
+      if(ctx.request.url=="/admin/user/login"){
+        return next()
+      }
       try {
         const id = ctx.state.user.id
-        const userInfo = await UserProxy.getByUserId(id)
+        const userInfo = await UsersProxy.getByUserId(id)
         if (userInfo.role === role) {
-          ctx._isAdmin = true // 标识我是后台路由，经过权限验证，拥有后台权限
+          ctx._isAdmin = true // 管理员
           return next()
         } else {
-          return ctx.body = utilFn.fy_refail('您的权限不足', 401)
+          return ctx.body = utilFn.refail('权限不足', 401)
         }
       } catch (err) {
-        return ctx.body = utilFn.fy_refail(err.message, 500)
+        return ctx.body = utilFn.refail(err.message, 500)
       }
     }
   }

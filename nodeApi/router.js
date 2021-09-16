@@ -44,10 +44,16 @@ apiRouter
 
 const adminRouter = new Router();
 adminRouter
+  .post("/user/login", users.login)
+  .get("/user/list", users.list)
   .post("/user/register", users.register)
+  .post("/user/changePwd", users.changePwdAdmin)
+  .post("/user/writeOffUser", users.writeOffUserAdmin)
+  .post("/user/recoveryUser", users.recoveryUserAdmin)
+  
 
 const router = new Router();
-router.use("/admin", adminRouter.routes(), adminRouter.allowedMethods());
+router.use("/admin",middleware.hasAdminRole(1), adminRouter.routes(), adminRouter.allowedMethods());
 router.use("/api", apiRouter.routes(), apiRouter.allowedMethods());
 
 module.exports = router;

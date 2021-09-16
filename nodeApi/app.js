@@ -27,12 +27,10 @@ app.on("error", function (err, ctx) {
 const whitePath = [
   //白名单路径 不需要校验用户登录信息
   "/api/common/only/getQiniuToken",
-  "/api/user",
   "/api/user/login",
-  "/api/user/register",
   "/api/form/submitData",
   "/api/works/getWorkDetail",
-
+  "/admin/user/login",
 ];
 
 app

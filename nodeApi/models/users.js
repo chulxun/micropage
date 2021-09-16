@@ -14,12 +14,16 @@ const userSchema = new Schema({
     type: Number,
     default: 1,
   },
+  is_delete: {  //是否注销
+    type: Boolean,
+    default: false
+  },
   create_at: {
-    type: Date,
+    type: Number,
     default: Date.now,
   },
   updated_at: {
-    type: Date,
+    type: Number,
     default: Date.now,
   },
 })
