@@ -4,4 +4,4 @@ dist
 log
 *.local
 package-lock.json
-config
+nodeApi/config
