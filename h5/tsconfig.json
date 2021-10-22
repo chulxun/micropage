@@ -9,24 +9,12 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true, //是否跳过声明文件的检查
-    "lib": [
-      "esnext",
-      "dom"
-    ],
-    "types": [
-      "vite/client"
-    ]
+    "lib": ["esnext", "dom"],
+    "types": ["vite/client"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "baseUrl": "src",
   "paths": {
-    "@/*": [
-      "src/*"
-    ]
-  },
+    "@/*": ["src/*"]
+  }
 }
