@@ -3,7 +3,7 @@
   <div
     :class="{ drag: true, drag_active: editingElement == element }"
     @mousedown.stop="handleMousedown"
-    :style="getElementStyle(element.style)"
+    :style="getElementStyle(element.style||{})"
     ref="rotate"
     v-if="element.name != 'plug-page' && !element.props.hide"
   >
@@ -41,7 +41,7 @@
   <div
     v-else-if="!element.props.hide"
     class="drag"
-    :style="getElementStyle(element.style)"
+    :style="getElementStyle(element.style||{})"
   >
     <slot></slot>
   </div>

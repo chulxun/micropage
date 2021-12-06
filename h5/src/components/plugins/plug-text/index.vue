@@ -1,8 +1,9 @@
 <template>
-  <div v-html="props.text" class="text"></div>
+  <div v-html="getElementRichTextRem(props.text, workMode === 'formal')" class="text"></div>
 </template>
 <script lang="ts">
 import { computed, defineComponent } from "vue";
+import { getElementRichTextRem } from "@/utils/element"
 export default defineComponent({
   props: ["props", "workMode"],
   name: "plug-text",
@@ -23,7 +24,9 @@ export default defineComponent({
       text: "富文本内容编辑区域，请在属性面板中编辑内容。",
     },
   },
-  setup(props) {},
+  setup(props) {
+    return {getElementRichTextRem}
+  },
 });
 </script>
 <style lang='less' scoped>

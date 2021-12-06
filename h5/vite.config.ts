@@ -5,7 +5,7 @@ import styleImport from 'vite-plugin-style-import'
 // https://vitejs.dev/config/
 export default defineConfig({//defineConfig 帮手函数，这样不用 jsdoc 注解也可以获取类型提示
   server: {
-    port: 9000,
+    port: 9001,
     proxy: {
       '/api': {
         target: 'http://localhost:4000',

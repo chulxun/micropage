@@ -20,7 +20,7 @@
         <div
           v-for="item in page.elements"
           :key="item.ukey"
-          :style="getElementStyle(item.style, true)"
+          :style="getElementStyle(item.style, true,pageHeight)"
         >
           <animation :element="item" v-if="!item.props.hide">
             <element :element="item"></element
@@ -32,7 +32,7 @@
       <div
         v-for="item in page.elements"
         :key="item.ukey"
-        :style="getElementStyle(item.style, true)"
+        :style="getElementStyle(item.style, true,pageHeight)"
       >
         <animation :element="item" v-if="!item.props.hide">
           <element :element="item"></element

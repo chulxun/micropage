@@ -10,7 +10,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, computed } from "vue";
-import { pxToRem } from "@/utils/element";
+import { pxToRem,getElementInsideStyle } from "@/utils/element";
 import importPlugs from "@/mixins/importPlugs";
 import { useStore } from "@/store/index";
 
@@ -24,58 +24,7 @@ export default defineComponent({
     //提取属性中设置的样式
     const comStyles = computed(() => {
       const isRem = workMode.value == "formal" ? true : false;
-      let style = {};
-      let elestyle = props.element.style;
-
-      if (elestyle.fontSize) {
-        style.fontSize = isRem
-          ? pxToRem(elestyle.fontSize)
-          : elestyle.fontSize + "px";
-      }
-      if (elestyle.borderRadius) {
-        style.borderRadius = isRem
-          ? pxToRem(elestyle.borderRadius)
-          : elestyle.borderRadius + "px";
-      }
-      if (elestyle.backgroundColor) {
-        style.backgroundColor = elestyle.backgroundColor;
-      }
-      if (elestyle.color) {
-        style.color = elestyle.color;
-      }
-      if (elestyle.textAlign) {
-        if (props.element.name == "plug-timer") {
-          if (elestyle.textAlign == "right") {
-            style.justifyContent = "flex-end";
-          } else if (elestyle.textAlign == "left") {
-            style.justifyContent = "flex-start";
-          } else {
-            style.justifyContent = elestyle.textAlign;
-          }
-        } else {
-          style.textAlign = elestyle.textAlign;
-        }
-      }
-      if (elestyle.borderWidth) {
-        style.borderWidth = isRem
-          ? pxToRem(elestyle.borderWidth)
-          : elestyle.borderWidth + "px";
-      }
-      if (elestyle.borderColor) {
-        style.borderColor = elestyle.borderColor;
-      }
-      if (elestyle.fontWeight) {
-        style.fontWeight = elestyle.fontWeight;
-      }
-      if (elestyle.padding) {
-        let pd = isRem ? pxToRem(elestyle.padding) : elestyle.padding + "px";
-        if (props.element.name == "plug-text") {
-          style.padding = pd;
-        } else {
-          style.paddingLeft = pd;
-          style.paddingRight = pd;
-        }
-      }
+      const style = getElementInsideStyle(props.element.name,props.element.style, isRem)
       return style;
     });
     return {

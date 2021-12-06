@@ -92,15 +92,6 @@ const routes: Array<RouteRecordRaw> = [
       title: '作品详情'
     }
   },
-  // {
-  //   path: '/viewer/:workId/:mode?',
-  //   name: 'Viewer',
-  //   component: () => import('@/views/viewer.vue'),
-  //   props: true,
-  //   meta: {
-  //     title: '作品详情'
-  //   }
-  // }
 ]
 
 const router = createRouter({
