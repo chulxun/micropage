@@ -15,7 +15,7 @@ export default defineComponent({
     const animationBox = ref(null);
     const curAnimate = ref({});
     let index = 0;
-    let anis = [];
+    let anis: any = [];
     // //播放一个动画
     function playAnimation(item: any) {
       curAnimate.value = {
@@ -53,7 +53,7 @@ export default defineComponent({
       watch(
         () => props.element.animations,
         function (val) {
-          anis = val.filter((item) => {
+          anis = val.filter((item: any) => {
             return item.playing == true;
           });
           if (anis.length > 0) {

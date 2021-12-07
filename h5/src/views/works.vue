@@ -11,31 +11,22 @@
       <el-menu-item index="2">多页 ({{ page.count2 }})</el-menu-item>
     </el-menu>
     <div class="line"></div>
-    <div class="work_list">
+    <div class="work_list" v-if="worksList.length > 0">
       <div class="item">
         <div class="bg add" @click="addVisible = true">
           <i class="el-icon-circle-plus"></i>
           <p>创建新作品</p>
         </div>
       </div>
-      <div class="item" v-for="(work, index) in worksList" :key="work.work_id">
+      <div class="item" v-for="(work,index) in worksList" :key="work.work_id">
         <div class="bg work">
-          <div
-            class="img"
-            :style="'background-image:url(' + work.preview_img_url + ')'"
-          >
-            <div class="abs left" v-if="work.pages != work.publish_pages">
-              未发布
-            </div>
+          <div class="img" :style="'background-image:url(' + work.preview_img_url + ')'">
+            <div class="abs left" v-if="work.pages != work.publish_pages">未发布</div>
             <div class="abs right" @mouseenter="work.showQrcode = true">
               <i class="iconfont icon-erweima"></i>
             </div>
             <transition name="el-zoom-in-center">
-              <div
-                v-show="work.showQrcode"
-                class="qrcode"
-                @mouseleave="work.showQrcode = false"
-              >
+              <div v-show="work.showQrcode" class="qrcode" @mouseleave="work.showQrcode = false">
                 <canvas :ref="setWorkRef"></canvas>
               </div>
             </transition>
@@ -43,17 +34,15 @@
           <div class="desc">
             <div class="title" :title="work.title">
               <el-tag size="mini" v-if="work.page_type == 1">长页</el-tag>
-              <el-tag size="mini" type="success" v-else-if="work.page_type == 2"
-                >多页</el-tag
-              >
+              <el-tag size="mini" type="success" v-else-if="work.page_type == 2">多页</el-tag>
               {{ work.title }}
             </div>
             <div class="date">更新时间：{{ formatDate(work.updated_at) }}</div>
             <div class="icon_list">
               <div class="icon" @click="onEdit(work.work_id)">
                 <el-tooltip effect="dark" content="编辑" placement="top">
-                  <i class="el-icon-edit-outline"></i
-                ></el-tooltip>
+                  <i class="el-icon-edit-outline"></i>
+                </el-tooltip>
               </div>
               <div class="icon" @click="onDelete(work.work_id, index)">
                 <el-tooltip effect="dark" content="删除" placement="top">
@@ -62,8 +51,8 @@
               </div>
               <div class="icon" @click="onPreview(work.work_id)">
                 <el-tooltip effect="dark" content="预览" placement="top">
-                  <i class="el-icon-view"></i
-                ></el-tooltip>
+                  <i class="el-icon-view"></i>
+                </el-tooltip>
               </div>
               <div class="icon" @click="onViewData(work.work_id)">
                 <el-tooltip effect="dark" content="数据" placement="top">
@@ -84,26 +73,15 @@
         :current-page="page.currentPage"
         @current-change="fetchWorksList"
         :hide-on-single-page="true"
-      >
-      </el-pagination>
+      ></el-pagination>
     </div>
-    <el-empty v-if="worksList.length == 0" description="没有数据"></el-empty>
-    <el-dialog
-      title="选择作品类型"
-      v-model="addVisible"
-      custom-class="add_dialog"
-      width="480px"
-    >
-      <createWork
-        v-model:addVisible="addVisible"
-        @refreshData="fetchWorksList"
-      ></createWork>
+    <el-empty v-if="worksList.length == 0" description="暂时没有作品">
+      <el-button type="primary" @click="addVisible = true">立即创建</el-button>
+    </el-empty>
+    <el-dialog title="选择作品类型" v-model="addVisible" custom-class="add_dialog" width="480px">
+      <createWork v-model:addVisible="addVisible" @refreshData="fetchWorksList"></createWork>
     </el-dialog>
-    <preview
-      :workId="workId"
-      v-model="previewVisible"
-      v-if="previewVisible"
-    ></preview>
+    <preview :workId="workId" v-model="previewVisible" v-if="previewVisible"></preview>
   </master>
 </template>
 <script lang="ts">
@@ -171,7 +149,7 @@ export default defineComponent({
       const res = await getWorksList(params);
       if (res && res.code == 0) {
         worksList.length = 0;
-        let data = res.data.map((item) => {
+        let data = res.data.map((item: any) => {
           item.showQrcode = false;
           return item;
         });
@@ -193,7 +171,7 @@ export default defineComponent({
           workRefs[key],
           window.location.origin + "/viewer/" + key + "/preview",
           { margin: 1, scale: 4, width: 150 },
-          (err: Error) => {}
+          (err: Error) => { }
         );
       }
     }

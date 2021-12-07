@@ -3,11 +3,13 @@
   <div
     :class="{ drag: true, drag_active: editingElement == element }"
     @mousedown.stop="handleMousedown"
-    :style="getElementStyle(element.style||{})"
+    :style="getElementStyle(element.style || {})"
     ref="rotate"
     v-if="element.name != 'plug-page' && !element.props.hide"
   >
-    <animation :element="element"> <slot></slot></animation>
+    <animation :element="element">
+      <slot></slot>
+    </animation>
     <template v-if="editingElement == element">
       <!-- 放大缩小圆点 -->
       <div
@@ -18,31 +20,22 @@
         @mousedown.stop="mousedownScale(item, $event)"
       ></div>
       <!-- 旋转按钮 -->
-      <i
-        class="el-icon-refresh-left rotate_btn"
-        @mousedown.stop="mousedownRotate"
-      ></i>
+      <i class="el-icon-refresh-left rotate_btn" @mousedown.stop="mousedownRotate"></i>
       <!-- 尺寸展示 -->
-      <div class="size_detail">
-        {{ element.style.width + "*" + element.style.height }}
-      </div>
+      <div class="size_detail">{{ element.style.width + "*" + element.style.height }}</div>
       <!-- 旋转信息展示 -->
       <div class="rotate_detail">
         {{
           element.style.transform
             ? element.style.transform
-                .replace("rotateZ(", "")
-                .replace("deg)", "")
+              .replace("rotateZ(", "")
+              .replace("deg)", "")
             : 0
         }}°
       </div>
     </template>
   </div>
-  <div
-    v-else-if="!element.props.hide"
-    class="drag"
-    :style="getElementStyle(element.style||{})"
-  >
+  <div v-else-if="!element.props.hide" class="drag" :style="getElementStyle(element.style || {})">
     <slot></slot>
   </div>
 </template>
@@ -225,7 +218,7 @@ export default defineComponent({
       }
     }
 
-    onBeforeMount(() => {});
+    onBeforeMount(() => { });
     return {
       rotate,
       point_names,

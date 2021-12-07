@@ -4,266 +4,266 @@ export const animationList = [
     children: [
       {
         title: "淡入",
-        classname: "fadeIn",
+        classname: "fadeIn"
       },
       {
         title: "向下淡入",
-        classname: "fadeInDown",
+        classname: "fadeInDown"
       },
       {
         title: "大幅向下淡入",
-        classname: "fadeInDownBig",
+        classname: "fadeInDownBig"
       },
       {
         title: "向左淡入",
-        classname: "fadeInLeft",
+        classname: "fadeInLeft"
       },
       {
         title: "大幅向左淡入",
-        classname: "fadeInLeftBig",
+        classname: "fadeInLeftBig"
       },
       {
         title: "向右淡入",
-        classname: "fadeInRight",
+        classname: "fadeInRight"
       },
       {
         title: "大幅向右淡入",
-        classname: "fadeInRightBig",
+        classname: "fadeInRightBig"
       },
       {
         title: "向上淡入",
-        classname: "fadeInUp",
+        classname: "fadeInUp"
       },
       {
         title: "大幅向上淡入",
-        classname: "fadeInUpBig",
+        classname: "fadeInUpBig"
       },
       {
         title: "向左移入",
-        classname: "slideInLeft",
+        classname: "slideInLeft"
       },
       {
         title: "向右移入",
-        classname: "slideInRight",
+        classname: "slideInRight"
       },
       {
         title: "向下移入",
-        classname: "slideInDown",
+        classname: "slideInDown"
       },
       {
         title: "弹入",
-        classname: "bounceIn",
+        classname: "bounceIn"
       },
       {
         title: "向左弹入",
-        classname: "bounceInLeft",
+        classname: "bounceInLeft"
       },
       {
         title: "向右弹入",
-        classname: "bounceInRight",
+        classname: "bounceInRight"
       },
       {
         title: "向上弹入",
-        classname: "bounceInUp",
+        classname: "bounceInUp"
       },
       {
         title: "向下弹入",
-        classname: "bounceInDown",
+        classname: "bounceInDown"
       },
       {
         title: "X轴翻转进入",
-        classname: "flipInX",
+        classname: "flipInX"
       },
       {
         title: "Y轴翻转进入",
-        classname: "flipInY",
+        classname: "flipInY"
       },
       {
         title: "光速进入",
-        classname: "lightSpeedIn",
+        classname: "lightSpeedIn"
       },
       {
         title: "旋转进入",
-        classname: "rotateIn",
+        classname: "rotateIn"
       },
       {
         title: "左下旋转进入",
-        classname: "rotateInDownLeft",
+        classname: "rotateInDownLeft"
       },
       {
         title: "右下旋转进入",
-        classname: "rotateInDownRight",
+        classname: "rotateInDownRight"
       },
       {
         title: "左上旋转进入",
-        classname: "rotateInUpLeft",
+        classname: "rotateInUpLeft"
       },
       {
         title: "右上旋转进入",
-        classname: "rotateInUpRight",
+        classname: "rotateInUpRight"
       },
       {
         title: "从左滚入",
-        classname: "rollIn",
-      },
-    ],
+        classname: "rollIn"
+      }
+    ]
   },
   {
     type: "强调",
     children: [
       {
         title: "弹跳",
-        classname: "bounce",
+        classname: "bounce"
       },
       {
         title: "闪烁",
-        classname: "flash",
+        classname: "flash"
       },
       {
         title: "放大缩小",
-        classname: "pulse",
+        classname: "pulse"
       },
       {
         title: "抖动",
-        classname: "rubberBand",
+        classname: "rubberBand"
       },
       {
         title: "左右晃动",
-        classname: "shake",
+        classname: "shake"
       },
       {
         title: "悬摆",
-        classname: "swing",
+        classname: "swing"
       },
       {
         title: "放大抖动",
-        classname: "tada",
+        classname: "tada"
       },
       {
         title: "左右悬摆",
-        classname: "wobble",
+        classname: "wobble"
       },
       {
         title: "翻转",
-        classname: "flip",
-      },
-    ],
+        classname: "flip"
+      }
+    ]
   },
   {
     type: "退出",
     children: [
       {
         title: "淡出",
-        classname: "fadeOut",
+        classname: "fadeOut"
       },
       {
         title: "向下淡出",
-        classname: "fadeOutDown",
+        classname: "fadeOutDown"
       },
       {
         title: "大幅向下淡出",
-        classname: "fadeOutDownBig",
+        classname: "fadeOutDownBig"
       },
       {
         title: "向左淡出",
-        classname: "fadeOutLeft",
+        classname: "fadeOutLeft"
       },
       {
         title: "大幅向左淡出",
-        classname: "fadeOutLeftBig",
+        classname: "fadeOutLeftBig"
       },
       {
         title: "向右淡出",
-        classname: "fadeOutRight",
+        classname: "fadeOutRight"
       },
       {
         title: "大幅向右淡出",
-        classname: "fadeOutRightBig",
+        classname: "fadeOutRightBig"
       },
       {
         title: "向下淡出",
-        classname: "fadeOutUp",
+        classname: "fadeOutUp"
       },
       {
         title: "大幅向下淡出",
-        classname: "fadeOutUpBig",
+        classname: "fadeOutUpBig"
       },
       {
         title: "向左移出",
-        classname: "slideOutLeft",
+        classname: "slideOutLeft"
       },
       {
         title: "向右移出",
-        classname: "slideOutRight",
+        classname: "slideOutRight"
       },
       {
         title: "向上移出",
-        classname: "slideOutUp",
+        classname: "slideOutUp"
       },
       {
         title: "向下移出",
-        classname: "slideOutDown",
+        classname: "slideOutDown"
       },
       {
         title: "弹出",
-        classname: "bounceOut",
+        classname: "bounceOut"
       },
       {
         title: "向下弹出",
-        classname: "bounceOutDown",
+        classname: "bounceOutDown"
       },
       {
         title: "向左弹出",
-        classname: "bounceOutLeft",
+        classname: "bounceOutLeft"
       },
       {
         title: "向右弹出",
-        classname: "bounceOutRight",
+        classname: "bounceOutRight"
       },
       {
         title: "向上弹出",
-        classname: "bounceOutUp",
+        classname: "bounceOutUp"
       },
       {
         title: "X轴翻转移出",
-        classname: "flipOutX",
+        classname: "flipOutX"
       },
       {
         title: "Y轴翻转移出",
-        classname: "flipOutY",
+        classname: "flipOutY"
       },
       {
         title: "光速移出",
-        classname: "lightSpeedOut",
+        classname: "lightSpeedOut"
       },
       {
         title: "旋转移出",
-        classname: "rotateOut",
+        classname: "rotateOut"
       },
       {
         title: "左下旋转移出",
-        classname: "rotateOutDownLeft",
+        classname: "rotateOutDownLeft"
       },
       {
         title: "右下旋转移出",
-        classname: "rotateOutDownRight",
+        classname: "rotateOutDownRight"
       },
       {
         title: "左上旋转移出",
-        classname: "rotateOutUpLeft",
+        classname: "rotateOutUpLeft"
       },
       {
         title: "右上旋转移出",
-        classname: "rotateOutUpRight",
+        classname: "rotateOutUpRight"
       },
       {
         title: "向左脱落",
-        classname: "hinge",
+        classname: "hinge"
       },
       {
         title: "向右滚出",
-        classname: "rollOut",
-      },
-    ],
-  },
+        classname: "rollOut"
+      }
+    ]
+  }
 ];

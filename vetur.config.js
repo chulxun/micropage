@@ -3,7 +3,7 @@
 module.exports = {
   projects: [
     {
-      root: './micropage/h5'
+       root: './micropage/h5'
     },
   ],
 }
