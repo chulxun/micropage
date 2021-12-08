@@ -6,15 +6,8 @@
         round
         icon="el-icon-circle-plus-outline"
         @click="animationTabVisible = true"
-        >添加一个动画</el-button
-      >
-      <el-button
-        type="success"
-        round
-        icon="el-icon-video-play"
-        @click="playAllAni"
-        >预览所有动画</el-button
-      >
+      >添加一个动画</el-button>
+      <el-button type="success" round icon="el-icon-video-play" @click="playAllAni">预览所有动画</el-button>
     </div>
     <van-popup
       v-model:show="animationTabVisible"
@@ -23,7 +16,8 @@
       closeable
       :style="{ height: '100%' }"
       :overlay-style="{ position: 'absolute' }"
-      ><el-tabs v-model="animationTab">
+    >
+      <el-tabs v-model="animationTab">
         <el-tab-pane
           v-for="(item, index) in animationList"
           :key="index"
@@ -42,21 +36,17 @@
             </div>
           </div>
         </el-tab-pane>
-      </el-tabs></van-popup
-    >
+      </el-tabs>
+    </van-popup>
 
-    <template
-      v-if="editingElement.animations && editingElement.animations.length > 0"
-    >
+    <template v-if="editingElement.animations && editingElement.animations.length > 0">
       <el-divider content-position="left">已有动画</el-divider>
       <el-collapse accordion>
-        <el-collapse-item
-          v-for="(item, index) in editingElement.animations"
-          :key="index"
-        >
+        <el-collapse-item v-for="(item, index) in editingElement.animations" :key="index">
           <template #title>
             <div class="ani_title">
-              <span>{{ index + 1 }}</span> <strong>{{ item.title }}</strong>
+              <span>{{ index + 1 }}</span>
+              <strong>{{ item.title }}</strong>
               <el-button
                 size="mini"
                 type="success"
@@ -74,41 +64,31 @@
             </div>
           </template>
           <div>
-            <el-form class="demo-form-inline" label-width="100px">
+            <el-form class="demo-form-inline" label-width="90px" size="small">
               <el-form-item label="时间：">
-                <el-input-number
-                  v-model="item.duration"
-                  :min="0"
-                  :max="100"
-                  :step="0.1"
-                  label="时间"
-                  size="medium"
-                ></el-input-number>
-                秒
+                <el-input-number v-model="item.duration" :min="0" :max="100" :step="0.1" label="时间"></el-input-number>&nbsp;秒
               </el-form-item>
               <el-form-item label="延迟：">
-                <el-input-number
-                  v-model="item.delay"
-                  :min="0"
-                  :max="100"
-                  :step="0.1"
-                  label="延迟"
-                  size="medium"
-                ></el-input-number>
-                秒
+                <el-input-number v-model="item.delay" :min="0" :max="100" :step="0.1" label="延迟"></el-input-number>&nbsp;秒
               </el-form-item>
               <el-form-item label="重复次数：">
-                <el-input-number
-                  v-model="item.count"
-                  :min="1"
-                  :max="100"
-                  label="重复次数"
-                  size="medium"
-                ></el-input-number>
-                秒
+                <el-input-number v-model="item.count" :min="1" :max="100" label="重复次数"></el-input-number>&nbsp;秒
               </el-form-item>
               <el-form-item label="循环：">
                 <el-switch v-model="item.infinite"></el-switch>
+              </el-form-item>
+              <el-form-item label="速度曲线：">
+                <el-select style="width: 90%" v-model="item.timing" placeholder="请选择">
+                  <el-option
+                    v-for="item in timList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                    <span style="float: left">{{ item.label }}</span>
+                    <span class="span_right">{{ item.value }}</span>
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-form>
           </div>
@@ -136,6 +116,7 @@ import {
   ElFormItem,
   ElSwitch,
   ElInputNumber,
+  ElSelect, ElOption
 } from "element-plus";
 import { Popup } from "vant";
 import { animationList } from "@/data/animate";
@@ -152,7 +133,7 @@ export default defineComponent({
     ElSwitch,
     ElInputNumber,
     ElTabs,
-    ElTabPane,
+    ElTabPane, ElSelect, ElOption,
     [Popup.name]: Popup,
   },
   setup() {
@@ -163,8 +144,30 @@ export default defineComponent({
     const animationTab = ref(""); //动画列表的tab
     animationTab.value = animationList[0].type; //tab 默认值
     const animationTabVisible = ref(false); //显示可添加的动画列表
+    const timList = [
+      {
+        value: "ease",
+        label: "先加速后减速",
+      },
+      {
+        value: "ease-in",
+        label: "加速",
+      },
+      {
+        value: "ease-out",
+        label: "减速",
+      },
+      {
+        value: "ease-in-out",
+        label: "缓慢加速后减速",
+      },
+      {
+        value: "linear",
+        label: "匀速",
+      },
+    ];
     //添加一个动画
-    function addAnimation(item, type) {
+    function addAnimation(item: any, type?: string) {
       if (!editingElement.value.animations)
         editingElement.value.animations = [];
       editingElement.value.animations.push({
@@ -175,10 +178,11 @@ export default defineComponent({
         count: 1,
         infinite: false,
         playing: type ? true : false,
+        timing: 'ease',
       });
       if (!type) animationTabVisible.value = false;
     }
-    function leaveAnimation(item) {
+    function leaveAnimation(item: any) {
       let anis = editingElement.value.animations;
       if (
         anis &&
@@ -189,11 +193,11 @@ export default defineComponent({
       }
     }
     //删除一个动画
-    function deleteAni(index) {
+    function deleteAni(index: number) {
       editingElement.value.animations.splice(index, 1);
     }
     //播放一个动画
-    function playAni(index) {
+    function playAni(index: number) {
       editingElement.value.animations[index].playing = true;
     }
     //播放该元素的所有动画
@@ -203,7 +207,7 @@ export default defineComponent({
         editingElement.value.animations.length > 0
       ) {
         editingElement.value.animations = editingElement.value.animations.map(
-          (item) => {
+          (item: any) => {
             item.playing = true;
             return item;
           }
@@ -212,6 +216,7 @@ export default defineComponent({
     }
 
     return {
+      timList,
       animationTabVisible,
       animationTab,
       editingElement,
@@ -289,5 +294,11 @@ export default defineComponent({
 }
 :deep(.el-button.is-circle) {
   padding: 8px;
+}
+.span_right {
+  float: right;
+  color: #8492a6;
+  font-size: 12px;
+  margin-right: -10px;
 }
 </style>

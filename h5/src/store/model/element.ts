@@ -16,7 +16,8 @@ const defaultStyle = {
   width: 100,
   height: 40,
   color: '#000000',
-  fontSize: 14
+  fontSize: 14,
+  position:'absolute'
 }
 class Element {
   ukey: string;

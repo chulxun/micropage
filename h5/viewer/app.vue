@@ -10,33 +10,31 @@
       :space-between="0"
       direction="vertical"
       :pagination="{ clickable: true }"
+      :threshold="30"
       v-if="work.page_type == 2"
     >
-      <swiper-slide
-        class="swiper-item"
-        v-for="page in work.pages"
-        :key="page.ukey"
-      >
+      <swiper-slide class="swiper-item" v-for="page in work.pages" :key="page.ukey">
         <div
           v-for="item in page.elements"
           :key="item.ukey"
-          :style="getElementStyle(item.style, true,pageHeight)"
+          :style="getElementStyle(item.style, true, pageHeight)"
         >
           <animation :element="item" v-if="!item.props.hide">
-            <element :element="item"></element
-          ></animation></div
-      ></swiper-slide>
+            <element :element="item"></element>
+          </animation>
+        </div>
+      </swiper-slide>
     </swiper>
     <!-- 单页 -->
     <template v-for="page in work.pages" v-else>
       <div
         v-for="item in page.elements"
         :key="item.ukey"
-        :style="getElementStyle(item.style, true,pageHeight)"
+        :style="getElementStyle(item.style, true, pageHeight)"
       >
         <animation :element="item" v-if="!item.props.hide">
-          <element :element="item"></element
-        ></animation>
+          <element :element="item"></element>
+        </animation>
       </div>
     </template>
     <div class="mode_tips" v-if="mode == 'preview'">预览模式</div>
@@ -53,8 +51,8 @@ import {
 } from "vue";
 import element from "@/components/plugins/element.vue";
 import animation from "@/components/common/animation.vue";
-import { getElementStyle, pxToRem } from "@/utils/element";
-import { getWorkPreview, getWorkDetail } from "@/api/works";
+import { getElementStyle, pxToRem } from "../src/utils/element";
+import { getWorkPreview, getWorkDetail } from "../src/api/works";
 import { Toast } from "vant";
 import SwiperCore, { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -62,7 +60,7 @@ import "swiper/swiper.scss";
 import "swiper/components/pagination/pagination.scss";
 SwiperCore.use([Pagination]);
 import { useWindowSize } from "@vant/use";
-import { getSearchQueryString } from "@/utils/index";
+import { getSearchQueryString } from "../src/utils/index";
 import "@vant/touch-emulator";
 export default defineComponent({
   props: ["workId", "mode"],
@@ -75,7 +73,7 @@ export default defineComponent({
   setup() {
     const pcUrl = ref("");
     const isLoading = ref(true);
-    const work: any = reactive({});
+    const work = reactive({});
     const pageHeight = ref(667);
     const { width, height } = useWindowSize();
     const workId = getSearchQueryString("workId");
@@ -198,16 +196,5 @@ export default defineComponent({
 }
 .swiper-slide-active .animCan {
   animation-play-state: running;
-}
-::-webkit-scrollbar {
-  width:4px;
-}
-::-webkit-scrollbar-track {
-  border-radius: 3px;
-  background-color: rgba(0,0,0,0.1);
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 3px;
-  background: #aaa;
 }
 </style>

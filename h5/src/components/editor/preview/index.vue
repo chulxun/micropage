@@ -1,42 +1,25 @@
 <template>
-  <el-dialog
-    title="作品预览"
-    v-model="previewShow"
-    custom-class="preview_dialog"
-    width="700px"
-  >
+  <el-dialog title="作品预览" v-model="previewShow" custom-class="preview_dialog" width="700px">
     <div class="preview_content" v-if="workId">
       <div class="preview">
-        <iframe
-          :src="mobileUrl"
-          frameborder="0"
-          width="375px"
-          height="667px"
-        ></iframe>
+        <iframe :src="mobileUrl" frameborder="0" width="375px" height="667px"></iframe>
       </div>
       <div class="note">
         <div class="title">作品信息</div>
-        <div class="desc">
-          <div class="tr">
-            <p>作品名称：</p>
-            <div>{{ work.title }}</div>
-          </div>
-          <div class="tr">
-            <p>作品描述：</p>
-            <div>{{ work.description }}</div>
-          </div>
-          <div class="tr">
-            <p>上次发布：</p>
-            <div>{{ formatDate(work.updated_at) }}</div>
+        <div class="share" v-if="work.title">
+          <div class="tt">{{ work.title }}</div>
+          <div class="flex">
+            <img :src="work.share_img_url" />
+            <p>{{ work.description }}</p>
           </div>
         </div>
         <div class="qrcode">
           <div class="tt">扫码预览</div>
           <canvas ref="qrcodeImg"></canvas>
           <div>
-            <a :href="mobileUrl" target="_blank"
-              ><i class="el-icon-top-right"></i> 打开新页面预览</a
-            >
+            <a :href="mobileUrl" target="_blank">
+              <i class="el-icon-top-right"></i> 打开新页面预览
+            </a>
           </div>
         </div>
         <template
@@ -48,8 +31,8 @@
           <el-button type="primary" @click="onPublish">立即发布</el-button>
         </template>
       </div>
-    </div></el-dialog
-  >
+    </div>
+  </el-dialog>
 </template>
 <script lang='ts'>
 import QRCode from "qrcode";
@@ -71,7 +54,7 @@ export default defineComponent({
     const previewShow = ref(props.previewVisible);
     const mobileUrl = ref("");
     const qrcodeImg = ref(null); //二维码dom元素
-    const work = reactive({});
+    const work: H5.WorkInfo = reactive({});
     watch(previewShow, (val, oldval) => {
       ctx.emit("update:previewVisible", val);
     });
@@ -90,7 +73,7 @@ export default defineComponent({
         qrcodeImg.value,
         window.location.origin + mobileUrl.value,
         { margin: 1, scale: 4, width: 130 },
-        (err: Error) => {}
+        (err: Error) => { }
       );
     }
     //发布作品
@@ -128,18 +111,36 @@ export default defineComponent({
       border-bottom: 1px solid var(--borderColor);
     }
   }
-  .desc {
-    padding: 15px 0 10px;
-    .tr {
+  .share {
+    word-break: break-all;
+    padding: 10px;
+    background: #f2f2f2;
+    margin: 15px 0;
+    .tt {
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-bottom: 10px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .flex {
       display: flex;
-      padding: 4px 0;
-      p {
-        flex-shrink: 0;
-        width: 80px;
-      }
-      div {
-        color: #000;
-      }
+    }
+    img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      margin-right: 10px;
+      border-radius: 2px;
+    }
+    p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      font-size: 12px;
     }
   }
   .qrcode {

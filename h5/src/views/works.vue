@@ -123,8 +123,8 @@ export default defineComponent({
     const router = useRouter();
     const addVisible = ref(false); //显示添加作品弹框
     const page_type = ref(0); //页面类型
-    const worksList = reactive([]); //作品列表
-    const workRefs = reactive([]); //作品dom
+    const worksList: H5.WorksList = reactive([]); //作品列表
+    const workRefs: Array<HTMLElement> = reactive([]); //作品dom
     const previewVisible = ref(false); //预览
     const workId = ref(""); //预览作品ID
     const page = reactive({
@@ -149,7 +149,7 @@ export default defineComponent({
       const res = await getWorksList(params);
       if (res && res.code == 0) {
         worksList.length = 0;
-        let data = res.data.map((item: any) => {
+        let data = res.data.map((item: H5.WorkInfo) => {
           item.showQrcode = false;
           return item;
         });

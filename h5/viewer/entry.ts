@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './app.vue'
-import { store, key } from '@/store/index'
+import { store, key } from '../src/store/index'
 import axios from "axios";
 const app = createApp(App)
 if (store.state.user.userInfo.token) {

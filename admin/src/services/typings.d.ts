@@ -1,5 +1,4 @@
-// @ts-ignore
-/* eslint-disable */
+ /* eslint-disable */
 
 declare namespace API {
   type Options = {

@@ -3,17 +3,14 @@
     <div v-for="(item, index) in pluginList" :key="index">
       <div class="plugin_list" v-if="operaType == index + 1">
         <div class="title">
-          {{ item.title
-          }}<i class="el-icon-close closed" @click="closedThis"></i>
+          {{
+          item.title
+          }}
+          <i class="el-icon-close closed" @click="closedThis"></i>
         </div>
-        <el-alert show-icon title="点击或拖拽组件到编辑器" type="warning">
-        </el-alert>
+        <el-alert show-icon title="点击或拖拽组件到编辑器" type="warning"></el-alert>
         <div class="con img_list" v-if="item.children.length > 0">
-          <div
-            class="plug_item"
-            v-for="(item1, index1) in item.children"
-            :key="index1"
-          >
+          <div class="plug_item" v-for="(item1, index1) in item.children" :key="index1">
             <i
               :class="item1.icon"
               v-if="item1.icon"
@@ -40,12 +37,11 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store/index";
-import importPlugs from "@/mixins/importPlugs.ts";
+import importPlugs from "@/mixins/importPlugs";
 import { ElEmpty, ElAlert } from "element-plus";
 export default defineComponent({
   mixins: [importPlugs],
   components: { ElEmpty, ElAlert },
-
   setup(props, ctx) {
     const store = useStore();
     const operaType = computed(() => store.state.common.operaType);
@@ -85,7 +81,7 @@ export default defineComponent({
   left: 80px;
   top: 60px;
   z-index: 1000;
-  width: 290px;
+  width: 260px;
   height: calc(100% - 60px);
   background: #fff;
   border-right: 1px solid var(--borderColor);
@@ -100,7 +96,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px;
+    padding: 12px;
     .closed {
       cursor: pointer;
     }
@@ -108,17 +104,17 @@ export default defineComponent({
   .img_list {
     flex: 1;
     overflow-y: auto;
-    padding-bottom: 16px;
+    padding-bottom: 12px;
     .plug_item {
       position: relative;
-      margin-top: 16px;
+      margin-top: 12px;
       background: var(--lightBgColor);
       border-radius: 5px;
       overflow: hidden;
-      width: 120px;
-      height: 120px;
+      width: 110px;
+      height: 110px;
       float: left;
-      margin-left: 16px;
+      margin-left: 12px;
       i {
         font-size: 40px;
         padding-bottom: 20px;
@@ -137,6 +133,7 @@ export default defineComponent({
         background: rgba(0, 0, 0, 0.5);
         color: #fff;
         padding: 5px;
+        font-size: 12px;
       }
     }
     .img {

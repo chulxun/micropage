@@ -1,8 +1,11 @@
 # 微页接口项目
-koa框架 + mongodb数据库
+
+koa 框架 + mongodb 数据库
 
 ## 项目结构
+
 项目下主要文件目录介绍：
+
 ```
 ├── config
 │   └── default.json    //开发环境配置
@@ -25,9 +28,11 @@ koa框架 + mongodb数据库
 │   └── works.js
 ├── router.js       //接口路由配置
 └── app.js  //入口文件
- 
+
 ```
-## 创建mongo数据库
+
+## 创建 mongo 数据库
+
 ```
 以下创建信息以config/default.json中的连接信息为例：
 （假设mongo已安装，mongo服务器已启动）
@@ -37,15 +42,17 @@ koa框架 + mongodb数据库
 2、创建数据库：use micropageDB
 3、创建用户：
 db.createUser({
-  user: 'micropage',  
-  pwd: '123456',  
+  user: 'micropage',
+  pwd: '123456',
   roles:[{
-    role: 'readWrite',  
-    db: 'micropageDB' 
+    role: 'readWrite',
+    db: 'micropageDB'
   }]
 })
 ```
+
 ## 项目运行
+
 ```
 1、安装依赖 npm install
 2、配置上传接口所需对象存储平台的密匙(目前是七牛云，其他平台代码需要自己实现)
@@ -57,12 +64,13 @@ db.createUser({
   config/production.json
 4、本地运行项目：（端口：4000）预览：http://localhost:4000
    npm run dev
-   
+
    生产环境运行项目：（端口：8000）预览：http://localhost:8000
    npm start
 ```
 
 ## 服务器部署
+
 ```
 1、代码部署到服务器
 2、创建数据库、创建用户，根据自己的数据库以及用户信息修改production.json 中的数据库连接
@@ -74,8 +82,8 @@ db.createUser({
    windows:pm2 start cmd.js -n micropage-api -i max
    cmd.js文件内容：
    const cmd = require('node-cmd');
-   cmd.run('npm run start');  
+   cmd.run('npm run start');
 
    综上，完成部署：
-   预览：http://localhost:9000
+   预览：http://localhost:9001
 ```

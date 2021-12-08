@@ -14,31 +14,31 @@ export default defineConfig({//defineConfig 帮手函数，这样不用 jsdoc �
     }
   },
   plugins: [vue(),
-  styleImport({
-    libs: [
-      {
-        libraryName: 'element-plus',
-        esModule: true,
-        ensureStyleFile: true,
-        resolveStyle: (name) => {
-          name = name.slice(3)
-          return `element-plus/packages/theme-chalk/src/${name}.scss`;
+    styleImport({
+      libs: [
+        {
+          libraryName: 'element-plus',
+          esModule: true,
+          ensureStyleFile: true,
+          resolveStyle: (name) => {
+            name = name.slice(3)
+            return `element-plus/packages/theme-chalk/src/${name}.scss`;
+          },
+          resolveComponent: (name) => {
+            return `element-plus/lib/${name}`;
+          },
         },
-        resolveComponent: (name) => {
-          return `element-plus/lib/${name}`;
+        {
+          libraryName: 'vant',
+          esModule: true,
+          resolveStyle: (name) => `vant/es/${name}/style`,
         },
-      },
-      {
-        libraryName: 'vant',
-        esModule: true,
-        resolveStyle: (name) => `vant/es/${name}/style`,
-      },
-    ],
-  }),
+      ],
+    }),
   ],
   resolve: {
     alias: [{ find: '@', replacement: resolve(__dirname, 'src') },
-  ],
+    ],
 
   },
   //build配置

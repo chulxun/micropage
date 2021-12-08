@@ -22,12 +22,13 @@
         padding: '16px 0',
         display: 'flex',
       }"
-      ><div class="text">{{ element.props.clickContent }}</div></van-popup
     >
+      <div class="text">{{ element.props.clickContent }}</div>
+    </van-popup>
   </div>
 </template>
 <script lang='ts'>
-import { defineComponent, ref, onMounted } from "vue";
+import { Ref, defineComponent, ref, onMounted } from "vue";
 import { Toast, Popup } from "vant";
 export default defineComponent({
   props: ["element"],
@@ -35,12 +36,12 @@ export default defineComponent({
     [Popup.name]: Popup,
   },
   setup(props) {
-    const animationBox = ref(null);
+    const animationBox: Ref<HTMLElement | null> = ref(null);
     const curAnimate = ref({});
     const hasAnimate = ref(false);
     const show = ref(false);
     let index = 0;
-    let anis = [];
+    let anis: any = [];
     // //播放一个动画
     function playAnimation(item: any) {
       curAnimate.value = {
@@ -52,6 +53,7 @@ export default defineComponent({
         animationIterationCount: item.infinite ? "infinite" : item.count,
         animationDelay: `${item.delay}s`,
         animationFillMode: "both",
+        animationTimingFunction: item.timing || "ease",
         display: "block",
       };
       setTimeout(() => {
@@ -85,16 +87,17 @@ export default defineComponent({
         index = 0;
         playAnimation(anis[0]);
         //监听顺序播放动画
-        animationBox.value.addEventListener("animationend", function () {
-          if (anis.length > index + 1) {
-            index++;
-            playAnimation(anis[index]);
-          } else if (anis.length == index + 1) {
-            index = 0;
-            //动画播放完毕，清空状态
-            curAnimate.value = {};
-          }
-        });
+        if (animationBox.value)
+          animationBox.value.addEventListener("animationend", function () {
+            if (anis.length > index + 1) {
+              index++;
+              playAnimation(anis[index]);
+            } else if (anis.length == index + 1) {
+              index = 0;
+              //动画播放完毕，清空状态
+              curAnimate.value = {};
+            }
+          });
       }
     });
 

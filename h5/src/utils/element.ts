@@ -1,7 +1,7 @@
 const outsideData = ['width', 'height', 'left', 'top', 'transform', 'position']
 // 组装 element的style(最外层)
 export function getElementStyle(styles: any, isRem: boolean = false, pageHeight = 667) {
-   const newStyle:any = { zIndex: 1 }
+  const newStyle:any = { zIndex: 1 }
   if (!styles.position) {
     newStyle.position = 'absolute'
   }
@@ -41,7 +41,7 @@ export function getElementInsideStyle(elename:string, styles:any, isRem = false)
           newStyle.justifyContent = styles[key]
         }
       } if (key === 'padding') {
-         let pd = isRem ? pxToRem(styles.padding) : styles.padding + "px";
+        let pd = isRem ? pxToRem(styles.padding) : styles.padding + "px";
         if(elename === 'plug-text'){
           newStyle.padding = pd;
         }else{
