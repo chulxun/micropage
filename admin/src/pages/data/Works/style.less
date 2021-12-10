@@ -22,6 +22,9 @@
       height: 48px;
       line-height: 48px;
     }
+    .deleted {
+      opacity: 0.3;
+    }
   }
   .headerInfo {
     position: relative;
@@ -50,13 +53,16 @@
   }
   .listContent {
     font-size: 0;
+
     .listContentItem {
       display: inline-block;
       margin-left: 40px;
-      color: @text-color-secondary;
+      color: #333;
       font-size: @font-size-base;
       vertical-align: middle;
+
       > span {
+        font-weight: bold;
         line-height: 20px;
       }
       > p {

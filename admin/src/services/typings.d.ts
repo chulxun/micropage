@@ -85,18 +85,21 @@ declare namespace API {
     share_img_url: string;
     title: string;
     updated_at: number;
-    user_id: number;
+    user_id?: number;
+    user_name?: string;
     work_id: string;
     _id: string;
   };
   //作品列表
-  type WorksList = {
+  type WorksResult = {
     code: number;
     message: string;
-    data: WorkInfo[];
-    page?: string;
+    data: WorksData ;
   };
-
+ type WorksData = {
+      list: WorkInfo[];
+      page: any
+  };
   // type FakeCaptcha = {
   //   code?: number;
   //   status?: string;
@@ -111,25 +114,26 @@ declare namespace API {
   //   success?: boolean;
   // };
 
-  // type NoticeIconList = {
-  //   data?: NoticeIconItem[];
-  //   /** 列表的内容总数 */
-  //   total?: number;
-  //   success?: boolean;
-  // };
+  // antd 通知组建
+  type NoticeIconList = {
+    data?: NoticeIconItem[];
+    /** 列表的内容总数 */
+    total?: number;
+    success?: boolean;
+  };
 
-  // type NoticeIconItemType = 'notification' | 'message' | 'event';
+  type NoticeIconItemType = 'notification' | 'message' | 'event';
 
-  // type NoticeIconItem = {
-  //   id?: string;
-  //   extra?: string;
-  //   key?: string;
-  //   read?: boolean;
-  //   avatar?: string;
-  //   title?: string;
-  //   status?: string;
-  //   datetime?: string;
-  //   description?: string;
-  //   type?: NoticeIconItemType;
-  // };
+  type NoticeIconItem = {
+    id?: string;
+    extra?: string;
+    key?: string;
+    read?: boolean;
+    avatar?: string;
+    title?: string;
+    status?: string;
+    datetime?: string;
+    description?: string;
+    type?: NoticeIconItemType;
+  };
 }

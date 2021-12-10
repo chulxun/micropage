@@ -44,14 +44,18 @@ apiRouter
 
 const adminRouter = new Router();
 adminRouter
+  // 用户相关接口
   .post("/user/login", users.login)
   .get("/user/list", users.list)
   .post("/user/register", users.register)
   .post("/user/changePwd", users.changePwdAdmin)
   .post("/user/writeOffUser", users.writeOffUserAdmin)
   .post("/user/recoveryUser", users.recoveryUserAdmin)
-  
-
+   // 作品相关接口
+  .get("/works/getAllWorksList", works.getAllWorksList)
+  .post("/works/deleteWork", works.deleteWork)
+  .post("/works/recoveryWork", works.recoveryWork)
+ 
 const router = new Router();
 router.use("/admin",middleware.hasAdminRole(1), adminRouter.routes(), adminRouter.allowedMethods());
 router.use("/api", apiRouter.routes(), apiRouter.allowedMethods());

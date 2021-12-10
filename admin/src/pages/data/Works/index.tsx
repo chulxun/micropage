@@ -1,20 +1,18 @@
 import type { FC } from 'react';
 import React, { useState } from 'react';
-import { DownOutlined } from '@ant-design/icons';
-import { Avatar, Card, Col, Dropdown, Input, List, Menu, Modal, Radio, Row } from 'antd';
-
+import { Avatar, Card, Col, Input, List, Modal, Radio, Row, message } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { useRequest } from 'umi';
 import moment from 'moment';
 import OperationModal from './components/OperationModal';
-import { worksList } from '@/services/works';
-import { addFakeList, removeFakeList, updateFakeList } from './service';
+import { getAllWorksList, deleteWork, recoveryWork } from '@/services/works';
 import styles from './style.less';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
 
+// 顶部统计数量card
 const Info: FC<{
   title: React.ReactNode;
   value: React.ReactNode;
@@ -27,109 +25,92 @@ const Info: FC<{
   </div>
 );
 
-// const ListContent = ({
-//   data: { owner, createdAt, percent, status },
-// }: {
-//   data: API.WorkInfo;
-// }) => (
-//   <div className={styles.listContent}>
-//     <div className={styles.listContentItem}>
-//       <span>Owner</span>
-//       <p>{owner}</p>
-//     </div>
-//     <div className={styles.listContentItem}>
-//       <span>开始时间</span>
-//       <p>{moment(createdAt).format('YYYY-MM-DD HH:mm')}</p>
-//     </div>
-//     <div className={styles.listContentItem}>
-//       <Progress percent={percent} status={status} strokeWidth={6} style={{ width: 180 }} />
-//     </div>
-//   </div>
-// );
-
-export const BasicList: FC = () => {
+export const WorkList: FC = () => {
+  // 作品类型
+  const [pageType, setPageType] = useState<number | ''>('');
+  // 搜索框
+  const [searchTitle, setSearchTitle] = useState<string>('');
+  const [pageIndex, setPageIndex] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(10);
   const [done, setDone] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
   const [current, setCurrent] = useState<Partial<API.WorkInfo> | undefined>(undefined);
-
-  const { data, loading, mutate } = useRequest(() => {
-    return worksList({
-      // count: 50,
-    });
-  });
-  const { run: postRun } = useRequest(
-    (method, params) => {
-      if (method === 'remove') {
-        return removeFakeList(params);
-      }
-      if (method === 'update') {
-        return updateFakeList(params);
-      }
-      return addFakeList(params);
+  // 获取列表数据
+  const { data, loading, refresh } = useRequest(
+    () => {
+      return getAllWorksList({
+        pageType,
+        searchTitle,
+        pageIndex,
+        pageSize,
+      });
     },
     {
-      manual: true,
-      onSuccess: (result: any) => {
-        mutate(result);
-      },
+      refreshDeps: [pageType, searchTitle, pageIndex, pageSize],
     },
   );
-
-  const paginationProps = {
-    showSizeChanger: true,
-    showQuickJumper: true,
-    pageSize: 5,
-    // total: data.length,
-  };
-
+  // 编辑
   const showEditModal = (item: API.WorkInfo) => {
     setVisible(true);
     setCurrent(item);
   };
-
-  const deleteItem = (id: number) => {
-    postRun('remove', { id });
+  // 删除
+  const deleteItem = (item: API.WorkInfo) => {
+    Modal.confirm({
+      title: '删除作品',
+      content: `确定删除 “${item.title}” 吗？`,
+      okText: '确认',
+      cancelText: '取消',
+      onOk: async () => {
+        const res = await deleteWork({ work_id: item.work_id });
+        if (res.code === 0) {
+          message.success('操作成功');
+          refresh();
+        } else {
+          message.error(res.message);
+        }
+      },
+    });
   };
-
-  const editAndDelete = (key: string | number, currentItem: API.WorkInfo) => {
-    if (key === 'edit') showEditModal(currentItem);
-    else if (key === 'delete') {
-      Modal.confirm({
-        title: '删除任务',
-        content: '确定删除该任务吗？',
-        okText: '确认',
-        cancelText: '取消',
-        onOk: () => deleteItem(currentItem.id),
-      });
-    }
+  // 恢复
+  const recoveryItem = (item: API.WorkInfo) => {
+    Modal.confirm({
+      title: '恢复作品',
+      content: `确定恢复 “${item.title}” 吗？`,
+      okText: '确认',
+      cancelText: '取消',
+      onOk: async () => {
+        const res = await recoveryWork({ work_id: item.work_id });
+        if (res.code === 0) {
+          message.success('操作成功');
+          refresh();
+        } else {
+          message.error(res.message);
+        }
+      },
+    });
   };
-
+  // 筛选条件
   const extraContent = (
     <div className={styles.extraContent}>
-      <RadioGroup defaultValue="all">
-        <RadioButton value="all">全部</RadioButton>
-        <RadioButton value="progress">单页</RadioButton>
-        <RadioButton value="waiting">翻页</RadioButton>
+      <RadioGroup
+        defaultValue={pageType}
+        onChange={(e) => {
+          setPageType(e.target.value);
+        }}
+      >
+        <RadioButton value="">全部</RadioButton>
+        <RadioButton value={1}>单页</RadioButton>
+        <RadioButton value={2}>翻页</RadioButton>
       </RadioGroup>
-      <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
+      <Search
+        className={styles.extraContentSearch}
+        placeholder="请输入"
+        onSearch={(e) => {
+          setSearchTitle(e);
+        }}
+      />
     </div>
-  );
-
-  const MoreBtn: React.FC<{
-    item: API.WorkInfo;
-  }> = ({ item }) => (
-    <Dropdown
-      overlay={
-        <Menu onClick={({ key }) => editAndDelete(key, item)}>
-          <Menu.Item key="edit">编辑</Menu.Item>
-          <Menu.Item key="delete">删除</Menu.Item>
-        </Menu>
-      }
-    >
-      <a>
-        更多 <DownOutlined />
-      </a>
-    </Dropdown>
   );
 
   const handleDone = () => {
@@ -141,7 +122,7 @@ export const BasicList: FC = () => {
   const handleSubmit = (values: API.WorkInfo) => {
     setDone(true);
     const method = values?.id ? 'update' : 'add';
-    postRun(method, values);
+    // postRun(method, values);
   };
 
   return (
@@ -151,17 +132,16 @@ export const BasicList: FC = () => {
           <Card bordered={false}>
             <Row>
               <Col sm={8} xs={24}>
-                <Info title="全部作品" value="999+" bordered />
+                <Info title="全部作品" value={data?.page?.total_count || 0} bordered />
               </Col>
               <Col sm={8} xs={24}>
-                <Info title="已发布" value="400" bordered />
+                <Info title="已发布" value={data?.page?.publish_count || 0} bordered />
               </Col>
               <Col sm={8} xs={24}>
-                <Info title="新增作品" value="50" />
+                <Info title="今日新增" value={data?.page?.today_count || 0} />
               </Col>
             </Row>
           </Card>
-
           <Card
             className={styles.listCard}
             bordered={false}
@@ -173,10 +153,19 @@ export const BasicList: FC = () => {
               size="large"
               rowKey="id"
               loading={loading}
-              pagination={paginationProps}
-              dataSource={data}
+              pagination={{
+                pageSize: pageSize,
+                current: pageIndex,
+                total: data?.page?.total_count || 0,
+                onChange: (page, pageSize) => {
+                  setPageIndex(page);
+                  setPageSize(pageSize);
+                },
+              }}
+              dataSource={data?.list || []}
               renderItem={(item) => (
                 <List.Item
+                  className={item.is_delete ? 'deleted' : ''}
                   actions={[
                     <a
                       key="edit"
@@ -187,7 +176,27 @@ export const BasicList: FC = () => {
                     >
                       编辑
                     </a>,
-                    <MoreBtn key="more" item={item} />,
+                    item.is_delete ? (
+                      <a
+                        key="recovery"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          recoveryItem(item);
+                        }}
+                      >
+                        恢复
+                      </a>
+                    ) : (
+                      <a
+                        key="delete"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          deleteItem(item);
+                        }}
+                      >
+                        删除
+                      </a>
+                    ),
                   ]}
                 >
                   <List.Item.Meta
@@ -205,14 +214,19 @@ export const BasicList: FC = () => {
                   <div className={styles.listContent}>
                     <div className={styles.listContentItem}>
                       <span>作者</span>
-                      <p>{item.user_id}</p>
+                      <p>{item.user_name}</p>
                     </div>
-
                     <div className={styles.listContentItem}>
-                      <span>更新时间</span>
-                      <p>{moment(item.updated_at).format('YYYY-MM-DD HH:mm')}</p>
+                      <span>类型</span>
+                      <p> {item.page_type === 1 ? '单页' : '翻页'}</p>
                     </div>
-                    <div className={styles.listContentItem}>123</div>
+                    <div className={styles.listContentItem}>
+                      <span>创建时间</span>
+                      <p>{moment(item.created_at).format('YYYY-MM-DD HH:mm')}</p>
+                    </div>
+                    <div className={styles.listContentItem}>
+                      <p> {item.is_publish ? '已发布' : '未发布'}</p>
+                    </div>
                   </div>
                 </List.Item>
               )}
@@ -220,16 +234,6 @@ export const BasicList: FC = () => {
           </Card>
         </div>
       </PageContainer>
-      {/* <Button
-        type="dashed"
-        onClick={() => {
-          setVisible(true);
-        }}
-        style={{ width: '100%', marginBottom: 8 }}
-      >
-        <PlusOutlined />
-        添加
-      </Button> */}
       <OperationModal
         done={done}
         visible={visible}
@@ -241,4 +245,4 @@ export const BasicList: FC = () => {
   );
 };
 
-export default BasicList;
+export default WorkList;
