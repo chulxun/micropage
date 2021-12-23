@@ -1,6 +1,28 @@
 const { ResourcesProxy } = require("../proxy");
 
 module.exports = class ResourcesController {
+    /**
+   * 获取所有资源列表 admin
+   */
+  static async getAllList(ctx) {
+    const { pageSize = 10, pageIndex = 1, type = 1 } = ctx.request.query
+    try {
+      let params = {}
+      params.type = Number(type)
+      const list = await ResourcesProxy.getAllList({ params, pageIndex, pageSize })
+      const count = await ResourcesProxy.getCount(params)
+      const data = {
+        page: {
+          total_count: count,
+          currentPage: parseInt(pageIndex),
+        },
+        list,
+      }
+      ctx.body = ctx.util.resuccess('操作成功', { data })
+    } catch (err) {
+      throw err
+    }
+  }
   /**
    * 获取列表
    */

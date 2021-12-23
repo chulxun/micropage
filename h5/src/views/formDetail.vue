@@ -21,9 +21,9 @@
           align="center"
         >
         </el-table-column>
-        <el-table-column prop="create_at" label="创建时间" align="center">
+        <el-table-column prop="created_at" label="创建时间" align="center">
           <template #default="scope">
-            {{ formatDate(scope.row.create_at) }}
+            {{ formatDate(scope.row.created_at) }}
           </template>
         </el-table-column>
       </el-table>

@@ -2,7 +2,7 @@
 import axios from "axios";
 import qs from "qs";
 // import { store } from "@/store/index"
-var config = {
+let config = {
   withCredentials: false
 };
 import { ElMessage } from 'element-plus'
@@ -109,8 +109,8 @@ export async function axDelete(url: string, data: object, options: object) {
 }
 //config追加配置
 function extend(defaults: any, options: any) {
-  var result = defaults || {};
-  for (var prop in options) {
+  let result = defaults || {};
+  for (let prop in options) {
     if (!options.hasOwnProperty(prop)) break;
     if ("object" == typeof options[prop]) {
       result[prop] = extend(result[prop], options[prop]);

@@ -51,7 +51,7 @@ const PwdForm: React.FC<PwdFormProps> = (props) => {
         label="用户名"
         placeholder="请输入用户名"
         readonly
-        value={props.values?.user_name}
+        value={props?.values?.user_name || ''}
       />
       <ProFormText.Password
         name="pwd"

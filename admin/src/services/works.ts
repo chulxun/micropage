@@ -10,6 +10,18 @@ export async function getAllWorksList(params: API.Options, options?: API.Options
     ...(options || {}),
   });
 }
+/** 编辑 */
+export async function editWork(params: API.Options, options?: API.Options) {
+  return request<API.SubmitResult>('/admin/works/updateWork', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    requestType: 'form',
+    data: params,
+    ...(options || {}),
+  });
+}
 /** 删除 */
 export async function deleteWork(params: API.Options, options?: API.Options) {
   return request<API.SubmitResult>('/admin/works/deleteWork', {

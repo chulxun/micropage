@@ -1,12 +1,13 @@
 import type { FC } from 'react';
 import React, { useState } from 'react';
-import { Avatar, Card, Col, Input, List, Modal, Radio, Row, message } from 'antd';
+import { Avatar, Card, Col, Input, List, Modal, Radio, Row, message, Dropdown, Menu } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { useRequest } from 'umi';
 import moment from 'moment';
-import OperationModal from './components/OperationModal';
+import EditModal from './components/EditModal';
 import { getAllWorksList, deleteWork, recoveryWork } from '@/services/works';
 import styles from './style.less';
+import { DownOutlined } from '@ant-design/icons';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -32,7 +33,6 @@ export const WorkList: FC = () => {
   const [searchTitle, setSearchTitle] = useState<string>('');
   const [pageIndex, setPageIndex] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
-  const [done, setDone] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
   const [current, setCurrent] = useState<Partial<API.WorkInfo> | undefined>(undefined);
   // 获取列表数据
@@ -49,11 +49,7 @@ export const WorkList: FC = () => {
       refreshDeps: [pageType, searchTitle, pageIndex, pageSize],
     },
   );
-  // 编辑
-  const showEditModal = (item: API.WorkInfo) => {
-    setVisible(true);
-    setCurrent(item);
-  };
+
   // 删除
   const deleteItem = (item: API.WorkInfo) => {
     Modal.confirm({
@@ -112,19 +108,20 @@ export const WorkList: FC = () => {
       />
     </div>
   );
-
+  // 关闭弹框
   const handleDone = () => {
-    setDone(false);
     setVisible(false);
     setCurrent({});
   };
-
-  const handleSubmit = (values: API.WorkInfo) => {
-    setDone(true);
-    const method = values?.id ? 'update' : 'add';
-    // postRun(method, values);
+  // 选择编辑方式
+  const chooseEditType = (key: string | number, currentItem: API.WorkInfo) => {
+    if (key === 'normal') {
+      window.open('https://weiye.fanjinyan.com/editor/' + currentItem.work_id, '_blank');
+    } else {
+      setVisible(true);
+      setCurrent(currentItem);
+    }
   };
-
   return (
     <div>
       <PageContainer>
@@ -156,6 +153,7 @@ export const WorkList: FC = () => {
               pagination={{
                 pageSize: pageSize,
                 current: pageIndex,
+                hideOnSinglePage: true,
                 total: data?.page?.total_count || 0,
                 onChange: (page, pageSize) => {
                   setPageIndex(page);
@@ -167,15 +165,20 @@ export const WorkList: FC = () => {
                 <List.Item
                   className={item.is_delete ? 'deleted' : ''}
                   actions={[
-                    <a
-                      key="edit"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        showEditModal(item);
-                      }}
-                    >
-                      编辑
-                    </a>,
+                    item.is_delete ? null : (
+                      <Dropdown
+                        overlay={
+                          <Menu onClick={({ key }) => chooseEditType(key, item)}>
+                            <Menu.Item key="normal">可视化编辑</Menu.Item>
+                            <Menu.Item key="code">编辑源代码</Menu.Item>
+                          </Menu>
+                        }
+                      >
+                        <a>
+                          编辑 <DownOutlined />
+                        </a>
+                      </Dropdown>
+                    ),
                     item.is_delete ? (
                       <a
                         key="recovery"
@@ -234,13 +237,7 @@ export const WorkList: FC = () => {
           </Card>
         </div>
       </PageContainer>
-      <OperationModal
-        done={done}
-        visible={visible}
-        current={current}
-        onDone={handleDone}
-        onSubmit={handleSubmit}
-      />
+      <EditModal visible={visible} current={current} onDone={handleDone} />
     </div>
   );
 };

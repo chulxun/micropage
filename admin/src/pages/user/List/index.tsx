@@ -100,14 +100,14 @@ const TableList: React.FC = () => {
     {
       title: '注册时间',
       key: 'showTime',
-      dataIndex: 'create_at',
+      dataIndex: 'created_at',
       valueType: 'dateTime',
       sorter: true,
       hideInSearch: true,
     },
     {
       title: '注册时间',
-      dataIndex: 'create_at',
+      dataIndex: 'created_at',
       valueType: 'dateRange',
       hideInTable: true,
       search: {

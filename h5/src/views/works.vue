@@ -132,7 +132,7 @@ export default defineComponent({
       count1: 0,
       count2: 0,
       totalPage: 1,
-      pageSize: 10,
+      pageSize: 14,
       currentPage: 0,
     }); //分页数据
     const setWorkRef = (el: any) => {

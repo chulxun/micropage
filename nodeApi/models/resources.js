@@ -9,7 +9,7 @@ const schema = new Schema({
   preview_url: String,
   user_id: Number,
   type: Number,
-  create_at: {
+  created_at: {
     type: Number,
     default: Date.now(),
   },

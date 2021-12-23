@@ -1,4 +1,4 @@
-const moment = require('moment');
+const moment = require('moment')
 const { Works } = require('../models')
 module.exports = class WorksProxy {
   static findOne(query, opt) {
@@ -9,6 +9,9 @@ module.exports = class WorksProxy {
     let params = {}
     if (pageType !== '') {
       params.page_type = Number(pageType)
+    }
+    if (searchTitle) {
+      params['title'] = new RegExp(searchTitle, 'i')
     }
     return Works.aggregate([
       {
@@ -51,10 +54,10 @@ module.exports = class WorksProxy {
   // 获取数据总条数 admin
   static getAllCount(type) {
     if (type == 'today') {
-      return Works.countDocuments({ created_at: { $gte: moment().unix()*1000 } })
-    }else if (type == 'publish') {
+      return Works.countDocuments({ created_at: { $gte: moment().unix() * 1000 } })
+    } else if (type == 'publish') {
       return Works.countDocuments({ is_publish: true })
-    }else if (type) {
+    } else if (type) {
       return Works.countDocuments({ page_type: Number(type) })
     }
     return Works.countDocuments()

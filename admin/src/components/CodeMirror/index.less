@@ -1,0 +1,36 @@
+
+.container{
+	height: 100%;
+	position: relative;
+	margin-top: 42px;
+}
+
+:global{
+	.react-codemirror2,.CodeMirror{
+		height: 100%;
+		overflow-y: hidden;
+	}
+	.CodeMirror pre.CodeMirror-line, .CodeMirror pre.CodeMirror-line-like {
+		font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace
+	}
+	.CodeMirror-fullscreen{
+		z-index: 9999;
+	}
+}
+
+.btns{
+	position: absolute;
+	top: -42px;
+	left: 0;
+	>button:nth-child(n+2){
+		margin-left: 10px;
+	}
+}
+
+.full-screen-btn{
+	z-index: 99999;
+	position: fixed;
+	left: auto;
+	top: 20px;
+	right: 40px;
+}

@@ -80,7 +80,7 @@ declare namespace API {
     is_publish: boolean;
     is_template: boolean;
     page_type: number;
-    pages: string;
+    pages: object|string;
     preview_img_url: string;
     share_img_url: string;
     title: string;
@@ -88,7 +88,7 @@ declare namespace API {
     user_id?: number;
     user_name?: string;
     work_id: string;
-    _id: string;
+    _id?: string;
   };
   //作品列表
   type WorksResult = {
@@ -100,19 +100,31 @@ declare namespace API {
       list: WorkInfo[];
       page: any
   };
-  // type FakeCaptcha = {
-  //   code?: number;
-  //   status?: string;
-  // };
+  // 资源列表
+  type ResourcesResult = {
+    code: number;
+    message: string;
+    data: ResourcesData ;
+  };
+ type ResourcesData = {
+      list: ResourceInfo[];
+      page: any
+  };
+  //资源详情
+  type ResourceInfo = {
+    created_at: number;
+    id: number;
+    is_delete?: boolean;
+    url:string;
+    size:string;
+    type: number;
+    updated_at?: number;
+    user_id?: number;
+    user_name?: string;
+    _id?: string;
+    preview_url?:string;
+  };
 
-  // type ErrorResponse = {
-  //   /** 业务约定的错误码 */
-  //   errorCode: string;
-  //   /** 业务上的错误信息 */
-  //   errorMessage?: string;
-  //   /** 业务上的请求是否成功 */
-  //   success?: boolean;
-  // };
 
   // antd 通知组建
   type NoticeIconList = {

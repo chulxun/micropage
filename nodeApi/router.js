@@ -55,6 +55,11 @@ adminRouter
   .get("/works/getAllWorksList", works.getAllWorksList)
   .post("/works/deleteWork", works.deleteWork)
   .post("/works/recoveryWork", works.recoveryWork)
+  .post("/works/updateWork", works.updateWork)
+   //资源相关接口
+   .get("/resources/getList", resources.getAllList)
+   .post("/resources/delete", resources.delete)
+  
  
 const router = new Router();
 router.use("/admin",middleware.hasAdminRole(1), adminRouter.routes(), adminRouter.allowedMethods());

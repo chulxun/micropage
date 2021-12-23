@@ -4,3 +4,4 @@ declare module "*.vue" {
   export default component;
 }
 declare module "qrcode";
+declare module 'qs';

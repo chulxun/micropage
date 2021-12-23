@@ -11,6 +11,11 @@ module.exports = class WorksController {
     const { pageSize = 10, pageIndex = 1, pageType = '', searchTitle = '' } = ctx.request.query
     try {
       const list = await WorksProxy.getAllList({ searchTitle, pageType, pageIndex, pageSize })
+      list.map(item => {
+        if (item.pages) {
+          item.pages = JSON.parse(decodeURIComponent(item.pages))
+        }
+      })
       const count = await WorksProxy.getAllCount(pageType)
       const today_count = await WorksProxy.getAllCount('today')
       const publish_count = await WorksProxy.getAllCount('publish')
@@ -224,8 +229,7 @@ module.exports = class WorksController {
     }
     try {
       let [work] = await WorksProxy.getDetail(work_id).lean()
-      console.log(work)
-      if (work&&work.is_delete===false) {
+      if (work && work.is_delete === false) {
         const userInfo = await UsersProxy.getByUserId(user_id)
         // 管理员和作品所有者 有编辑权限
         if (work.user_id == user_id || userInfo.role == 1) {
@@ -234,8 +238,7 @@ module.exports = class WorksController {
         } else {
           ctx.body = ctx.util.refail('没有该作品删除权限', -1)
         }
-      }
-      else {
+      } else {
         ctx.body = ctx.util.refail('该作品不存在或已被删除', -1)
       }
     } catch (e) {
@@ -269,6 +272,7 @@ module.exports = class WorksController {
    */
   static async updateWork(ctx) {
     const work_id = ctx.checkBody('work_id').notEmpty('作品ID不能为空').value
+    const user_id = ctx.state.user.id
     if (ctx.errors) {
       let tip = ''
       for (let key in ctx.errors[0]) {
@@ -279,8 +283,19 @@ module.exports = class WorksController {
     }
     const params = ctx.request.body
     try {
-      await WorksProxy.updateWork(params)
-      ctx.body = ctx.util.resuccess('操作成功')
+      let [work] = await WorksProxy.getDetail(work_id).lean()
+      if (work && work.is_delete === false) {
+        const userInfo = await UsersProxy.getByUserId(user_id)
+        // 管理员和作品所有者 有编辑权限
+        if (work.user_id == user_id || userInfo.role == 1) {
+          await WorksProxy.updateWork(params)
+          ctx.body = ctx.util.resuccess('操作成功')
+        } else {
+          ctx.body = ctx.util.refail('没有该作品编辑权限', -1)
+        }
+      } else {
+        ctx.body = ctx.util.refail('该作品不存在或已被删除', -1)
+      }
     } catch (e) {
       throw e
     }

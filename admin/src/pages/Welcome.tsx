@@ -1,22 +1,41 @@
 import React from 'react';
+import type { FC } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Alert, Typography } from 'antd';
+import { Avatar, Skeleton, Card, Alert } from 'antd';
 import styles from './Welcome.less';
+import { useModel } from 'umi';
 
-const CodePreview: React.FC = ({ children }) => (
-  <pre className={styles.pre}>
-    <code>
-      <Typography.Text copyable>{children}</Typography.Text>
-    </code>
-  </pre>
-);
-
+const PageHeaderContent: FC = () => {
+  const { initialState } = useModel('@@initialState');
+  if (!initialState) {
+    return <Skeleton avatar paragraph={{ rows: 1 }} active />;
+  }
+  const { currentUser } = initialState;
+  if (!currentUser || !currentUser.user_name) {
+    return <Skeleton avatar paragraph={{ rows: 1 }} active />;
+  }
+  return (
+    <div className={styles.pageHeaderContent}>
+      <div className={styles.avatar}>
+        <Avatar size="large" src="/avatar.gif" />
+      </div>
+      <div className={styles.content}>
+        <div className={styles.contentTitle}>
+          早安，
+          {currentUser.user_name}
+          ，祝你开心每一天！
+        </div>
+        <div>欢迎登录微页-后台管理系统</div>
+      </div>
+    </div>
+  );
+};
 export default (): React.ReactNode => {
   return (
-    <PageContainer>
+    <PageContainer content={<PageHeaderContent />}>
       <Card>
         <Alert
-          message={'更快更强的重型组件，已经发布。'}
+          message={'更多内容持续发布中。'}
           type="success"
           showIcon
           banner
@@ -25,33 +44,6 @@ export default (): React.ReactNode => {
             marginBottom: 24,
           }}
         />
-        <Typography.Text strong>
-          高级表格{' '}
-          <a
-            href="https://procomponents.ant.design/components/table"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            欢迎使用
-          </a>
-        </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-table</CodePreview>
-        <Typography.Text
-          strong
-          style={{
-            marginBottom: 12,
-          }}
-        >
-          高级布局{' '}
-          <a
-            href="https://procomponents.ant.design/components/layout"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            欢迎使用
-          </a>
-        </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
       </Card>
     </PageContainer>
   );

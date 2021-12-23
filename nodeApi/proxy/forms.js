@@ -5,7 +5,7 @@ module.exports = class Index {
   static async addForm(params, isImport) {
     let { user_id, work_id, work_title, wx_info, wx_openid, form_data } = params;
     let data = {
-      create_at: isImport ? params.create_at : Date.now(),
+      created_at: isImport ? params.created_at : Date.now(),
       user_id,
       work_title,
       work_id,
@@ -55,8 +55,8 @@ module.exports = class Index {
     //获取表单数量
     const count = await Forms.countDocuments({ work_id, user_id });
     //分页获取表单列表
-    let formDataList = await Forms.find({ work_id, user_id }, { form_data: 1, create_at: 1 })
-      .sort({ "create_at": -1 })
+    let formDataList = await Forms.find({ work_id, user_id }, { form_data: 1, created_at: 1 })
+      .sort({ "created_at": -1 })
       .limit(pageSize * 1)
       .skip(pageSize * (pageIndex - 1));
     //获取作品信息
@@ -77,9 +77,9 @@ module.exports = class Index {
   static async exportFormByWork({ work_id, user_id }) {
     //获取作品信息
     const work = await Works.findOne({ work_id, user_id }, { title: 1, user_id: 1, publish_pages: 1 });
-    const formDataList = await Forms.find({ work_id, user_id }).sort({ "create_at": -1 });
+    const formDataList = await Forms.find({ work_id, user_id }).sort({ "created_at": -1 });
     let res = await this.comData(formDataList, work, work_id, user_id);
-    res.ukeyName.create_at = '提交时间';
+    res.ukeyName.created_at = '提交时间';
     const excel = []; //写入excel  第一个数组 表明表头 其余数组对应每一行的值
     const excelHead = Object.values(res.ukeyName);
     excel.push(excelHead);
@@ -87,8 +87,8 @@ module.exports = class Index {
       let obj = {};
       for (const key in res.ukeyName) {
         obj[res.ukeyName[key]] = item[key] || "";
-        if (key == 'create_at') {
-          obj[res.ukeyName[key]] = new Date(item.create_at).toLocaleString();
+        if (key == 'created_at') {
+          obj[res.ukeyName[key]] = new Date(item.created_at).toLocaleString();
         }
       }
       return obj
@@ -123,7 +123,7 @@ module.exports = class Index {
       return [...pre, ...next.elements]
     }, []);
     //获取所有表单的表头， 处理分页引起的表头对不上问题
-    let docs = await Forms.find({ work_id, user_id }).sort({ "create_at": -1 });
+    let docs = await Forms.find({ work_id, user_id }).sort({ "created_at": -1 });
     docs = docs.map(item => {
       item.form_data = JSON.parse(decodeURIComponent(item.form_data));
       return item.form_data
@@ -141,7 +141,7 @@ module.exports = class Index {
     });
     const form_data = formDataList.map(item => {
       let newdata = item.form_data;
-      newdata.create_at = item.create_at
+      newdata.created_at = item.created_at
       //add weixin userinfo todo
       if (item.wxInfo) {
         newdata.wxInfo = item.wxInfo

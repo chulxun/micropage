@@ -17,6 +17,7 @@ const Login: React.FC = () => {
     try {
       // 登录
       const res = await login({ ...values, is_admin: true });
+      setSubmitting(false);
       if (res && res.code === 0) {
         message.success('登录成功！');
         const userInfo = res.property;
@@ -38,8 +39,6 @@ const Login: React.FC = () => {
     } catch (error) {
       message.error('登录失败，请重试！');
     }
-
-    setSubmitting(false);
   };
 
   return (
@@ -48,7 +47,11 @@ const Login: React.FC = () => {
         <div className={styles.top}>
           <div className={styles.header}>
             <Link to="/">
-              <img alt="logo" className={styles.logo} src="/logo.svg" />
+              <img
+                alt="logo"
+                className={styles.logo}
+                src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+              />
               <span className={styles.title}>微页</span>
             </Link>
           </div>

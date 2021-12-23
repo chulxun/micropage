@@ -138,7 +138,7 @@ module.exports = class UserController {
       for (let key in otherQuery) {
         if (otherQuery[key]) {
           if (key == 'startTime' || key == 'endTime') {
-            params.create_at = { $gte: otherQuery['startTime'], $lte:otherQuery['endTime'] }
+            params.created_at = { $gte: otherQuery['startTime'], $lte:otherQuery['endTime'] }
           } else {
             params[key] = otherQuery[key]
           }
