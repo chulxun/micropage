@@ -2,7 +2,10 @@
   <!-- 快捷键列表 -->
   <div class="key_list">
     <div class="title">
-      快捷键使用<i class="el-icon-close closed" @click="closedThis"></i>
+      快捷键使用
+      <el-icon class="closed" @click="closedThis">
+        <Close />
+      </el-icon>
     </div>
     <div class="list">
       <div class="item" v-for="(item, index) in keyList" :key="index">
@@ -16,9 +19,11 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store/index";
+import { ElIcon } from 'element-plus'
+import { Close } from '@element-plus/icons-vue'
 export default defineComponent({
   props: ["pluginType"],
-  components: {},
+  components: { ElIcon, Close },
   data() {
     return {
       keyList: [

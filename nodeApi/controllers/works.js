@@ -5,7 +5,8 @@ const fs = require('fs')
 const request = require('request')
 module.exports = class WorksController {
   /**
-   * admin 获取所有works
+   * 接口: 获取所有作品列表
+   * 应用: admin
    */
   static async getAllWorksList(ctx) {
     const { pageSize = 10, pageIndex = 1, pageType = '', searchTitle = '' } = ctx.request.query
@@ -14,6 +15,9 @@ module.exports = class WorksController {
       list.map(item => {
         if (item.pages) {
           item.pages = JSON.parse(decodeURIComponent(item.pages))
+        }
+         if (item.config) {
+          item.config = JSON.parse(decodeURIComponent(item.config))
         }
       })
       const count = await WorksProxy.getAllCount(pageType)
@@ -34,7 +38,8 @@ module.exports = class WorksController {
     }
   }
   /**
-   * 获取当前用户的works列表
+   * 接口: 获取当前用户的作品列表
+   * 应用: H5
    */
   static async getWorksList(ctx) {
     const { pageSize = 10, pageIndex = 1, page_type = 0 } = ctx.request.query
@@ -60,7 +65,8 @@ module.exports = class WorksController {
     }
   }
   /**
-   * 获取编辑详情
+   * 接口: 获取编辑器使用的作品详情
+   * 应用: H5
    */
   static async getWorkById(ctx) {
     const work_id = ctx.checkQuery('work_id').notEmpty('作品ID不能为空').value
@@ -78,6 +84,8 @@ module.exports = class WorksController {
       if (works.length > 0) {
         let work = works[0]
         work.pages = JSON.parse(decodeURIComponent(work.pages))
+        if(work.config)
+        work.config = JSON.parse(decodeURIComponent(work.config))
         const userInfo = await UsersProxy.getByUserId(userId)
         // 管理员和作品所有者 有编辑权限
         if (work.user_id == userId || userInfo.role == 1) {
@@ -93,7 +101,8 @@ module.exports = class WorksController {
     }
   }
   /**
-   * 预览作品
+   * 接口: 获取作品预览详情
+   * 应用: H5
    */
   static async getWorkPreview(ctx) {
     const work_id = ctx.checkQuery('work_id').notEmpty('作品ID不能为空').value
@@ -110,6 +119,8 @@ module.exports = class WorksController {
       if (works.length > 0) {
         let work = works[0]
         work.pages = JSON.parse(decodeURIComponent(work.pages))
+        if(work.config)
+        work.config = JSON.parse(decodeURIComponent(work.config))
         ctx.body = ctx.util.resuccess('操作成功', { property: work })
       } else {
         ctx.body = ctx.util.refail('作品不存在')
@@ -119,7 +130,8 @@ module.exports = class WorksController {
     }
   }
   /**
-   * 预览发布后的作品
+   * 接口: 获取作品发布后详情
+   * 应用: H5
    */
   static async getWorkDetail(ctx) {
     const work_id = ctx.checkQuery('work_id').notEmpty('作品ID不能为空').value
@@ -139,6 +151,11 @@ module.exports = class WorksController {
           let res = await Works.updateMany({ work_id }, { $inc: { hits: 1 } })
           console.log(res)
           work.pages = JSON.parse(decodeURIComponent(work.publish_pages))
+          if(work.publish_config){
+             work.config = JSON.parse(decodeURIComponent(work.publish_config))
+          }else{
+            work.config ={}
+          }
           ctx.body = ctx.util.resuccess('操作成功', { property: work })
         } else {
           ctx.body = ctx.util.refail('作品还未发布')
@@ -150,8 +167,9 @@ module.exports = class WorksController {
       throw e
     }
   }
-
-  /**添加作品
+  /**
+   * 接口: 创建作品
+   * 应用: H5
    */
   static async createWork(ctx) {
     const params = ctx.request.body
@@ -179,9 +197,9 @@ module.exports = class WorksController {
       throw e
     }
   }
-
   /**
-   * 获取模板列表
+   * 接口: 获取模板列表
+   * 应用: H5
    */
   static async getTemplateWorksList(ctx) {
     const { pageSize = 10, pageIndex = 1 } = ctx.request.query
@@ -214,7 +232,8 @@ module.exports = class WorksController {
   }
 
   /**
-   * 删除作品 admin/h5
+   * 接口: 删除作品
+   * 应用: admin/h5
    */
   static async deleteWork(ctx) {
     const work_id = ctx.checkBody('work_id').notEmpty('作品ID不能为空').value
@@ -247,7 +266,8 @@ module.exports = class WorksController {
   }
 
   /**
-   * 恢复删除作品 admin
+   * 接口: 恢复已删除的作品
+   * 应用: admin
    */
   static async recoveryWork(ctx) {
     const work_id = ctx.checkBody('work_id').notEmpty('作品ID不能为空').value
@@ -268,7 +288,8 @@ module.exports = class WorksController {
   }
 
   /**
-   * 修改作品
+   * 接口: 编辑作品
+   * 应用: admin/H5
    */
   static async updateWork(ctx) {
     const work_id = ctx.checkBody('work_id').notEmpty('作品ID不能为空').value
@@ -300,8 +321,10 @@ module.exports = class WorksController {
       throw e
     }
   }
+
   /**
-   * 设置作品为模版
+   * 接口: 设置作品为模板
+   * 应用: H5
    */
   static async createTemplate(ctx) {
     const work_id = ctx.checkBody('work_id').notEmpty('作品ID不能为空').value
@@ -330,8 +353,10 @@ module.exports = class WorksController {
       throw e
     }
   }
+
   /**
-   * 发布作品
+   * 接口: 发布作品
+   * 应用: H5
    */
   static async publishWork(ctx) {
     const work_id = ctx.checkBody('work_id').notEmpty('作品ID不能为空').value
@@ -350,6 +375,7 @@ module.exports = class WorksController {
         let params = {
           work_id: work.work_id,
           publish_pages: work.pages,
+          publish_config: work.config||'',
         }
         await WorksProxy.publishWork(params)
         ctx.body = ctx.util.resuccess('操作成功')
@@ -360,11 +386,13 @@ module.exports = class WorksController {
       throw e
     }
   }
+
   /**
-   * 使用模版
+   * 接口: 使用模板创建作品
+   * 应用: H5
    */
   static async useTemplate(ctx) {
-    const work_id = ctx.checkBody('work_id').notEmpty('作品ID不能为空').value
+    const work_id = ctx.checkBody('work_id').notEmpty('模板ID不能为空').value
     const userId = ctx.state.user.id
     if (ctx.errors) {
       let tip = ''

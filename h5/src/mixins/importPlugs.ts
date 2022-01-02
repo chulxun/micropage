@@ -76,7 +76,7 @@ export default {
             {
               name: 'plug-noticebar',
               title: '通知栏',
-              icon: 'el-icon-bell',
+              icon: 'iconfont icon-tongzhi',
               component: plugNoticebar
             },
             {
@@ -107,7 +107,7 @@ export default {
             {
               name: 'plug-form-input',
               title: '文本框',
-              icon: 'el-icon-edit',
+              icon: 'iconfont icon-shurukuang',
               component: plugFormInput
             },
             {
@@ -131,13 +131,13 @@ export default {
             {
               name: 'plug-form-datetime',
               title: '时间选择器',
-              icon: 'el-icon-date',
+              icon: 'iconfont icon-shijianxuanze',
               component: plugFormDatetime
             },
             {
               name: 'plug-form-area',
               title: '省市区选择',
-              icon: 'el-icon-map-location',
+              icon: 'iconfont icon-shengshiquyu',
               component: plugFormArea
             },
             {

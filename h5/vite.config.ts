@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
-import styleImport from 'vite-plugin-style-import'
+import styleImport,{ VantResolve, ElementPlusResolve } from 'vite-plugin-style-import'
+
 // https://vitejs.dev/config/
-export default defineConfig({//defineConfig 帮手函数，这样不用 jsdoc 注解也可以获取类型提示
+export default defineConfig({
   server: {
     port: 9001,
     proxy: {
@@ -15,26 +16,8 @@ export default defineConfig({//defineConfig 帮手函数，这样不用 jsdoc �
   },
   plugins: [vue(),
     styleImport({
-      libs: [
-        {
-          libraryName: 'element-plus',
-          esModule: true,
-          ensureStyleFile: true,
-          resolveStyle: (name) => {
-            name = name.slice(3)
-            return `element-plus/packages/theme-chalk/src/${name}.scss`;
-          },
-          resolveComponent: (name) => {
-            return `element-plus/lib/${name}`;
-          },
-        },
-        {
-          libraryName: 'vant',
-          esModule: true,
-          resolveStyle: (name) => `vant/es/${name}/style`,
-        },
-      ],
-    }),
+      resolves: [VantResolve(),ElementPlusResolve()]
+    })
   ],
   resolve: {
     alias: [{ find: '@', replacement: resolve(__dirname, 'src') },

@@ -4,28 +4,25 @@
     :slides-per-view="1"
     :space-between="0"
     :direction="props.direction"
+    :modules="modules"
     :pagination="
       props.showPage ? { clickable: true, type: props.pagType } : false
     "
     :autoplay="props.autoplay && workMode == 'formal' ? true : false"
     v-if="ismounted"
   >
-    <swiper-slide
-      class="swiper-item"
-      v-for="(item, index) in props.swiper"
-      :key="index"
-    >
-      <img :src="item" class="img"
-    /></swiper-slide>
+    <swiper-slide class="swiper-item" v-for="(item, index) in props.swiper" :key="index">
+      <img :src="item" class="img" />
+    </swiper-slide>
   </swiper>
 </template>
 <script lang="ts">
-import { defineComponent, watch, ref,onMounted, nextTick} from "vue";
-import SwiperCore, { Pagination, Autoplay } from "swiper";
+import { defineComponent, watch, ref, onMounted, nextTick } from "vue";
+import { Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/swiper.scss";
-import "swiper/components/pagination/pagination.scss";
-SwiperCore.use([Pagination, Autoplay]);
+import 'swiper/css'
+import 'swiper/css/pagination'
+
 export default defineComponent({
   props: ["props", "workMode"],
   components: {
@@ -55,8 +52,9 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const modules = [Pagination, Autoplay]
     const activeColor = ref("");
-    const ismounted=ref(false);
+    const ismounted = ref(false);
     //监听分页颜色设置
     watch(
       () => props.props.indicatorColor,
@@ -80,11 +78,11 @@ export default defineComponent({
         }
       }
     );
-    onMounted(async()=>{
+    onMounted(async () => {
       await nextTick();
-      ismounted.value=true
+      ismounted.value = true
     })
-    return {ismounted, activeColor };
+    return { ismounted, activeColor, modules };
   },
 });
 </script>

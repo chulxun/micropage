@@ -1,25 +1,37 @@
 <template>
   <div class="right_key_menu">
-    <div @click.stop="onCopy" @mousedown.stop="">
-      <i class="el-icon-document-copy"></i>复制
+    <div @click.stop="onCopy" @mousedown.stop>
+      <el-icon>
+        <copy-document />
+      </el-icon>复制
     </div>
-    <div class="del" @click.stop="onDelete" @mousedown.stop="">
-      <i class="el-icon-delete"></i>删除
+    <div class="del" @click.stop="onDelete" @mousedown.stop>
+      <el-icon>
+        <delete />
+      </el-icon>删除
     </div>
-    <div @click.stop="onMoveUp" @mousedown.stop="">
-      <i class="el-icon-top"></i>上移
+    <div @click.stop="onMoveUp" @mousedown.stop>
+      <el-icon>
+        <top />
+      </el-icon>上移
     </div>
-    <div @click.stop="onMoveDown" @mousedown.stop="">
-      <i class="el-icon-bottom"></i>下移
+    <div @click.stop="onMoveDown" @mousedown.stop>
+      <el-icon>
+        <bottom />
+      </el-icon>下移
     </div>
     <div class="tips">在图层中执行更多操作</div>
   </div>
 </template>
 <script lang='ts'>
 import { defineComponent, computed } from "vue";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElIcon } from "element-plus";
 import { useStore } from "@/store/index";
+import { Top, Bottom, Delete, CopyDocument } from '@element-plus/icons-vue'
 export default defineComponent({
+  components: {
+    ElIcon, Top, Bottom, Delete, CopyDocument
+  },
   setup(props, ctx) {
     const store = useStore();
     const editingElement: any = computed(
@@ -96,6 +108,8 @@ export default defineComponent({
     cursor: pointer;
     padding: 7px 12px;
     border-bottom: 1px dotted var(--borderColor);
+    display: flex;
+    align-items: center;
     &:last-child {
       border-color: transparent;
     }

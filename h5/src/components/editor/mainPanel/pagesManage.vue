@@ -1,100 +1,91 @@
 <template>
   <div class="pages" v-if="work.page_type == 2">
     <ul>
-      <el-tooltip
-        placement="top"
-        v-for="(item, index) in work.pages"
-        :key="index"
-      >
+      <el-tooltip placement="top" v-for="(item, index) in work.pages" :key="index">
         <template #content>
           <div class="icons">
-            <span
-              class="el-icon-copy-document"
-              @click="copyPage(item, index)"
-            ></span>
-            <span
-              class="el-icon-delete close"
-              @click="deletePage(item, index)"
-            ></span>
+            <el-icon @click="copyPage(item, index)">
+              <copy-document />
+            </el-icon>
+            <el-icon class="close" @click="deletePage(item, index)">
+              <delete />
+            </el-icon>
           </div>
         </template>
         <li
           :class="{ current: editingPage.ukey == item.ukey }"
           @click="choosePage(item)"
-        >
-          {{ index + 1 }}
-        </li>
+        >{{ index + 1 }}</li>
       </el-tooltip>
     </ul>
     <el-tooltip content="新增页面" placement="top">
-      <i class="el-icon-plus" @click="addPage"></i>
+      <div class="add_icon">
+        <el-icon @click="addPage">
+          <plus />
+        </el-icon>
+      </div>
     </el-tooltip>
   </div>
 </template>
-<script lang='ts'>
-import { defineComponent, computed } from "vue";
-import { ElTooltip, ElMessageBox, ElMessage } from "element-plus";
+<script setup lang='ts'>
+import { computed } from "vue";
+import { ElTooltip, ElMessageBox, ElMessage, ElIcon } from "element-plus";
+import { Delete, CopyDocument, Plus } from '@element-plus/icons-vue'
 import { useStore } from "@/store/index";
 import Work from "@/store/model/work";
-export default defineComponent({
-  components: {
-    ElTooltip,
-  },
-  setup() {
-    const store = useStore();
-    const work = computed(() => store.state.editor.work);
-    const editingPage: any = computed(() => store.state.editor.editingPage);
-    const setEditingPage = (page: any) =>
-      store.commit("editor/setEditingPage", page);
-    const setEditingPageProps = (pageProps: any) =>
-      store.commit("editor/setEditingPageProps", pageProps);
-    const setEditingElement = (ele: any) =>
-      store.commit("editor/setEditingElement", ele);
 
-    //新增页面
-    function addPage() {
-      Work.addPage(work.value.pages);
-    }
-    //选择当前page
-    function choosePage(item: any) {
-      if (editingPage.value.ukey == item.ukey) return;
-      setEditingPage(item);
-      setEditingPageProps(item.elements[0].props);
-      setEditingElement(null);
-    }
-    //删除page
-    function deletePage(item: any, index: number) {
-      ElMessageBox.confirm("确定删除该页面吗？", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          if (editingPage.value.ukey == item.ukey) {
-            setEditingElement(null);
-            if (index < work.value.pages.length - 1) {
-              setEditingPage(work.value.pages[index + 1]);
-              setEditingPageProps(
-                work.value.pages[index + 1].elements[0].props
-              );
-            } else {
-              setEditingPage(work.value.pages[0]);
-              setEditingPageProps(work.value.pages[0].elements[0].props);
-            }
-          }
-          work.value.pages.splice(index, 1);
-          ElMessage.success("删除成功");
-        })
-        .catch(() => {});
-    }
-    //复制page
-    function copyPage(item: any, index: number) {
-      Work.copyPage(work.value.pages, item);
-      ElMessage.success("复制页面成功");
-    }
-    return { work, editingPage, addPage, choosePage, deletePage, copyPage };
-  },
-});
+const store = useStore();
+const work = computed(() => store.state.editor.work);
+const editingPage: any = computed(() => store.state.editor.editingPage);
+const setEditingPage = (page: any) =>
+  store.commit("editor/setEditingPage", page);
+const setEditingPageProps = (pageProps: any) =>
+  store.commit("editor/setEditingPageProps", pageProps);
+const setEditingElement = (ele: any) =>
+  store.commit("editor/setEditingElement", ele);
+
+//新增页面
+function addPage() {
+  Work.addPage(work.value.pages);
+}
+//选择当前page
+function choosePage(item: any) {
+  if (editingPage.value.ukey == item.ukey) return;
+  setEditingPage(item);
+  setEditingPageProps(item.elements[0].props);
+  setEditingElement(null);
+}
+//删除page
+function deletePage(item: any, index: number) {
+  ElMessageBox.confirm("确定删除该页面吗？", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  })
+    .then(() => {
+      if (editingPage.value.ukey == item.ukey) {
+        setEditingElement(null);
+        if (index < work.value.pages.length - 1) {
+          setEditingPage(work.value.pages[index + 1]);
+          setEditingPageProps(
+            work.value.pages[index + 1].elements[0].props
+          );
+        } else {
+          setEditingPage(work.value.pages[0]);
+          setEditingPageProps(work.value.pages[0].elements[0].props);
+        }
+      }
+      work.value.pages.splice(index, 1);
+      ElMessage.success("删除成功");
+    })
+    .catch(() => { });
+}
+//复制page
+function copyPage(item: any, index: number) {
+  Work.copyPage(work.value.pages, item);
+  ElMessage.success("复制页面成功");
+}
+
 </script>
 <style lang='less' scoped>
 .pages {
@@ -115,23 +106,10 @@ export default defineComponent({
   }
   li {
     position: relative;
-    // span {
-    //   position: absolute;
-    //   top: -15px;
-    //   right: -15px;
-    //   background: rgba(0, 0, 0, 0.5);
-    //   color: #fff;
-    //   border-radius: 50%;
-    //   padding: 5px;
-    //   display: none;
-    // }
-    // &:hover span {
-    //   display: inline-block;
-    // }
   }
 
   li,
-  i {
+  .add_icon {
     user-select: none;
     border: 1px solid var(--borderColor);
     padding: 7px 12px;

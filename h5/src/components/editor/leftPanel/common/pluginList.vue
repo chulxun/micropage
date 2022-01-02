@@ -4,9 +4,11 @@
       <div class="plugin_list" v-if="operaType == index + 1">
         <div class="title">
           {{
-          item.title
+            item.title
           }}
-          <i class="el-icon-close closed" @click="closedThis"></i>
+          <el-icon class="closed" @click="closedThis">
+            <Close />
+          </el-icon>
         </div>
         <el-alert show-icon title="点击或拖拽组件到编辑器" type="warning"></el-alert>
         <div class="con img_list" v-if="item.children.length > 0">
@@ -38,10 +40,11 @@
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store/index";
 import importPlugs from "@/mixins/importPlugs";
-import { ElEmpty, ElAlert } from "element-plus";
+import { ElEmpty, ElAlert, ElIcon } from "element-plus";
+import { Close } from '@element-plus/icons-vue'
 export default defineComponent({
   mixins: [importPlugs],
-  components: { ElEmpty, ElAlert },
+  components: { ElEmpty, ElAlert, ElIcon, Close },
   setup(props, ctx) {
     const store = useStore();
     const operaType = computed(() => store.state.common.operaType);

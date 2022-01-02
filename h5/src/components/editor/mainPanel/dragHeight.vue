@@ -1,18 +1,23 @@
 <template>
-  <div
-    class="scale_height_btn"
-    style="position: absolute"
-    @mousedown.stop="onMousedownDrag"
-  >
-    <i class="el-icon-caret-top"></i>
+  <div class="scale_height_btn" style="position: absolute" @mousedown.stop="onMousedownDrag">
+    <el-icon>
+      <sort-down />
+    </el-icon>
     <p>拖动调节页面高度 {{ editingPageProps.pageHeight }}px</p>
-    <i class="el-icon-caret-bottom"></i>
+    <el-icon>
+      <sort-up />
+    </el-icon>
   </div>
 </template>
 <script lang='ts'>
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store/index";
+import { ElIcon } from "element-plus";
+import { RefreshLeft, SortDown, SortUp } from '@element-plus/icons-vue'
 export default defineComponent({
+  components: {
+    ElIcon, RefreshLeft, SortDown, SortUp
+  },
   setup() {
     const store = useStore();
     const editingPageProps: any = computed(

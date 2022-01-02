@@ -1,5 +1,5 @@
 const request = require("request");
-const qiniu = require("./qiniu");
+
 
 /**
  * 判断是否Object类型
@@ -51,12 +51,6 @@ function creatWorkId() {
   return k
 }
 
-function getClientIP(req) {
-  return (
-    req.headers["x-forwarded-for"] || req.headers["x-real-ip"] // 判断是否有反向代理 IP
-  );
-}
-
 /**
  * 网络请求，目前只支持get
  * @param {Object} url
@@ -76,7 +70,5 @@ function serviceRequest(url) {
 module.exports = {
   isObject,
   isEmptyObject, typeOf, creatWorkId,
-  getClientIP,
-  request: serviceRequest,
-  qiniu
+  request: serviceRequest
 };

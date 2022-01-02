@@ -5,9 +5,10 @@ const jwt = require('jsonwebtoken')
 const jwtSecret = config.get('jwt.secret')
 const jwtExpire = config.get('jwt.expire')
 module.exports = class UserController {
-  /**
-   * 用户登录
-   * @param {*} ctx
+
+   /**
+   * 接口: 用户登录
+   * 应用: admin/H5
    */
   static async login(ctx) {
     const user_name = ctx.checkBody('user_name').notEmpty().value
@@ -31,7 +32,6 @@ module.exports = class UserController {
          ctx.body = ctx.util.refail('只允许管理员登录')
         return
       }
-     
       const verifyPwd = md5(password) == user.password
       if (!verifyPwd) {
         ctx.body = ctx.util.refail('用户名或密码错误')
@@ -47,9 +47,10 @@ module.exports = class UserController {
       throw err
     }
   }
+
   /**
-   * 修改密码
-   * @param {*} ctx
+   * 接口: 修改密码
+   * 应用: H5
    */
   static async changePwd(ctx) {
     const userId = ctx.state.user.id
@@ -88,9 +89,10 @@ module.exports = class UserController {
       throw e
     }
   }
+
   /**
-   * 修改信息
-   * @param {*} ctx
+   * 接口: 修改用户信息
+   * 应用: H5
    */
   static async editUserInfo(ctx) {
     const userId = ctx.state.user.id
@@ -122,9 +124,10 @@ module.exports = class UserController {
       throw e
     }
   }
+
   /**
-   * 后台 用户列表
-   * @param {*} ctx
+   * 接口: 获取用户列表
+   * 应用: admin
    */
   static async list(ctx) {
     try {
@@ -157,8 +160,8 @@ module.exports = class UserController {
   }
 
   /**
-   * 后台 用户注册
-   * @param {*} ctx
+   * 接口: 创建新用户
+   * 应用: admin
    */
   static async register(ctx) {
     const user_name = ctx.checkBody('user_name').notEmpty('用户名不能为空').len(4, 20, '用户名长度超出范围(4-20)').value
@@ -185,9 +188,10 @@ module.exports = class UserController {
       throw err
     }
   }
+
   /**
-   * 后台 修改密码
-   * @param {*} ctx
+   * 接口: 修改用户密码
+   * 应用: admin
    */
   static async changePwdAdmin(ctx) {
     const userId = ctx.checkBody('user_id').notEmpty('用户id不能为空').value
@@ -220,9 +224,10 @@ module.exports = class UserController {
       throw e
     }
   }
+
   /**
-   * 后台 注销用户
-   * @param {*} ctx
+   * 接口: 注销用户
+   * 应用: admin
    */
   static async writeOffUserAdmin(ctx) {
     const userId = ctx.checkBody('user_id').notEmpty('用户id不能为空').value
@@ -248,9 +253,10 @@ module.exports = class UserController {
       throw e
     }
   }
+
   /**
-   * 后台 恢复用户
-   * @param {*} ctx
+   * 接口: 恢复用户
+   * 应用: admin
    */
   static async recoveryUserAdmin(ctx){
  const userId = ctx.checkBody('user_id').notEmpty('用户id不能为空').value

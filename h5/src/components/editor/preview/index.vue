@@ -18,7 +18,9 @@
           <canvas ref="qrcodeImg"></canvas>
           <div>
             <a :href="mobileUrl" target="_blank">
-              <i class="el-icon-top-right"></i> 打开新页面预览
+              <el-icon>
+                <top-right />
+              </el-icon>打开新页面预览
             </a>
           </div>
         </div>
@@ -44,17 +46,18 @@ import {
   watch,
   reactive,
 } from "vue";
-import { ElButton, ElDialog, ElLoading, ElMessage } from "element-plus";
+import { ElButton, ElDialog, ElLoading, ElMessage, ElIcon } from "element-plus";
+import { TopRight } from '@element-plus/icons-vue'
 import { formatDate } from "@/utils/index";
 import { publishWork } from "@/api/works";
 export default defineComponent({
   props: ["workId", "previewVisible"],
-  components: { ElButton, ElDialog },
+  components: { ElButton, ElDialog, ElIcon, TopRight },
   setup(props, ctx) {
     const previewShow = ref(props.previewVisible);
     const mobileUrl = ref("");
     const qrcodeImg = ref(null); //二维码dom元素
-    const work: H5.WorkInfo = reactive({});
+    const work: H5.WorkInfo | null = reactive(null);
     watch(previewShow, (val, oldval) => {
       ctx.emit("update:previewVisible", val);
     });

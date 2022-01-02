@@ -1,5 +1,5 @@
 <template>
-  <img v-if="item.props.imgUrl" :src="item.props.imgUrl" class="icon" />
+  <img v-if="item.props.imgUrl" :src="item.props.imgUrl" class="icon_img" />
   <i v-else :class="eleInfo.icon"></i>
   <p>{{ eleInfo.title }}</p>
 </template>
@@ -18,7 +18,7 @@ export default defineComponent({
         case "plug-image":
           return { icon: "", title: "图片" };
         case "plug-swiper":
-          return { icon: "el-icon-picture", title: "轮播图" };
+          return { icon: "iconfont icon-lunbotu", title: "轮播图" };
         case "plug-text":
           return { icon: "iconfont icon-28fuwenbenkuang", title: "富文本" };
         case "plug-video":
@@ -30,7 +30,7 @@ export default defineComponent({
           };
         case "plug-noticebar":
           return {
-            icon: "el-icon-bell",
+            icon: "iconfont icon-tongzhi",
             title: props.item.props.text,
           };
         case "plug-tabs":
@@ -49,7 +49,7 @@ export default defineComponent({
             title: props.item.props.text,
           };
         case "plug-form-input":
-          return { icon: "el-icon-edit", title: props.item.props.name };
+          return { icon: "iconfont icon-shurukuang", title: props.item.props.name };
         case "plug-form-rate":
           return {
             icon: "iconfont icon-pingfen",
@@ -66,9 +66,9 @@ export default defineComponent({
             title: props.item.props.name,
           };
         case "plug-form-datetime":
-          return { icon: "el-icon-date", title: props.item.props.name };
+          return { icon: "iconfont icon-shijianxuanze", title: props.item.props.name };
         case "plug-form-area":
-          return { icon: "el-icon-map-location", title: props.item.props.name };
+          return { icon: "iconfont icon-shengshiquyu", title: props.item.props.name };
         case "plug-form-picker":
           return {
             icon: "iconfont icon-icon__xuanzekemu",
@@ -76,7 +76,7 @@ export default defineComponent({
           };
 
         default:
-          return { icon: "el-icon-folder", title: "未识别元素" };
+          return { icon: 'iconfont icon-weishibie', title: "未识别元素" };
       }
     });
     return { eleInfo };

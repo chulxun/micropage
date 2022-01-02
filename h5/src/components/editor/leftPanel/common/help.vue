@@ -2,22 +2,26 @@
   <!-- 帮助文档 -->
   <div class="source_content">
     <div class="title">
-      帮助文档<i class="el-icon-close closed" @click="closedThis"></i>
+      帮助文档
+      <el-icon class="closed" @click="closedThis">
+        <Close />
+      </el-icon>
     </div>
 
-    <el-empty description="开发中，下个版本见"> </el-empty>
+    <el-empty description="开发中，下个版本见"></el-empty>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { ElEmpty, ElButton } from "element-plus";
+import { ElEmpty, ElButton, ElIcon } from "element-plus";
 import { useStore } from "@/store/index";
+import { Close } from '@element-plus/icons-vue'
 export default defineComponent({
   props: ["pluginType"],
   components: {
-    ElEmpty,
-    ElButton,
+    ElEmpty, ElIcon,
+    ElButton, Close
   },
   setup(props, ctx) {
     const store = useStore();

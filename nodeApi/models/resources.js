@@ -18,7 +18,6 @@ const schema = new Schema({
     default: Date.now(),
   },
 }, {
-  //去掉版本  否则新增的时候会多一个__v字段来记录版本
   versionKey: false
 })
 

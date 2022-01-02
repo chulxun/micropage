@@ -9,7 +9,9 @@
     <div class="container" v-show="showLayer">
       <div class="title">
         <p>图层管理</p>
-        <i class="el-icon-d-arrow-right" @click="toggleLayer"></i>
+        <el-icon @click="toggleLayer">
+          <arrow-right />
+        </el-icon>
       </div>
       <div
         class="list"
@@ -33,111 +35,91 @@
             :data-index="index"
           >
             <layerItem :item="item"></layerItem>
-            <i
-              :class="{
-                'iconfont icon-yincang': item.props.hide,
-                'el-icon-view': !item.props.hide,
-              }"
-              @click.stop="onHide(item)"
-            ></i>
+            <i class="iconfont icon-yincang" v-show="item.props.hide" @click.stop="onHide(item)"></i>
+            <el-icon :size="14" v-show="!item.props.hide" @click.stop="onHide(item)">
+              <View />
+            </el-icon>
           </div>
         </template>
       </div>
     </div>
   </div>
 </template>
-<script lang="ts">
-import { reactive, ref, defineComponent, computed } from "vue";
+<script setup lang="ts">
+import { reactive, ref, computed } from "vue";
 import { useStore } from "@/store/index";
 import layerItem from "./item.vue";
-import { ElTooltip } from "element-plus";
-export default defineComponent({
-  components: {
-    layerItem,
-    ElTooltip,
-  },
-  setup(props) {
-    const store = useStore();
-    const editingPage: any = computed(() => store.state.editor.editingPage);
-    const editingElement: any = computed(
-      () => store.state.editor.editingElement
-    );
-    const setEditingElement = (element: any) =>
-      store.commit("editor/setEditingElement", element);
-    const operateElement = (preload: any) =>
-      store.commit("editor/operateElement", preload);
-    let showLayer = ref(false);
-    function toggleLayer() {
-      showLayer.value = !showLayer.value;
-    }
-    //选中元素
-    function chooseElement(item: any) {
-      if (item.props.hide) {
+import { ElTooltip, ElIcon } from "element-plus";
+import { View, ArrowRight } from '@element-plus/icons-vue'
+
+const store = useStore();
+const editingPage: any = computed(() => store.state.editor.editingPage);
+const editingElement: any = computed(
+  () => store.state.editor.editingElement
+);
+const setEditingElement = (element: any) =>
+  store.commit("editor/setEditingElement", element);
+const operateElement = (preload: any) =>
+  store.commit("editor/operateElement", preload);
+let showLayer = ref(false);
+function toggleLayer() {
+  showLayer.value = !showLayer.value;
+}
+//选中元素
+function chooseElement(item: any) {
+  if (item.props.hide) {
+    return;
+  }
+  setEditingElement(item);
+}
+//隐藏显示图层
+function onHide(item: any) {
+  if (item.props.hide) {
+    item.props.hide = false;
+  } else {
+    item.props.hide = true;
+  }
+}
+//拖动图层排序
+let draging: any = null;
+//当被鼠标拖动的对象进入其容器范围内时触发
+function onDragStart(event: DragEvent) {
+  draging = event.target;
+}
+//当某被拖动的对象在另一对象容器范围内拖动时触发
+function onDragOver(event: DragEvent) {
+  event.preventDefault();
+}
+//在一个拖动过程中，释放鼠标键时触发
+function onDrop(event: DragEvent) {
+  event.preventDefault();
+  const target: any = event.target;
+  if (target.classList.contains("item") == true && target != draging) {
+    if (target) {
+      if (target.moving) {
         return;
       }
-      setEditingElement(item);
     }
-    //隐藏显示图层
-    function onHide(item: any) {
-      if (item.props.hide) {
-        item.props.hide = false;
-      } else {
-        item.props.hide = true;
-      }
+    let startIndex = draging.getAttribute("data-index");
+    let endIndex = target.getAttribute("data-index");
+    if (startIndex != endIndex) {
+      target.moving = true;
+      //加1s时间防止多次触发排序，造成排序看起来没效果
+      setTimeout(() => {
+        target.moving = false;
+      }, 1500);
+      operateElement({
+        type: "swap",
+        value: {
+          startIndex,
+          endIndex,
+        },
+      });
     }
-    //拖动图层排序
-    let draging: any = null;
-    //当被鼠标拖动的对象进入其容器范围内时触发
-    function onDragStart(event: DragEvent) {
-      draging = event.target;
-    }
-    //当某被拖动的对象在另一对象容器范围内拖动时触发
-    function onDragOver(event: DragEvent) {
-      event.preventDefault();
-    }
-    //在一个拖动过程中，释放鼠标键时触发
-    function onDrop(event: DragEvent) {
-      event.preventDefault();
-      const target: any = event.target;
-      if (target.classList.contains("item") == true && target != draging) {
-        if (target) {
-          if (target.moving) {
-            return;
-          }
-        }
-        let startIndex = draging.getAttribute("data-index");
-        let endIndex = target.getAttribute("data-index");
-        if (startIndex != endIndex) {
-          target.moving = true;
-          //加1s时间防止多次触发排序，造成排序看起来没效果
-          setTimeout(() => {
-            target.moving = false;
-          }, 1500);
-          operateElement({
-            type: "swap",
-            value: {
-              startIndex,
-              endIndex,
-            },
-          });
-        }
-      }
-    }
+  }
+}
 
-    return {
-      showLayer,
-      toggleLayer,
-      editingPage,
-      onHide,
-      setEditingElement,
-      editingElement,
-      chooseElement,
-      onDragStart,
-      onDragOver,
-      onDrop,
-    };
-  },
-});
+
 </script>
 <style lang='less' scoped>
 .layer_container {
@@ -174,7 +156,6 @@ export default defineComponent({
     background-color: #f5f7fa;
     border-bottom: 1px solid #e4e7ed;
     i {
-      padding: 10px;
       cursor: pointer;
     }
   }
@@ -207,7 +188,7 @@ export default defineComponent({
       width: 0;
       white-space: nowrap;
     }
-    :deep(.icon) {
+    :deep(.icon_img) {
       pointer-events: none;
       width: 20px;
       height: 20px;

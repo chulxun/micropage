@@ -55,7 +55,6 @@ app
       exposeHeaders: ["WWW-Authenticate", "Server-Authorization"], //设置获取其他自定义字段
     })
   )
-  .use(middleware.logHandle)
   .use(middleware.util)
   .use(middleware.unauthorized)
   .use(

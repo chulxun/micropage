@@ -1,7 +1,8 @@
 <template>
   <div class="header">
     <div class="logo" v-bind="{ id: 'logo' }">
-      <b>微页</b><span>H5编辑器</span>
+      <b>微页</b>
+      <span>H5编辑器</span>
     </div>
     <slot></slot>
     <div class="user_info">
@@ -12,22 +13,22 @@
         text-color="#fff"
         active-text-color="#ff"
       >
-        <el-menu-item index="github"
-          ><i class="iconfont icon-github" style="font-size: 24px"></i
-        ></el-menu-item>
-        <el-submenu index="2" v-if="userInfo.token">
+        <el-menu-item index="github">
+          <i class="iconfont icon-github" style="font-size: 24px"></i>
+        </el-menu-item>
+        <el-sub-menu index="2" v-if="userInfo.token">
           <template #title>{{ userInfo.user_name }}</template>
           <el-menu-item index="/works">我的作品</el-menu-item>
           <el-menu-item index="/formdata">数据中心</el-menu-item>
           <el-menu-item index="/userEdit">账号管理</el-menu-item>
           <el-menu-item index="loginout">退出登录</el-menu-item>
-        </el-submenu>
+        </el-sub-menu>
       </el-menu>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { ElHeader, ElMenu, ElMenuItem, ElSubmenu } from "element-plus";
+import { ElHeader, ElMenu, ElMenuItem, ElSubMenu } from "element-plus";
 import { useStore } from "@/store/index";
 import { useRouter, useRoute } from "vue-router";
 import { defineComponent, computed } from "vue";
@@ -36,7 +37,7 @@ export default defineComponent({
     ElHeader,
     ElMenu,
     ElMenuItem,
-    ElSubmenu,
+    ElSubMenu,
   },
   setup() {
     const store = useStore();

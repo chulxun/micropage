@@ -23,7 +23,7 @@ const FormSchema = new mongoose.Schema({
   },
 })
 
-FormSchema.plugin(autoIncrement.plugin, { //?这种自增id 只识别 create
+FormSchema.plugin(autoIncrement.plugin, {
   model: 'Form',
   field: 'id',
   startAt: 1,
@@ -31,6 +31,6 @@ FormSchema.plugin(autoIncrement.plugin, { //?这种自增id 只识别 create
   incrementBy: 1
 });
 
-FormSchema.index({ work_id: 1 }); //?添加索引
+FormSchema.index({ work_id: 1 });
 
 module.exports = mongoose.model("Forms", FormSchema, "forms")

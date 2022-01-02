@@ -1,20 +1,20 @@
 //html转为svg 保存图片
 export async function onCreateImgBySvg() {
   // 复制DOM节点
-  var dom: any = document.querySelector('.editor_container');
+  let dom: any = document.querySelector('.editor_container');
   dom.style.position = "relative"
-  var cloneDom: any = dom.cloneNode(true);
+  let cloneDom: any = dom.cloneNode(true);
   if (cloneDom.querySelector('.scale_height_btn')) {
     cloneDom.querySelector('.scale_height_btn').remove();
   }
-  var _w = dom.clientWidth,
+  let _w = dom.clientWidth,
     _h = dom.scrollHeight - 36; //- scale_height_btn高度
   //处理样式为内联
-  var style: any = document.createElement('style');
+  let style: any = document.createElement('style');
   cloneDom.appendChild(style);
-  var styleList = document.querySelectorAll('style');
-  var styleouter = '';
-  var linkList: any = document.querySelectorAll('link[rel=stylesheet]');
+  let styleList = document.querySelectorAll('style');
+  let styleouter = '';
+  let linkList: any = document.querySelectorAll('link[rel=stylesheet]');
   for (let i = 0; i < linkList.length; i++) {
     let url = linkList[i].href;
     let _csstext = '';
@@ -47,7 +47,7 @@ export async function onCreateImgBySvg() {
   }
   cloneDom.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
   // 图片地址显示为DOM转换的svg
-  var data =
+  let data =
     'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="' +
     _w +
     '" height="' +
@@ -58,24 +58,25 @@ export async function onCreateImgBySvg() {
       .replace(/#/g, '%23')
       .replace(/\n/g, '%0A') +
     '</foreignObject></svg>';
-  return toBase64(data)
+  let svgImgBase64 = await toBase64(data)
+  return svgImgBase64
 
 }
 //图片url转为base64
-export async function toBase64(url: string) {
-  var image1 = new Image();
+export async function toBase64(url: string): Promise<string> {
+  let image1 = new Image();
   image1.setAttribute('crossOrigin', 'anonymous');
   image1.src = url;
   return new Promise(reslove => {
     image1.onload = async function () {
-      var width = image1.width,
+      let width = image1.width,
         height = image1.height;
-      var canvas = document.createElement('canvas');
-      var context: any = canvas.getContext('2d');
+      let canvas = document.createElement('canvas');
+      let context: any = canvas.getContext('2d');
       canvas.width = width;
       canvas.height = height;
       context.drawImage(image1, 0, 0);
-      var base64 = canvas.toDataURL();
+      let base64 = canvas.toDataURL();
       reslove(base64);
     };
   });

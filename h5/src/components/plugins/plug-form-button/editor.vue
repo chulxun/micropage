@@ -9,23 +9,16 @@
           :key="index"
           @click="useThisStyle(item)"
           style="margin: 0 10px 10px 0"
-          >{{ item.name }}</el-button
-        >
+        >{{ item.name }}</el-button>
       </el-form-item>
       <el-form-item label="按钮文字:" required>
         <el-input v-model="element.props.text" maxlength="100"></el-input>
       </el-form-item>
       <el-form-item label="背景颜色:">
-        <el-color-picker
-          v-model="element.style.backgroundColor"
-          show-alpha
-        ></el-color-picker>
+        <el-color-picker v-model="element.style.backgroundColor" show-alpha></el-color-picker>
       </el-form-item>
       <el-form-item label="文字颜色:">
-        <el-color-picker
-          v-model="element.style.color"
-          show-alpha
-        ></el-color-picker>
+        <el-color-picker v-model="element.style.color" show-alpha></el-color-picker>
       </el-form-item>
       <el-form-item label="圆角:">
         <el-input-number
@@ -53,15 +46,15 @@
       </el-form-item>
       <el-form-item label="文字对齐:">
         <el-radio-group v-model="element.style.textAlign">
-          <el-radio-button label="left"
-            ><i class="iconfont icon-align-left"></i
-          ></el-radio-button>
-          <el-radio-button label="center"
-            ><i class="iconfont icon-align-center"></i
-          ></el-radio-button>
-          <el-radio-button label="right"
-            ><i class="iconfont icon-align-right"></i
-          ></el-radio-button>
+          <el-radio-button label="left">
+            <i class="iconfont icon-align-left"></i>
+          </el-radio-button>
+          <el-radio-button label="center">
+            <i class="iconfont icon-align-center"></i>
+          </el-radio-button>
+          <el-radio-button label="right">
+            <i class="iconfont icon-align-right"></i>
+          </el-radio-button>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="左右内边距:">
@@ -74,10 +67,7 @@
         ></el-input-number>
       </el-form-item>
       <el-form-item label="边框颜色:">
-        <el-color-picker
-          v-model="element.style.borderColor"
-          show-alpha
-        ></el-color-picker>
+        <el-color-picker v-model="element.style.borderColor" show-alpha></el-color-picker>
       </el-form-item>
       <el-form-item label="边框宽度:">
         <el-input-number
@@ -92,25 +82,22 @@
     <el-divider content-position="left">提交后</el-divider>
     <el-form label-width="100px">
       <el-form-item label="成功toast:">
-        <el-input
-          v-model="element.props.successToast"
-          maxlength="100"
-        ></el-input>
+        <el-input v-model="element.props.successToast" maxlength="100"></el-input>
       </el-form-item>
       <el-form-item label="成功图片:">
         <imgEditor v-model:imgUrl="element.props.imgUrl"></imgEditor>
         <p class="tips">
-          <i class="el-icon-warning-outline"></i>
-          表单成功提交后弹框展示图，尺寸请控制在一屏内
+          <el-icon>
+            <warning />
+          </el-icon>表单成功提交后弹框展示图，尺寸请控制在一屏内
         </p>
       </el-form-item>
       <el-form-item label="成功后跳转:">
-        <el-input
-          v-model="element.props.successHref"
-          maxlength="100"
-        ></el-input>
+        <el-input v-model="element.props.successHref" maxlength="100"></el-input>
         <p class="tips">
-          <i class="el-icon-warning-outline"></i> 成功提交表单后跳转外链
+          <el-icon>
+            <warning />
+          </el-icon>成功提交表单后跳转外链
         </p>
       </el-form-item>
     </el-form>
@@ -127,9 +114,10 @@ import {
   ElButton,
   ElDivider,
   ElRadioGroup,
-  ElRadioButton,
+  ElRadioButton, ElIcon,
 } from "element-plus";
 import imgEditor from "../commonProps/imgEditor.vue";
+import { Warning } from '@element-plus/icons-vue'
 export default defineComponent({
   components: {
     ElForm,
@@ -141,7 +129,7 @@ export default defineComponent({
     ElDivider,
     imgEditor,
     ElRadioGroup,
-    ElRadioButton,
+    ElRadioButton, ElIcon, Warning
   },
   props: ["element"],
   setup(props, ctx) {

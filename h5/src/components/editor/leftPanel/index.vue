@@ -1,29 +1,34 @@
 <template>
-  <el-aside width="80px" class="editor_left"
-    ><div class="menu">
+  <el-aside width="80px" class="editor_left">
+    <div class="menu">
       <div @click="changeOperaType(1)" :class="{ cur: operaType == 1 }">
         <i class="iconfont icon-mokuai"></i>
         <p>基础</p>
-        <i class="el-icon-caret-left arrow"></i>
+        <el-icon class="arrow">
+          <caret-left />
+        </el-icon>
       </div>
       <div @click="changeOperaType(2)" :class="{ cur: operaType == 2 }">
         <i class="iconfont icon-form"></i>
         <p>表单</p>
-        <i class="el-icon-caret-left arrow"></i>
+        <el-icon class="arrow">
+          <caret-left />
+        </el-icon>
       </div>
       <div @click="changeOperaType(3)" :class="{ cur: operaType == 3 }">
         <i class="iconfont icon-hudong"></i>
         <p>互动</p>
-        <i class="el-icon-caret-left arrow"></i>
+        <el-icon class="arrow">
+          <caret-left />
+        </el-icon>
       </div>
     </div>
     <div class="bottom">
       <el-tooltip content="上传资源" placement="right" effect="light">
-        <i
-          :class="{ 'el-icon-upload': true, cur: operaType == 4 }"
-          @click="changeOperaType(4)"
-        ></i
-      ></el-tooltip>
+        <el-icon :class="{ upload_icon: true, cur: operaType == 4 }" @click="changeOperaType(4)">
+          <upload-filled />
+        </el-icon>
+      </el-tooltip>
       <el-tooltip content="使用帮助" placement="right" effect="light">
         <i
           :class="{
@@ -32,8 +37,8 @@
             cur: operaType == 5,
           }"
           @click="changeOperaType(5)"
-        ></i
-      ></el-tooltip>
+        ></i>
+      </el-tooltip>
       <el-tooltip content="快捷键" placement="right" effect="light">
         <i
           :class="{
@@ -42,8 +47,8 @@
             cur: operaType == 6,
           }"
           @click="changeOperaType(6)"
-        ></i
-      ></el-tooltip>
+        ></i>
+      </el-tooltip>
     </div>
     <pluginList v-if="[1, 2, 3].includes(operaType)"></pluginList>
     <sourceList v-else-if="operaType == 4"></sourceList>
@@ -52,13 +57,14 @@
   </el-aside>
 </template>
 <script lang="ts">
-import { ElAside, ElButton, ElDrawer, ElTooltip } from "element-plus";
+import { ElAside, ElButton, ElDrawer, ElTooltip, ElIcon } from "element-plus";
 import pluginList from "./common/pluginList.vue";
 import keyList from "./common/keyList.vue";
 import sourceList from "./common/sourceList.vue";
 import help from "./common/help.vue";
 import { defineComponent, ref, computed } from "vue";
 import { useStore } from "@/store/index";
+import { UploadFilled, CaretLeft } from '@element-plus/icons-vue'
 export default defineComponent({
   components: {
     ElAside,
@@ -68,7 +74,7 @@ export default defineComponent({
     keyList,
     sourceList,
     ElTooltip,
-    help,
+    help, ElIcon, UploadFilled, CaretLeft
   },
   setup() {
     const store = useStore();
@@ -140,7 +146,7 @@ export default defineComponent({
   i {
     margin: 10px 0;
     cursor: pointer;
-    &.el-icon-upload {
+    &.upload_icon {
       font-size: 1.8em;
     }
     &.cur {

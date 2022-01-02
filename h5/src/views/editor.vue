@@ -1,8 +1,10 @@
 <template>
   <el-container v-if="work.work_id">
-    <el-header
-      ><com-header><topPanel :workId="workId"></topPanel></com-header
-    ></el-header>
+    <el-header>
+      <com-header>
+        <topPanel :workId="workId"></topPanel>
+      </com-header>
+    </el-header>
     <el-container class="main_container">
       <leftPanel></leftPanel>
       <el-main>
@@ -12,7 +14,9 @@
     </el-container>
   </el-container>
   <div v-else-if="isLoading" class="loading">
-    <i class="el-icon-loading"></i> 作品获取中...
+    <el-icon>
+      <loading />
+    </el-icon>作品获取中...
   </div>
   <el-empty v-else description="抱歉，您要编辑的作品不存在或无权限">
     <el-button type="primary" @click="goWorks">查看我的作品</el-button>
@@ -26,7 +30,7 @@ import {
   ElAside,
   ElButton,
   ElLoading,
-  ElEmpty,
+  ElEmpty, ElIcon,
 } from "element-plus";
 import comHeader from "@/components/common/comHeader.vue";
 import topPanel from "@/components/editor/topPanel/index.vue";
@@ -36,6 +40,7 @@ import mainPanel from "@/components/editor/mainPanel/index.vue";
 import { useStore } from "../store/index";
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
+import { Loading } from '@element-plus/icons-vue'
 export default {
   props: ["workId"],
   components: {
@@ -49,7 +54,7 @@ export default {
     rightPanel,
     mainPanel,
     topPanel,
-    ElEmpty,
+    ElEmpty, ElIcon, Loading
   },
   setup(props) {
     const store = useStore();
@@ -69,7 +74,6 @@ export default {
       isLoading.value = false;
     }
     fetchWorkInfo();
-    setOperaType(1);
     //去查看我的作品
     function goWorks() {
       router.replace("/works");

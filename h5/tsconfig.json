@@ -10,7 +10,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true, //是否跳过声明文件的检查
     "lib": ["esnext", "dom"],
-    "types": ["vite/client"],
+    "types": ["vite/client", "element-plus/global"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

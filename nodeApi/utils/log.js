@@ -5,7 +5,7 @@ const config = require('config')
 const logType = config.get('logType')
 const logPath = config.get('logPath')
 
-const pattern = '[%d{yyyy-MM-dd hh:mm:ss.SSS}][%z][weiye_node_api][%p][%c][traceId=%X{traceId}][SpanId=%X{spanId}] %m'
+const pattern = '[%d{yyyy-MM-dd hh:mm:ss.SSS}][%z][weiye_node_api][%p][%c] %m'
 
 log4js.configure({
   appenders: {
@@ -44,5 +44,7 @@ log4js.configure({
   },
 })
 
-exports.logger = log4js.getLogger(logType) //应用级别的日志
-exports.accessLogger = log4js.getLogger(logType == 'application' ? 'access' : 'out') //访问级别的日志
+//记录所有应用级别的日志
+exports.logger = log4js.getLogger(logType)
+//记录所有访问级别的日志
+exports.accessLogger = log4js.getLogger(logType == 'application' ? 'access' : 'out')

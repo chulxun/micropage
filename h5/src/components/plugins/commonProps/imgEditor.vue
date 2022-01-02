@@ -11,12 +11,7 @@
         v-if="sourceType == 1"
       ></ElImage>
       <div v-else-if="sourceType == 2">
-        <video
-          @click="previewVideo"
-          preload="preload"
-          ref="video"
-          :src="imgUrl"
-        ></video>
+        <video @click="previewVideo" preload="preload" ref="video" :src="imgUrl"></video>
         <videoPreview
           v-model:videoUrl="imgUrl"
           v-model:previewVisible="previewVisible"
@@ -41,14 +36,18 @@
     <ElButton size="mini" @click="onRemove">移除</ElButton>
   </template>
   <div v-else>
-    <i class="el-icon-plus uploader-icon" @click="onShowSourceList"></i>
+    <el-icon class="uploader-icon" @click="onShowSourceList">
+      <plus />
+    </el-icon>
   </div>
 </template>
 <script lang='ts'>
-import { ElImage, ElButton } from "element-plus";
+import { ElImage, ElButton, ElIcon } from "element-plus";
 import { defineComponent, ref, onMounted, nextTick } from "vue";
 import { useStore } from "@/store/index";
 import videoPreview from "@/components/common/videoPreview.vue";
+import { Plus } from '@element-plus/icons-vue'
+
 export default defineComponent({
   props: {
     imgUrl: {
@@ -63,7 +62,7 @@ export default defineComponent({
   components: {
     ElImage,
     ElButton,
-    videoPreview,
+    videoPreview, ElIcon, Plus
   },
   setup(props, ctx) {
     const store = useStore();

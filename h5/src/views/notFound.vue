@@ -3,23 +3,14 @@
     <div class="title">404</div>
     <p>您要找的页面不存在,请检查输入的网址是否正确。</p>
     <router-link to="/">
-      <el-button type="primary" icon="el-icon-s-home"
-        >返回首页</el-button
-      ></router-link
-    >
+      <el-button type="primary" :icon="HomeFilled">返回首页</el-button>
+    </router-link>
   </div>
 </template>
-<script lang='ts'>
-import { defineComponent } from "vue";
+<script setup lang='ts'>
 import { ElButton } from "element-plus";
-export default defineComponent({
-  components: {
-    ElButton,
-  },
-  setup() {
-    return {};
-  },
-});
+import { HomeFilled } from '@element-plus/icons-vue'
+
 </script>
 <style lang='less' scoped>
 .not_found {

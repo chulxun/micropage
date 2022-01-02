@@ -3,19 +3,20 @@
     <layers></layers>
     <workSetting></workSetting>
     <el-tabs type="border-card" v-model="tabIndex">
-      <el-tab-pane label="属性" name="props"
-        ><pluginProps></pluginProps
-      ></el-tab-pane>
-      <el-tab-pane label="动画" name="animation"
-        ><animateProps></animateProps
-      ></el-tab-pane>
-      <el-tab-pane label="页面" name="page"
-        ><pageProps></pageProps
-      ></el-tab-pane>
-      <el-tab-pane label="脚本" name="script"
-        ><scriptProps></scriptProps
-      ></el-tab-pane> </el-tabs
-  ></el-aside>
+      <el-tab-pane label="属性" name="props">
+        <pluginProps></pluginProps>
+      </el-tab-pane>
+      <el-tab-pane label="动画" name="animation">
+        <animateProps></animateProps>
+      </el-tab-pane>
+      <el-tab-pane label="页面" name="page">
+        <pageProps></pageProps>
+      </el-tab-pane>
+      <el-tab-pane label="脚本" name="script">
+        <scriptProps></scriptProps>
+      </el-tab-pane>
+    </el-tabs>
+  </el-aside>
 </template>
 <script lang="ts">
 import { ElAside, ElButton, ElTabs, ElTabPane } from "element-plus";
@@ -100,5 +101,17 @@ export default defineComponent({
   color: #888;
   line-height: 1.2;
   padding-top: 10px;
+}
+
+:deep(.animation_drawer) {
+  .el-drawer__header {
+    margin-bottom: 0;
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+  }
+  .el-drawer__body {
+    padding: 10px 20px;
+  }
 }
 </style>

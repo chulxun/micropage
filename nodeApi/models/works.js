@@ -14,9 +14,8 @@ const worksSchema = new Schema({
   page_type: Number,  //页面类型
   pages: String,  //页面数据
   publish_pages: String,  //发布的页面数据
-  html_code: String, //html脚本
-  css_code: String, //css脚本
-  js_code: String, //js脚本
+  config:String, // 配置项
+  publish_config:String, // 发布的配置项
   is_delete: {  //是否逻辑删除
     type: Boolean,
     default: false
@@ -42,7 +41,6 @@ const worksSchema = new Schema({
     default: 0,
   },
 }, {
-  //去掉版本  否则新增的时候会多一个__v字段来记录版本
   versionKey: false
 })
 

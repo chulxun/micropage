@@ -2,61 +2,65 @@
   <div :class="{ layer_container: true, open: show }">
     <el-tooltip content="作品设置" placement="left">
       <div class="layer_icon" v-show="!show" @click="toggleShow">
-        <i class="el-icon-setting"></i>
+        <el-icon>
+          <setting />
+        </el-icon>
         <p>设置</p>
       </div>
     </el-tooltip>
     <div class="container" v-show="show">
       <div class="title">
         <p>作品设置</p>
-        <i class="el-icon-d-arrow-right" @click="toggleShow"></i>
+        <el-icon @click="toggleShow">
+          <arrow-right />
+        </el-icon>
       </div>
       <div class="form_content">
         <el-form ref="form" :model="work" label-position="top" size="small">
           <el-form-item label="作品标题">
             <el-input v-model="work.title" maxlength="50"></el-input>
           </el-form-item>
-
           <el-form-item label="作品描述">
-            <el-input
-              type="textarea"
-              v-model="work.description"
-              maxlength="200"
-            ></el-input>
+            <el-input type="textarea" v-model="work.description" maxlength="200"></el-input>
           </el-form-item>
+          <!-- 翻页类型作品 Swiper参数配置 -->
+          <template v-if="work.page_type === 2">
+            <el-divider content-position="left">Swiper参数配置</el-divider>
+            <el-form-item label="切换方向" v-if="work.config">
+              <el-radio-group v-model="work.config.swiper_direction">
+                <el-radio-button label="horizontal">水平</el-radio-button>
+                <el-radio-button label="vertical">垂直</el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item label="显示分页" v-if="work.config">
+              <el-switch v-model="work.config.swiper_pag"></el-switch>
+            </el-form-item>
+            <el-form-item label="分页颜色" v-if="work.config">
+              <el-color-picker v-model="work.config.swiper_pag_color" show-alpha></el-color-picker>
+            </el-form-item>
+          </template>
         </el-form>
       </div>
     </div>
   </div>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElColorPicker,
-  ElTooltip,
+  ElForm, ElFormItem, ElInput, ElColorPicker,
+  ElTooltip, ElSwitch, ElRadioGroup, ElRadioButton, ElDivider, ElIcon
 } from "element-plus";
-import { reactive, ref, defineComponent, computed } from "vue";
+import { reactive, ref, computed } from "vue";
 import { useStore } from "@/store/index";
-export default defineComponent({
-  components: {
-    ElForm,
-    ElFormItem,
-    ElInput,
-    ElColorPicker,
-    ElTooltip,
-  },
-  setup(props) {
-    let show = ref(false);
-    function toggleShow() {
-      show.value = !show.value;
-    }
-    const store = useStore();
-    return { work: computed(() => store.state.editor.work), show, toggleShow };
-  },
-  mounted() {},
-});
+import { Setting, ArrowRight } from '@element-plus/icons-vue'
+
+const store = useStore();
+const work = computed(() => store.state.editor.work)
+const show = ref(false);
+const toggleShow = () => {
+  show.value = !show.value;
+}
+
+
 </script>
 <style lang='less' scoped>
 .layer_container {
@@ -96,7 +100,6 @@ export default defineComponent({
     background-color: #f5f7fa;
     border-bottom: 1px solid #e4e7ed;
     i {
-      padding: 10px;
       cursor: pointer;
     }
   }

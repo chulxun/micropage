@@ -3,28 +3,19 @@
     <el-divider content-position="left">样式</el-divider>
     <el-form label-width="80px" size="small">
       <el-form-item label="整体背景色:">
-        <el-color-picker
-          v-model="element.style.backgroundColor"
-          show-alpha
-        ></el-color-picker>
+        <el-color-picker v-model="element.style.backgroundColor" show-alpha></el-color-picker>
       </el-form-item>
     </el-form>
     <el-divider content-position="left">属性</el-divider>
     <el-form label-width="80px" size="small">
       <el-form-item label="默认选中:">
-        <el-select
-          style="width: 100%"
-          v-model="element.props.active"
-          placeholder="请选择类型"
-          multiple
-        >
+        <el-select style="width: 100%" v-model="element.props.active" placeholder="请选择类型" multiple>
           <el-option
             v-for="(item, index) in element.props.options"
             :key="index"
             :label="item.title"
             :value="index"
-          >
-          </el-option>
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="手风琴模式:">
@@ -34,11 +25,10 @@
 
       <el-divider content-position="left">内容管理</el-divider>
       <div class="swiper_btns">
-        <div
-          :class="{ btn: true, disabled: element.props.options.length < 2 }"
-          @click="onMinus"
-        >
-          <i class="el-icon-minus"></i>
+        <div :class="{ btn: true, disabled: element.props.options.length < 2 }" @click="onMinus">
+          <el-icon>
+            <minus />
+          </el-icon>
         </div>
         <el-pagination
           background
@@ -46,14 +36,15 @@
           v-model:currentPage="curIndex"
           :page-count="element.props.options.length"
           :pager-count="5"
-        >
-        </el-pagination>
+        ></el-pagination>
         <div
           class="btn"
           :class="{ btn: true, disabled: element.props.options.length > 9 }"
           @click="onPlus"
         >
-          <i class="el-icon-plus"></i>
+          <el-icon>
+            <plus />
+          </el-icon>
         </div>
       </div>
       <template v-for="(item, index) in element.props.options">
@@ -78,8 +69,8 @@
     </el-form>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import {
   ElForm,
   ElFormItem,
@@ -93,45 +84,30 @@ import {
   ElSwitch,
   ElPagination,
   ElSelect,
-  ElOption,
+  ElOption, ElIcon,
 } from "element-plus";
 import iconEditor from "../commonProps/iconEditor.vue";
-export default defineComponent({
-  components: {
-    ElForm,
-    ElColorPicker,
-    ElInputNumber,
-    ElFormItem,
-    ElInput,
-    ElButton,
-    ElDivider,
-    ElRadioGroup,
-    ElRadioButton,
-    ElSwitch,
-    ElPagination,
-    ElSelect,
-    ElOption,
-    iconEditor,
-  },
-  props: ["element"],
-  setup(props, ctx) {
-    const curIndex = ref(1);
-    function onMinus() {
-      if (curIndex.value == props.element.props.options.length) {
-        curIndex.value -= 1;
-      }
-      props.element.props.options.splice(-1, 1);
-    }
-    function onPlus() {
-      let index = props.element.props.options.length + 1;
-      props.element.props.options.push({
-        title: "标题" + index,
-        content: "内容" + index,
-      });
-    }
-    return { curIndex, onMinus, onPlus };
-  },
-});
+import { Plus, Minus } from '@element-plus/icons-vue'
+
+
+const props = defineProps({
+  element: Object
+})
+const curIndex = ref(1);
+function onMinus() {
+  if (curIndex.value == props.element.props.options.length) {
+    curIndex.value -= 1;
+  }
+  props.element.props.options.splice(-1, 1);
+}
+function onPlus() {
+  let index = props.element.props.options.length + 1;
+  props.element.props.options.push({
+    title: "标题" + index,
+    content: "内容" + index,
+  });
+}
+
 </script>
 <style lang='less' scoped>
 .swiper_btns {

@@ -9,6 +9,7 @@
       :slides-per-view="1"
       :space-between="0"
       direction="vertical"
+      :modules="modules"
       :pagination="{ clickable: true }"
       :threshold="30"
       v-if="work.page_type == 2"
@@ -40,7 +41,7 @@
     <div class="mode_tips" v-if="mode == 'preview'">预览模式</div>
   </div>
 </template>
-<script lang='ts'>
+<script  lang='ts'>
 import {
   defineComponent,
   ref,
@@ -54,11 +55,10 @@ import animation from "@/components/common/animation.vue";
 import { getElementStyle, pxToRem } from "../src/utils/element";
 import { getWorkPreview, getWorkDetail } from "../src/api/works";
 import { Toast } from "vant";
-import SwiperCore, { Pagination } from "swiper";
+import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/swiper.scss";
-import "swiper/components/pagination/pagination.scss";
-SwiperCore.use([Pagination]);
+import 'swiper/css'
+import 'swiper/css/pagination'
 import { useWindowSize } from "@vant/use";
 import { getSearchQueryString } from "../src/utils/index";
 import "@vant/touch-emulator";
@@ -78,6 +78,7 @@ export default defineComponent({
     const { width, height } = useWindowSize();
     const workId = getSearchQueryString("workId");
     const mode = getSearchQueryString("mode");
+    const modules = [Pagination]
     //监听页面尺寸变动 调整rem
     watch(width, () => {
       Resize();
@@ -164,7 +165,7 @@ export default defineComponent({
         }, 200);
       }
     });
-    return { mode, workId, pageHeight, pcUrl, pxToRem, work, getElementStyle };
+    return { mode, workId, pageHeight, modules, pcUrl, pxToRem, work, getElementStyle };
   },
 });
 </script>

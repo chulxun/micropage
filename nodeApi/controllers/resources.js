@@ -1,8 +1,10 @@
 const { ResourcesProxy } = require("../proxy");
 
 module.exports = class ResourcesController {
-    /**
-   * 获取所有资源列表 admin
+
+  /**
+   * 接口: 获取所有资源列表
+   * 应用: admin
    */
   static async getAllList(ctx) {
     const { pageSize = 10, pageIndex = 1, type = 1 } = ctx.request.query
@@ -23,8 +25,10 @@ module.exports = class ResourcesController {
       throw err
     }
   }
+
   /**
-   * 获取列表
+   * 接口: 获取当前登录用户的资源列表
+   * 应用: H5
    */
   static async getList(ctx) {
     const queryParams = ctx.request.query;
@@ -46,7 +50,8 @@ module.exports = class ResourcesController {
   }
 
   /**
-   * 删除
+   * 接口: 删除资源
+   * 应用: admin/H5
    */
   static async delete(ctx) {
     const id = ctx.checkBody("id").notEmpty("ID不能为空").value;
@@ -63,7 +68,8 @@ module.exports = class ResourcesController {
   }
 
   /**
-   * 新增
+   * 接口: 新增资源
+   * 应用: H5
    */
   static async add(ctx) {
     const url = ctx.checkBody("url").notEmpty("url不能为空").value;

@@ -5,3 +5,7 @@ declare module "*.vue" {
 }
 declare module "qrcode";
 declare module 'qs';
+
+declare interface Window {
+  getWorkInfo:any
+}

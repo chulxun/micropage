@@ -13,12 +13,7 @@
         <el-switch v-model="element.props.autoplay"></el-switch>
       </el-form-item>
       <el-form-item label="时间间隔:">
-        <el-input-number
-          v-model.number="element.props.delay"
-          :min="1000"
-          :max="10000"
-          :step="100"
-        ></el-input-number>
+        <el-input-number v-model.number="element.props.delay" :min="1000" :max="10000" :step="100"></el-input-number>
       </el-form-item>
       <el-form-item label="显示指示器:">
         <el-switch v-model="element.props.showPage"></el-switch>
@@ -31,17 +26,14 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="指示器颜色:">
-        <el-color-picker
-          v-model="element.props.indicatorColor"
-        ></el-color-picker>
+        <el-color-picker v-model="element.props.indicatorColor"></el-color-picker>
       </el-form-item>
       <el-divider content-position="left">图片管理</el-divider>
       <div class="swiper_btns">
-        <div
-          :class="{ btn: true, disabled: element.props.swiper.length < 2 }"
-          @click="onMinus"
-        >
-          <i class="el-icon-minus"></i>
+        <div :class="{ btn: true, disabled: element.props.swiper.length < 2 }" @click="onMinus">
+          <el-icon>
+            <minus />
+          </el-icon>
         </div>
         <el-pagination
           background
@@ -50,20 +42,19 @@
           :page-count="element.props.swiper.length"
           :pager-count="5"
           @current-change="handleCurrentChange"
-        >
-        </el-pagination>
+        ></el-pagination>
         <div
           class="btn"
           :class="{ btn: true, disabled: element.props.swiper.length > 9 }"
           @click="onPlus"
         >
-          <i class="el-icon-plus"></i>
+          <el-icon>
+            <plus />
+          </el-icon>
         </div>
       </div>
       <el-form-item label="上传图片:" required>
-        <imgEditor
-          v-model:imgUrl="element.props.swiper[curIndex - 1]"
-        ></imgEditor>
+        <imgEditor v-model:imgUrl="element.props.swiper[curIndex - 1]"></imgEditor>
       </el-form-item>
     </el-form>
   </div>
@@ -83,10 +74,11 @@ import {
   ElOption,
   ElSwitch,
   ElInputNumber,
-  ElPagination,
+  ElPagination, ElIcon,
 } from "element-plus";
 import imgEditor from "../commonProps/imgEditor.vue";
 import { useStore } from "@/store/index";
+import { Plus, Minus } from '@element-plus/icons-vue'
 export default defineComponent({
   components: {
     ElForm,
@@ -102,7 +94,7 @@ export default defineComponent({
     ElOption,
     ElSwitch,
     ElInputNumber,
-    ElPagination,
+    ElPagination, ElIcon, Plus, Minus
   },
   props: ["element"],
   setup(props, ctx) {

@@ -14,7 +14,9 @@
     <div class="work_list" v-if="worksList.length > 0">
       <div class="item">
         <div class="bg add" @click="addVisible = true">
-          <i class="el-icon-circle-plus"></i>
+          <el-icon>
+            <circle-plus-filled />
+          </el-icon>
           <p>创建新作品</p>
         </div>
       </div>
@@ -41,22 +43,30 @@
             <div class="icon_list">
               <div class="icon" @click="onEdit(work.work_id)">
                 <el-tooltip effect="dark" content="编辑" placement="top">
-                  <i class="el-icon-edit-outline"></i>
+                  <el-icon>
+                    <edit />
+                  </el-icon>
                 </el-tooltip>
               </div>
               <div class="icon" @click="onDelete(work.work_id, index)">
                 <el-tooltip effect="dark" content="删除" placement="top">
-                  <i class="el-icon-delete"></i>
+                  <el-icon>
+                    <delete />
+                  </el-icon>
                 </el-tooltip>
               </div>
               <div class="icon" @click="onPreview(work.work_id)">
                 <el-tooltip effect="dark" content="预览" placement="top">
-                  <i class="el-icon-view"></i>
+                  <el-icon>
+                    <View />
+                  </el-icon>
                 </el-tooltip>
               </div>
               <div class="icon" @click="onViewData(work.work_id)">
                 <el-tooltip effect="dark" content="数据" placement="top">
-                  <i class="el-icon-s-data"></i>
+                  <el-icon>
+                    <data-line />
+                  </el-icon>
                 </el-tooltip>
               </div>
             </div>
@@ -84,7 +94,7 @@
     <preview :workId="workId" v-model="previewVisible" v-if="previewVisible"></preview>
   </master>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import QRCode from "qrcode";
 import {
   ElButton,
@@ -96,96 +106,92 @@ import {
   ElPagination,
   ElLoading,
   ElMessage,
-  ElEmpty,
+  ElEmpty, ElIcon, ElMessageBox
 } from "element-plus";
 import master from "@/components/common/master.vue";
 import createWork from "@/components/common/createWork.vue";
-import { defineComponent, ref, reactive, onMounted, nextTick } from "vue";
+import { ref, reactive, onMounted, nextTick } from "vue";
 import { getWorksList, deleteWork } from "@/api/works";
 import { useRouter } from "vue-router";
 import preview from "@/components/editor/preview/index.vue";
 import { formatDate } from "@/utils/index";
-export default defineComponent({
-  components: {
-    master,
-    ElButton,
-    ElMenu,
-    ElMenuItem,
-    ElTag,
-    ElTooltip,
-    ElDialog,
-    createWork,
-    ElPagination,
-    preview,
-    ElEmpty,
-  },
-  setup() {
-    const router = useRouter();
-    const addVisible = ref(false); //显示添加作品弹框
-    const page_type = ref(0); //页面类型
-    const worksList: H5.WorksList = reactive([]); //作品列表
-    const workRefs: Array<HTMLElement> = reactive([]); //作品dom
-    const previewVisible = ref(false); //预览
-    const workId = ref(""); //预览作品ID
-    const page = reactive({
-      totalCount: 0,
-      count1: 0,
-      count2: 0,
-      totalPage: 1,
-      pageSize: 14,
-      currentPage: 0,
-    }); //分页数据
-    const setWorkRef = (el: any) => {
-      workRefs.push(el);
-    };
-    //获取作品列表
-    async function fetchWorksList(pageIndex?: number) {
-      let params = {
-        page_type: page_type.value,
-        pageSize: page.pageSize,
-        pageIndex: 1,
-      };
-      if (pageIndex) params.pageIndex = pageIndex;
-      const res = await getWorksList(params);
-      if (res && res.code == 0) {
-        worksList.length = 0;
-        let data = res.data.map((item: H5.WorkInfo) => {
-          item.showQrcode = false;
-          return item;
-        });
-        worksList.push(...data);
-        Object.assign(page, res.page); //重置页码信息
-        await nextTick();
-        drawQRcode();
-      }
+import { CirclePlusFilled, Delete, Edit, View, DataLine } from '@element-plus/icons-vue'
+
+const router = useRouter();
+const addVisible = ref(false); //显示添加作品弹框
+const page_type = ref(0); //页面类型
+const worksList: H5.WorksList = reactive([]); //作品列表
+const workRefs: Array<HTMLElement> = reactive([]); //作品dom
+const previewVisible = ref(false); //预览
+const workId = ref(""); //预览作品ID
+const page = reactive({
+  totalCount: 0,
+  count1: 0,
+  count2: 0,
+  totalPage: 1,
+  pageSize: 14,
+  currentPage: 0,
+}); //分页数据
+const setWorkRef = (el: any) => {
+  workRefs.push(el);
+};
+//获取作品列表
+async function fetchWorksList(pageIndex?: number) {
+  let params = {
+    page_type: page_type.value,
+    pageSize: page.pageSize,
+    pageIndex: 1,
+  };
+  if (pageIndex) params.pageIndex = pageIndex;
+  const res = await getWorksList(params);
+  if (res && res.code == 0) {
+    worksList.length = 0;
+    let data = res.data.map((item: H5.WorkInfo) => {
+      item.showQrcode = false;
+      return item;
+    });
+    worksList.push(...data);
+    Object.assign(page, res.page); //重置页码信息
+    await nextTick();
+    drawQRcode();
+  }
+}
+//根据类型获取作品列表
+function getWorksByType(index: string) {
+  page_type.value = parseInt(index);
+  fetchWorksList();
+}
+//生成二维码
+function drawQRcode() {
+  for (let key in workRefs) {
+    QRCode.toCanvas(
+      workRefs[key],
+      window.location.origin + "/viewer/" + key + "/preview",
+      { margin: 1, scale: 4, width: 150 },
+      (err: Error) => { }
+    );
+  }
+}
+//去编辑作品
+function onEdit(work_id: string) {
+  window.open("/editor/" + work_id, "_blank");
+}
+//预览作品
+function onPreview(work_id: string) {
+  previewVisible.value = true;
+  workId.value = work_id;
+}
+//删除作品
+async function onDelete(work_id: string, index: number) {
+  ElMessageBox.confirm(
+    '确定要删除该作品吗？',
+    '提醒',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
     }
-    //根据类型获取作品列表
-    function getWorksByType(index: string) {
-      page_type.value = parseInt(index);
-      fetchWorksList();
-    }
-    //生成二维码
-    function drawQRcode() {
-      for (let key in workRefs) {
-        QRCode.toCanvas(
-          workRefs[key],
-          window.location.origin + "/viewer/" + key + "/preview",
-          { margin: 1, scale: 4, width: 150 },
-          (err: Error) => { }
-        );
-      }
-    }
-    //去编辑作品
-    function onEdit(work_id: string) {
-      window.open("/editor/" + work_id, "_blank");
-    }
-    //预览作品
-    function onPreview(work_id: string) {
-      previewVisible.value = true;
-      workId.value = work_id;
-    }
-    //删除作品
-    async function onDelete(work_id: string, index: number) {
+  )
+    .then(async () => {
       let loading = ElLoading.service({ fullscreen: true });
       const res = await deleteWork({
         work_id,
@@ -197,30 +203,21 @@ export default defineComponent({
       } else {
         ElMessage.error(res.message);
       }
-    }
-    //查看作品数据
-    function onViewData(work_id: string) {
-      router.push("/formData/" + work_id);
-    }
-    fetchWorksList(); //进入页面先获取作品列表
-    return {
-      addVisible,
-      worksList,
-      page_type,
-      page,
-      previewVisible,
-      workId,
-      formatDate,
-      setWorkRef,
-      fetchWorksList,
-      onEdit,
-      onPreview,
-      onDelete,
-      onViewData,
-      getWorksByType,
-    };
-  },
-});
+    })
+    .catch(() => {
+
+    })
+
+}
+//查看作品数据
+function onViewData(work_id: string) {
+  router.push("/formData/" + work_id);
+}
+onMounted(() => {
+  fetchWorksList(); //进入页面先获取作品列表
+})
+
+
 </script>
 <style lang="less"  scoped>
 .el-menu-nav {
@@ -249,8 +246,6 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   .item {
-    // max-width: 300px;
-    // max-height: 400px;
     min-width: 220px;
     min-height: 280px;
     width: 20%;

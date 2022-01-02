@@ -3,34 +3,19 @@
     <el-divider content-position="left">样式</el-divider>
     <el-form label-width="80px" size="small">
       <el-form-item label="整体背景色:">
-        <el-color-picker
-          v-model="element.style.backgroundColor"
-          show-alpha
-        ></el-color-picker>
+        <el-color-picker v-model="element.style.backgroundColor" show-alpha></el-color-picker>
       </el-form-item>
       <el-form-item label="标签选中色:">
-        <el-color-picker
-          v-model="element.props.color"
-          show-alpha
-        ></el-color-picker>
+        <el-color-picker v-model="element.props.color" show-alpha></el-color-picker>
       </el-form-item>
       <el-form-item label="标签背景色:">
-        <el-color-picker
-          v-model="element.props.background"
-          show-alpha
-        ></el-color-picker>
+        <el-color-picker v-model="element.props.background" show-alpha></el-color-picker>
       </el-form-item>
       <el-form-item label="标题默认色:">
-        <el-color-picker
-          v-model="element.props.titleInactiveColor"
-          show-alpha
-        ></el-color-picker>
+        <el-color-picker v-model="element.props.titleInactiveColor" show-alpha></el-color-picker>
       </el-form-item>
       <el-form-item label="标题选中色:">
-        <el-color-picker
-          v-model="element.props.titleActiveColor"
-          show-alpha
-        ></el-color-picker>
+        <el-color-picker v-model="element.props.titleActiveColor" show-alpha></el-color-picker>
       </el-form-item>
       <el-form-item label="内边距:">
         <el-input-number
@@ -51,18 +36,13 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="默认选中:">
-        <el-select
-          style="width: 100%"
-          v-model="element.props.active"
-          placeholder="请选择类型"
-        >
+        <el-select style="width: 100%" v-model="element.props.active" placeholder="请选择类型">
           <el-option
             v-for="(item, index) in element.props.options"
             :key="index"
             :label="item.title"
             :value="index"
-          >
-          </el-option>
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="转场动画:">
@@ -73,11 +53,10 @@
       </el-form-item>
       <el-divider content-position="left">标签管理</el-divider>
       <div class="swiper_btns">
-        <div
-          :class="{ btn: true, disabled: element.props.options.length < 2 }"
-          @click="onMinus"
-        >
-          <i class="el-icon-minus"></i>
+        <div :class="{ btn: true, disabled: element.props.options.length < 2 }" @click="onMinus">
+          <el-icon>
+            <minus />
+          </el-icon>
         </div>
         <el-pagination
           background
@@ -85,23 +64,21 @@
           v-model:currentPage="curIndex"
           :page-count="element.props.options.length"
           :pager-count="5"
-        >
-        </el-pagination>
+        ></el-pagination>
         <div
           class="btn"
           :class="{ btn: true, disabled: element.props.options.length > 9 }"
           @click="onPlus"
         >
-          <i class="el-icon-plus"></i>
+          <el-icon>
+            <plus />
+          </el-icon>
         </div>
       </div>
       <template v-for="(item, index) in element.props.options">
         <div :key="index" v-if="index + 1 == curIndex">
           <el-form-item label="标签名称:" required>
-            <el-input
-              v-model="item.title"
-              placeholder="请输入标签名称"
-            ></el-input>
+            <el-input v-model="item.title" placeholder="请输入标签名称"></el-input>
           </el-form-item>
           <textEditor v-model:text="item.content"></textEditor>
         </div>
@@ -124,8 +101,9 @@ import {
   ElSwitch,
   ElPagination,
   ElSelect,
-  ElOption,
+  ElOption, ElIcon,
 } from "element-plus";
+import { Plus, Minus } from '@element-plus/icons-vue'
 
 export default defineComponent({
   components: {
@@ -141,7 +119,7 @@ export default defineComponent({
     ElSwitch,
     ElPagination,
     ElSelect,
-    ElOption,
+    ElOption, ElIcon, Plus, Minus,
     textEditor: defineAsyncComponent(
       () => import("../commonProps/textEditor.vue")
     ),

@@ -1,6 +1,8 @@
 <template>
   <el-container>
-    <el-header><com-header></com-header></el-header>
+    <el-header>
+      <com-header></com-header>
+    </el-header>
     <el-container class="el-container-height">
       <el-aside width="180px">
         <el-menu
@@ -10,32 +12,44 @@
           :router="true"
         >
           <el-menu-item index="/works">
-            <i class="el-icon-suitcase"></i>
+            <el-icon>
+              <suitcase />
+            </el-icon>
             <template #title>我的作品</template>
           </el-menu-item>
           <el-menu-item index="/formdata">
-            <i class="el-icon-data-analysis"></i>
+            <el-icon>
+              <data-analysis />
+            </el-icon>
             <template #title>我的数据</template>
           </el-menu-item>
           <el-menu-item index="/template">
-            <i class="el-icon-document"></i>
+            <el-icon>
+              <document />
+            </el-icon>
             <template #title>模版中心</template>
           </el-menu-item>
           <el-menu-item index="/userEdit">
-            <i class="el-icon-user"></i>
+            <el-icon>
+              <user />
+            </el-icon>
             <template #title>账户管理</template>
           </el-menu-item>
           <el-menu-item index="/about">
-            <i class="el-icon-postcard"></i>
+            <el-icon>
+              <postcard />
+            </el-icon>
             <template #title>关于微页</template>
           </el-menu-item>
         </el-menu>
       </el-aside>
-      <el-main><slot></slot> </el-main>
+      <el-main>
+        <slot></slot>
+      </el-main>
     </el-container>
   </el-container>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import {
   ElMenu,
   ElMenuItem,
@@ -43,31 +57,19 @@ import {
   ElHeader,
   ElMain,
   ElAside,
-  ElButton,
+  ElIcon
 } from "element-plus";
+import { Postcard, User, Document, Suitcase, DataAnalysis } from '@element-plus/icons-vue'
 import comHeader from "@/components/common/comHeader.vue";
-import { defineComponent } from "vue";
-export default defineComponent({
-  props: ["defaultActive"],
-  components: {
-    comHeader,
-    ElMenu,
-    ElMenuItem,
-    ElContainer,
-    ElHeader,
-    ElMain,
-    ElAside,
-    ElButton,
-  },
-  setup() {
-    const handleSelect = (key: any, keyPath: any) => {
-      // console.log(key, keyPath);
-    };
-    return {
-      handleSelect,
-    };
-  },
-});
+const props = defineProps({
+  defaultActive: String
+})
+
+const handleSelect = (key: any, keyPath: any) => {
+  // console.log(key, keyPath);
+};
+
+
 </script>
 <style lang="less"  scoped>
 .el-menu-left {

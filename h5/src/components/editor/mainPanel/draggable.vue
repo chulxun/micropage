@@ -20,7 +20,9 @@
         @mousedown.stop="mousedownScale(item, $event)"
       ></div>
       <!-- 旋转按钮 -->
-      <i class="el-icon-refresh-left rotate_btn" @mousedown.stop="mousedownRotate"></i>
+      <el-icon class="rotate_btn" @mousedown.stop="mousedownRotate">
+        <refresh-left />
+      </el-icon>
       <!-- 尺寸展示 -->
       <div class="size_detail">{{ element.style.width + "*" + element.style.height }}</div>
       <!-- 旋转信息展示 -->
@@ -44,10 +46,12 @@ import { defineComponent, computed, reactive, onBeforeMount, ref } from "vue";
 import { useStore } from "@/store/index";
 import { getElementStyle } from "@/utils/element";
 import animation from "./animation.vue";
+import { ElIcon } from "element-plus";
+import { RefreshLeft } from '@element-plus/icons-vue'
 export default defineComponent({
   props: ["element"],
   components: {
-    animation,
+    animation, ElIcon, RefreshLeft
   },
   setup(props) {
     const store = useStore();

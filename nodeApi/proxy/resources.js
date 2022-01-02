@@ -2,7 +2,10 @@
 const { Resources } = require("../models")
 
 module.exports = class ResourcesProxy {
-  // 获取所有资源 admin
+
+  /**
+   *  分页获取所有资源 admin
+   */
   static getAllList({ params, pageSize, pageIndex }) {
     console.log(params)
     return Resources.aggregate([
@@ -25,21 +28,34 @@ module.exports = class ResourcesProxy {
       .skip((pageIndex * 1 - 1) * pageSize)
       .limit(pageSize * 1)
   }
-  // 获取资源列表
+
+  /**
+   *  分页获取资源列表
+   */
   static getList({ params, pageIndex, pageSize }) {
     return Resources.find(params)
       .skip((pageIndex * 1 - 1) * pageSize)
       .limit(pageSize * 1)
       .sort({ "id": -1 })
   }
-  // 获取数据总条数
+
+  /**
+   *  获取符合条件数据总条数
+   */
   static getCount(params) {
     return Resources.countDocuments(params)
   }
+
+  /**
+   *  删除资源
+   */
   static delete(id) {
     return Resources.remove({ id })
   }
 
+  /**
+   *  添加资源
+   */
   static add(params) {
     const resource = new Resources();
     resource.user_id = params.user_id;

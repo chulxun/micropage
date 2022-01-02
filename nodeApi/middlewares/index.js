@@ -1,4 +1,4 @@
-const { logger, accessLogger } = require("../utils/log")
+const { logger } = require("../utils/log")
 const { typeOf } = require("../utils/index")
 const { UsersProxy } = require("../proxy")
 
@@ -70,25 +70,6 @@ module.exports = class Middleware {
       }
     }
   }
-  /**
-     * log 处理
-     * @param {*} ctx 
-     * @param {*} next 
-     */
-  static async logHandle(ctx, next) {
-    try {
-      const traceId = ctx.request.header.traceId || Date.now()
-      const spanId = ctx.request.header.spanId || Date.now()
-      accessLogger.addContext("traceId", traceId)
-      accessLogger.addContext("spanId", spanId)
-      logger.addContext("traceId", traceId)
-      logger.addContext("spanId", spanId)
-      await next()
-    } catch (e) {
-      console.error("err", e)
-    } finally {
-      logger.clearContext()
-    }
-  }
+
 
 }

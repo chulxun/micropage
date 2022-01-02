@@ -1,15 +1,11 @@
 <template>
   <div v-if="editingElement" class="container">
     <div>
-      <el-button
-        type="primary"
-        round
-        icon="el-icon-circle-plus-outline"
-        @click="animationTabVisible = true"
-      >添加一个动画</el-button>
-      <el-button type="success" round icon="el-icon-video-play" @click="playAllAni">预览所有动画</el-button>
+      <el-button type="primary" round :icon="CirclePlus" @click="animationTabVisible = true">添加一个动画</el-button>
+      <el-button type="success" round :icon="VideoPlay" @click="playAllAni">预览所有动画</el-button>
     </div>
-    <van-popup
+
+    <!-- <Popup
       v-model:show="animationTabVisible"
       class="animation_popup"
       position="bottom"
@@ -37,7 +33,7 @@
           </div>
         </el-tab-pane>
       </el-tabs>
-    </van-popup>
+    </Popup>-->
 
     <template v-if="editingElement.animations && editingElement.animations.length > 0">
       <el-divider content-position="left">已有动画</el-divider>
@@ -50,14 +46,14 @@
               <el-button
                 size="mini"
                 type="success"
-                icon="el-icon-caret-right"
+                :icon="CaretRight"
                 circle
                 @click.stop="playAni(index)"
               ></el-button>
               <el-button
                 size="mini"
                 type="danger"
-                icon="el-icon-delete"
+                :icon="Delete"
                 circle
                 @click.stop="deleteAni(index)"
               ></el-button>
@@ -99,9 +95,36 @@
   <div v-else>
     <el-empty description="请选择一个元素, 才能编辑动画"></el-empty>
   </div>
+  <el-drawer
+    custom-class="animation_drawer"
+    v-model="animationTabVisible"
+    title="请选择动画"
+    size="100%"
+  >
+    <el-tabs v-model="animationTab">
+      <el-tab-pane
+        v-for="(item, index) in animationList"
+        :key="index"
+        :label="item.type"
+        :name="item.type"
+      >
+        <div class="animation_list">
+          <div
+            v-for="(item1, index1) in item.children"
+            :key="index1"
+            @mouseenter="addAnimation(item1, 'preview')"
+            @mouseleave="leaveAnimation(item1)"
+            @click="addAnimation(item1)"
+          >
+            <p>{{ item1.title }}</p>
+          </div>
+        </div>
+      </el-tab-pane>
+    </el-tabs>
+  </el-drawer>
 </template>
-<script lang='ts'>
-import { defineComponent, computed, ref } from "vue";
+<script setup lang='ts'>
+import { computed, ref } from "vue";
 import { useStore } from "@/store/index";
 import {
   ElDivider,
@@ -116,123 +139,96 @@ import {
   ElFormItem,
   ElSwitch,
   ElInputNumber,
-  ElSelect, ElOption
+  ElSelect, ElOption, ElIcon, ElDrawer
 } from "element-plus";
+import { Delete, CaretRight, CirclePlus, VideoPlay } from '@element-plus/icons-vue'
 import { Popup } from "vant";
 import { animationList } from "@/data/animate";
-export default defineComponent({
-  components: {
-    ElDivider,
-    ElEmpty,
-    ElButton,
-    ElCollapse,
-    ElCollapseItem,
-    ElInput,
-    ElForm,
-    ElFormItem,
-    ElSwitch,
-    ElInputNumber,
-    ElTabs,
-    ElTabPane, ElSelect, ElOption,
-    [Popup.name]: Popup,
-  },
-  setup() {
-    const store = useStore();
-    const editingElement: any = computed(
-      () => store.state.editor.editingElement
-    );
-    const animationTab = ref(""); //动画列表的tab
-    animationTab.value = animationList[0].type; //tab 默认值
-    const animationTabVisible = ref(false); //显示可添加的动画列表
-    const timList = [
-      {
-        value: "ease",
-        label: "先加速后减速",
-      },
-      {
-        value: "ease-in",
-        label: "加速",
-      },
-      {
-        value: "ease-out",
-        label: "减速",
-      },
-      {
-        value: "ease-in-out",
-        label: "缓慢加速后减速",
-      },
-      {
-        value: "linear",
-        label: "匀速",
-      },
-    ];
-    //添加一个动画
-    function addAnimation(item: any, type?: string) {
-      if (!editingElement.value.animations)
-        editingElement.value.animations = [];
-      editingElement.value.animations.push({
-        title: item.title,
-        classname: item.classname,
-        duration: 0.6,
-        delay: 0,
-        count: 1,
-        infinite: false,
-        playing: type ? true : false,
-        timing: 'ease',
-      });
-      if (!type) animationTabVisible.value = false;
-    }
-    function leaveAnimation(item: any) {
-      let anis = editingElement.value.animations;
-      if (
-        anis &&
-        anis.length > 0 &&
-        anis[anis.length - 1].classname == item.classname
-      ) {
-        editingElement.value.animations.pop();
-      }
-    }
-    //删除一个动画
-    function deleteAni(index: number) {
-      editingElement.value.animations.splice(index, 1);
-    }
-    //播放一个动画
-    function playAni(index: number) {
-      editingElement.value.animations[index].playing = true;
-    }
-    //播放该元素的所有动画
-    function playAllAni() {
-      if (
-        editingElement.value.animations &&
-        editingElement.value.animations.length > 0
-      ) {
-        editingElement.value.animations = editingElement.value.animations.map(
-          (item: any) => {
-            item.playing = true;
-            return item;
-          }
-        );
-      }
-    }
 
-    return {
-      timList,
-      animationTabVisible,
-      animationTab,
-      editingElement,
-      animationList,
-      addAnimation,
-      deleteAni,
-      playAni,
-      playAllAni,
-      leaveAnimation,
-    };
+const store = useStore();
+const editingElement: any = computed(
+  () => store.state.editor.editingElement
+);
+const animationTab = ref(""); //动画列表的tab
+animationTab.value = animationList[0].type; //tab 默认值
+const animationTabVisible = ref(false); //显示可添加的动画列表
+const timList = [
+  {
+    value: "ease",
+    label: "先加速后减速",
   },
-});
+  {
+    value: "ease-in",
+    label: "加速",
+  },
+  {
+    value: "ease-out",
+    label: "减速",
+  },
+  {
+    value: "ease-in-out",
+    label: "缓慢加速后减速",
+  },
+  {
+    value: "linear",
+    label: "匀速",
+  },
+];
+//添加一个动画
+function addAnimation(item: any, type?: string) {
+  if (!editingElement.value.animations)
+    editingElement.value.animations = [];
+  editingElement.value.animations.push({
+    title: item.title,
+    classname: item.classname,
+    duration: 0.6,
+    delay: 0,
+    count: 1,
+    infinite: false,
+    playing: type ? true : false,
+    timing: 'ease',
+  });
+  if (!type) animationTabVisible.value = false;
+}
+function leaveAnimation(item: any) {
+  let anis = editingElement.value.animations;
+  if (
+    anis &&
+    anis.length > 0 &&
+    anis[anis.length - 1].classname == item.classname
+  ) {
+    editingElement.value.animations.pop();
+  }
+}
+//删除一个动画
+function deleteAni(index: number) {
+  editingElement.value.animations.splice(index, 1);
+}
+//播放一个动画
+function playAni(index: number) {
+  editingElement.value.animations[index].playing = true;
+}
+//播放该元素的所有动画
+function playAllAni() {
+  if (
+    editingElement.value.animations &&
+    editingElement.value.animations.length > 0
+  ) {
+    editingElement.value.animations = editingElement.value.animations.map(
+      (item: any) => {
+        item.playing = true;
+        return item;
+      }
+    );
+  }
+}
+
+
 </script>
 <style lang='less' scoped>
 .container {
   height: calc(100vh - 130px);
+  position: relative;
 }
 .ani_title {
   display: flex;
@@ -290,7 +286,7 @@ export default defineComponent({
 }
 :deep(.animation_popup) {
   position: absolute;
-  padding: 10px 15px;
+  // padding: 10px 15px;
 }
 :deep(.el-button.is-circle) {
   padding: 8px;

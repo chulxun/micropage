@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2714096 */
-  src: url('iconfont.woff2?t=1627892648534') format('woff2'),
-       url('iconfont.woff?t=1627892648534') format('woff'),
-       url('iconfont.ttf?t=1627892648534') format('truetype');
+  src: url('iconfont.woff2?t=1636620538546') format('woff2'),
+       url('iconfont.woff?t=1636620538546') format('woff'),
+       url('iconfont.ttf?t=1636620538546') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,54 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-wenzi:before {
+  content: "\e63f";
+}
+
+.icon-yonghuxiangqing:before {
+  content: "\e66f";
+}
+
+.icon-tuwen:before {
+  content: "\e622";
+}
+
+.icon-tuwenliebiao:before {
+  content: "\e734";
+}
+
+.icon-shijianxuanze:before {
+  content: "\e605";
+}
+
+.icon-shengshiquyu:before {
+  content: "\e614";
+}
+
+.icon-textarea:before {
+  content: "\e6ea";
+}
+
+.icon-weishibie:before {
+  content: "\e7a8";
+}
+
+.icon-shurukuang:before {
+  content: "\e700";
+}
+
+.icon-tongzhi:before {
+  content: "\e61e";
+}
+
+.icon-tupian:before {
+  content: "\e63e";
+}
+
+.icon-lunbotu:before {
+  content: "\e7f4";
 }
 
 .icon-zhediemianban:before {

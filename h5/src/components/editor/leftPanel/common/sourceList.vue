@@ -2,7 +2,10 @@
   <!-- 素材库 -->
   <div class="source_content">
     <div class="title">
-      我的素材库<i class="el-icon-close closed" @click="closedThis"></i>
+      我的素材库
+      <el-icon class="closed" @click="closedThis">
+        <Close />
+      </el-icon>
     </div>
     <div class="source_title">
       <el-radio-group v-model="sourceType" size="small">
@@ -18,56 +21,20 @@
       <div class="source_list">
         <div class="item" v-for="(item, index) in dataList" :key="index">
           <div>
-            <el-image
-              v-if="sourceType == 1"
-              class="img"
-              :src="item.url"
-              fit="cover"
-            ></el-image>
-            <el-image
-              v-else-if="sourceType == 2"
-              class="img"
-              :src="item.preview_url"
-              fit="cover"
-            ></el-image>
+            <el-image v-if="sourceType == 1" class="img" :src="item.url" fit="cover"></el-image>
+            <el-image v-else-if="sourceType == 2" class="img" :src="item.preview_url" fit="cover"></el-image>
             <div class="audio" v-else-if="sourceType == 3">
               <i class="iconfont icon-vynil"></i>
-              <p>
-                {{ item.url }}
-              </p>
+              <p>{{ item.url }}</p>
             </div>
             <div class="abs">
               <div>
-                <el-button
-                  type="primary"
-                  round
-                  size="mini"
-                  @click="onUse(item.url)"
-                  >使用</el-button
-                >
-                <el-button
-                  class="copy"
-                  size="mini"
-                  round
-                  :data-clipboard-text="item.url"
-                  >复制</el-button
-                >
+                <el-button type="primary" round size="mini" @click="onUse(item.url)">使用</el-button>
+                <el-button class="copy" size="mini" round :data-clipboard-text="item.url">复制</el-button>
               </div>
               <div>
-                <el-button
-                  type="success"
-                  size="mini"
-                  round
-                  @click="onPreview(item, index)"
-                  >预览</el-button
-                >
-                <el-button
-                  type="danger"
-                  size="mini"
-                  round
-                  @click="onDelete(item.id, index)"
-                  >删除</el-button
-                >
+                <el-button type="success" size="mini" round @click="onPreview(item, index)">预览</el-button>
+                <el-button type="danger" size="mini" round @click="onDelete(item.id, index)">删除</el-button>
               </div>
             </div>
           </div>
@@ -83,9 +50,9 @@
           :pageSize="page.pageSize"
           :current-page="page.currentPage"
           @current-change="loadData"
-        >
-        </el-pagination></div
-    ></template>
+        ></el-pagination>
+      </div>
+    </template>
     <el-empty v-else description="暂无数据">
       <uploader :sourceType="sourceType" @refreshData="loadData"></uploader>
     </el-empty>
@@ -123,13 +90,14 @@ import {
   ElButton,
   ElPagination,
   ElMessage,
-  ElImageViewer,
+  ElImageViewer, ElIcon
 } from "element-plus";
 import uploader from "./uploader.vue";
 import { useStore } from "@/store/index";
 import { getList, deleteResources } from "@/api/resources";
 import videoPreview from "@/components/common/videoPreview.vue";
 import Clipboard from "clipboard";
+import { Close } from '@element-plus/icons-vue'
 export default defineComponent({
   props: ["pluginType"],
   components: {
@@ -141,7 +109,7 @@ export default defineComponent({
     uploader,
     ElPagination,
     videoPreview,
-    ElImageViewer,
+    ElImageViewer, ElIcon, Close
   },
   setup(props, ctx) {
     const store = useStore();
@@ -197,7 +165,7 @@ export default defineComponent({
             ElMessage.error(res.message);
           }
         })
-        .catch((action) => {});
+        .catch((action) => { });
     }
     //使用
     function onUse(item: any) {

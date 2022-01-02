@@ -1,7 +1,11 @@
 const { FormsProxy } = require("../proxy")
 const { Forms, Works } = require("../models");
-module.exports = class WorksController {
-  //获取有表单的作品列表
+module.exports = class FormsController {
+
+  /**
+   * 接口: 获取有表单的作品列表
+   * 应用: H5
+   */
   static async getList(ctx) {
     const { pageSize = 10, pageIndex = 1 } = ctx.request.query;
     const user_id = ctx.state.user.id;
@@ -21,7 +25,11 @@ module.exports = class WorksController {
       throw e
     }
   }
-  //提交一条表单数据
+
+  /**
+   * 接口: 提交一条表单数据
+   * 应用: H5
+   */
   static async submitData(ctx) {
     const { work_id, wx_info, wx_openid, form_data } = ctx.request.body;
     const workDoc = await Works.findOne({ work_id });
@@ -50,7 +58,11 @@ module.exports = class WorksController {
       throw e
     }
   }
-  //获取作品下的表单
+
+  /**
+   * 接口: 获取作品下的表单
+   * 应用: H5
+   */
   static async getFormDataByWork(ctx) {
     const { pageSize = 10, pageIndex = 1 } = ctx.request.query;
     const work_id = ctx.checkQuery("work_id").notEmpty("作品ID不能为空").value;
@@ -72,7 +84,11 @@ module.exports = class WorksController {
       throw e
     }
   }
-  //按作品导出表单
+
+  /**
+   * 接口: 按作品导出表单
+   * 应用: H5
+   */
   static async exportFormByWork(ctx) {
     const work_id = ctx.checkBody("work_id").notEmpty("作品ID不能为空").value;
     if (ctx.errors) {

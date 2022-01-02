@@ -2,6 +2,9 @@ const xlsx = require('node-xlsx');
 const { Forms, Works } = require("../models");
 
 module.exports = class Index {
+  /**
+   * 创建表单
+   */
   static async addForm(params, isImport) {
     let { user_id, work_id, work_title, wx_info, wx_openid, form_data } = params;
     let data = {
@@ -15,6 +18,10 @@ module.exports = class Index {
     }
     return Forms.create(data);
   }
+
+  /**
+   * 分页获取表单所在作品列表
+   */
   static async getList({ user_id, pageIndex, pageSize }) {
     return Forms.aggregate([
       { $match: { user_id } },
@@ -33,6 +40,9 @@ module.exports = class Index {
       .limit(pageSize * 1);
   }
 
+  /**
+   * 获取当前登录用户有表单数据的作品条数
+   */
   static async getCount(user_id) {
     let res = await Forms.aggregate([
       { $match: { user_id } },
@@ -51,6 +61,9 @@ module.exports = class Index {
     return Promise.resolve(res[0].count)
   }
 
+  /**
+   * 获取作品下表单列表
+   */
   static async getFormDataByWork({ user_id, work_id, pageIndex, pageSize }) {
     //获取表单数量
     const count = await Forms.countDocuments({ work_id, user_id });
@@ -74,13 +87,16 @@ module.exports = class Index {
     })
   }
 
+  /**
+   * 导出表单数据
+   */
   static async exportFormByWork({ work_id, user_id }) {
     //获取作品信息
     const work = await Works.findOne({ work_id, user_id }, { title: 1, user_id: 1, publish_pages: 1 });
     const formDataList = await Forms.find({ work_id, user_id }).sort({ "created_at": -1 });
     let res = await this.comData(formDataList, work, work_id, user_id);
     res.ukeyName.created_at = '提交时间';
-    const excel = []; //写入excel  第一个数组 表明表头 其余数组对应每一行的值
+    const excel = []; //写入excel
     const excelHead = Object.values(res.ukeyName);
     excel.push(excelHead);
     const excelRows = res.form_data.map(item => {
@@ -112,6 +128,9 @@ module.exports = class Index {
     })
   }
 
+  /**
+   * 封装表单数据
+   */
   static async comData(formDataList, work, work_id, user_id) {
     formDataList = formDataList.map(item => {
       item.form_data = JSON.parse(decodeURIComponent(item.form_data));
@@ -122,7 +141,7 @@ module.exports = class Index {
     let elements = pages.reduce((pre, next) => {
       return [...pre, ...next.elements]
     }, []);
-    //获取所有表单的表头， 处理分页引起的表头对不上问题
+    //获取所有表单的表头， 获取最全面表头
     let docs = await Forms.find({ work_id, user_id }).sort({ "created_at": -1 });
     docs = docs.map(item => {
       item.form_data = JSON.parse(decodeURIComponent(item.form_data));

@@ -1,31 +1,32 @@
 <template>
   <div class="add_content">
     <div class="item">
-      <i class="el-icon-tickets"></i>
+      <el-icon>
+        <tickets />
+      </el-icon>
       <div class="title">长页H5</div>
       <p>单页灵活控制页面长度</p>
-      <el-button size="small" type="primary" round @click="createWork(1)"
-        >创建</el-button
-      >
+      <el-button size="small" type="primary" round @click="createWork(1)">创建</el-button>
     </div>
     <div class="item">
-      <i class="el-icon-document-copy"></i>
+      <el-icon>
+        <document-copy />
+      </el-icon>
       <div class="title">多页H5</div>
       <p>多页触摸滑动切换</p>
-      <el-button size="small" type="primary" round @click="createWork(2)"
-        >创建</el-button
-      >
+      <el-button size="small" type="primary" round @click="createWork(2)">创建</el-button>
     </div>
   </div>
 </template>
 <script lang='ts'>
 import { defineComponent, onMounted, ref, nextTick } from "vue";
-import { ElButton } from "element-plus";
+import { ElButton, ElIcon } from "element-plus";
 import { useRoute } from "vue-router";
 import { useStore } from "@/store/index";
+import { Tickets, DocumentCopy } from '@element-plus/icons-vue'
 export default defineComponent({
   props: ["addVisible"],
-  components: { ElButton },
+  components: { ElButton, ElIcon, DocumentCopy, Tickets },
   setup(props, ctx) {
     const route = useRoute();
     const store = useStore();

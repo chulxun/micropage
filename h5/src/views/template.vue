@@ -12,25 +12,14 @@
     </el-menu>
     <div class="line"></div>
     <div class="work_list">
-      <div
-        class="item"
-        v-for="(work, index) in templatesList"
-        :key="work.work_id"
-      >
+      <div class="item" v-for="(work, index) in templatesList" :key="work.work_id">
         <div class="bg work">
-          <div
-            class="img"
-            :style="'background-image:url(' + work.preview_img_url + ')'"
-          >
+          <div class="img" :style="'background-image:url(' + work.preview_img_url + ')'">
             <div class="abs right" @mouseenter="work.showQrcode = true">
               <i class="iconfont icon-erweima"></i>
             </div>
             <transition name="el-zoom-in-center">
-              <div
-                v-show="work.showQrcode"
-                class="qrcode"
-                @mouseleave="work.showQrcode = false"
-              >
+              <div v-show="work.showQrcode" class="qrcode" @mouseleave="work.showQrcode = false">
                 <canvas :ref="setWorkRef"></canvas>
               </div>
             </transition>
@@ -38,30 +27,34 @@
           <div class="desc">
             <div class="title" :title="work.title">
               <el-tag size="mini" v-if="work.page_type == 1">长页</el-tag>
-              <el-tag size="mini" type="success" v-else-if="work.page_type == 2"
-                >多页</el-tag
-              >
+              <el-tag size="mini" type="success" v-else-if="work.page_type == 2">多页</el-tag>
               {{ work.title }}
             </div>
             <div class="date">作者：{{ work.user_name }}</div>
             <div class="icon_list">
               <div class="icon" @click="onUse(work.work_id)">
                 <el-tooltip effect="dark" content="使用" placement="top">
-                  <i class="el-icon-circle-plus-outline"></i
-                ></el-tooltip>
+                  <el-icon>
+                    <circle-plus />
+                  </el-icon>
+                </el-tooltip>
               </div>
               <div
                 :class="{ icon: true, disabled: work.user_id != userInfo.id }"
                 @click="onDelete(work.work_id, index)"
               >
                 <el-tooltip effect="dark" content="删除" placement="top">
-                  <i class="el-icon-delete"></i>
+                  <el-icon>
+                    <delete />
+                  </el-icon>
                 </el-tooltip>
               </div>
               <div class="icon" @click="onPreview(work.work_id)">
                 <el-tooltip effect="dark" content="预览" placement="top">
-                  <i class="el-icon-view"></i
-                ></el-tooltip>
+                  <el-icon>
+                    <View />
+                  </el-icon>
+                </el-tooltip>
               </div>
             </div>
           </div>
@@ -77,21 +70,13 @@
         :current-page="page.currentPage"
         @current-change="fetchTemplateList"
         :hide-on-single-page="true"
-      >
-      </el-pagination>
+      ></el-pagination>
     </div>
-    <el-empty
-      v-if="templatesList.length == 0"
-      description="没有数据"
-    ></el-empty>
-    <preview
-      :workId="workId"
-      v-model="previewVisible"
-      v-if="previewVisible"
-    ></preview>
+    <el-empty v-if="templatesList.length == 0" description="没有数据"></el-empty>
+    <preview :workId="workId" v-model="previewVisible" v-if="previewVisible"></preview>
   </master>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import QRCode from "qrcode";
 import {
   ElButton,
@@ -104,145 +89,119 @@ import {
   ElLoading,
   ElMessage,
   ElMessageBox,
-  ElEmpty,
+  ElEmpty, ElIcon
 } from "element-plus";
 import master from "@/components/common/master.vue";
-import { defineComponent, ref, reactive, computed, nextTick } from "vue";
+import { onMounted, ref, reactive, computed, nextTick } from "vue";
 import { getTemplateWorksList, deleteWork, useTemplate } from "@/api/works";
 import { useRouter } from "vue-router";
 import preview from "@/components/editor/preview/index.vue";
 import { formatDate } from "@/utils/index";
 import { useStore } from "@/store/index";
-export default defineComponent({
-  components: {
-    master,
-    ElButton,
-    ElMenu,
-    ElMenuItem,
-    ElTag,
-    ElTooltip,
-    ElDialog,
-    ElPagination,
-    preview,
-    ElEmpty,
-  },
-  setup() {
-    const router = useRouter();
-    const store = useStore();
-    const page_type = ref(0); //页面类型
-    const templatesList = reactive([]); //作品列表
-    const workRefs = reactive([]); //作品dom
-    const previewVisible = ref(false); //预览
-    const workId = ref(""); //预览作品ID
-    const userInfo = computed(() => store.state.user.userInfo);
-    const page = reactive({
-      totalCount: 0,
-      count1: 0,
-      count2: 0,
-      totalPage: 1,
-      pageSize: 15,
-      currentPage: 0,
-    }); //分页数据
-    const setWorkRef = (el: any) => {
-      workRefs.push(el);
-    };
-    //获取作品列表
-    async function fetchTemplateList(pageIndex?: number) {
-      let params = {
-        page_type: page_type.value,
-        pageSize: page.pageSize,
-        pageIndex: 1,
-      };
-      if (pageIndex) params.pageIndex = pageIndex;
-      const res = await getTemplateWorksList(params);
-      if (res && res.code == 0) {
-        templatesList.length = 0;
-        let data = res.data.map((item) => {
-          item.showQrcode = false;
-          return item;
-        });
-        templatesList.push(...data);
-        Object.assign(page, res.page); //重置页码信息
-        await nextTick();
-        drawQRcode();
-      }
-    }
-    //根据类型获取作品列表
-    function getWorksByType(index: string) {
-      page_type.value = parseInt(index);
-      fetchTemplateList();
-    }
-    //生成二维码
-    function drawQRcode() {
-      for (let key in workRefs) {
-        QRCode.toCanvas(
-          workRefs[key],
-          window.location.origin + "/viewer/" + key + "/preview",
-          { margin: 1, scale: 4, width: 150 },
-          (err: Error) => {}
-        );
-      }
-    }
-    //使用模板
-    async function onUse(work_id: string) {
-      let loading = ElLoading.service({ fullscreen: true });
-      const res = await useTemplate({
-        work_id,
-      });
-      loading.close();
-      if (res && res.code == 0) {
-        ElMessageBox.confirm("作品已经创建成功，是否去编辑作品?", "成功提醒", {
-          confirmButtonText: "去编辑",
-          cancelButtonText: "看看其他",
-          type: "success",
-        })
-          .then(() => {
-            let url = "/editor/" + res.property.work_id;
-            window.open(url, "_blank");
-          })
-          .catch(() => {});
-      } else {
-        ElMessage.error(res.message);
-      }
-    }
-    //预览
-    function onPreview(work_id: string) {
-      previewVisible.value = true;
-      workId.value = work_id;
-    }
-    //删除
-    async function onDelete(work_id: string, index: number) {
-      let loading = ElLoading.service({ fullscreen: true });
-      const res = await deleteWork({
-        work_id,
-      });
-      loading.close();
-      if (res && res.code == 0) {
-        templatesList.splice(index, 1);
-        ElMessage.success("作品删除成功");
-      } else {
-        ElMessage.error(res.message);
-      }
-    }
+import { CirclePlus, Delete, View } from '@element-plus/icons-vue'
 
-    fetchTemplateList(); //进入页面先获取作品列表
-    return {
-      userInfo,
-      templatesList,
-      page_type,
-      page,
-      previewVisible,
-      workId,
-      formatDate,
-      setWorkRef,
-      fetchTemplateList,
-      onUse,
-      onPreview,
-      onDelete,
-      getWorksByType,
-    };
-  },
-});
+const router = useRouter();
+const store = useStore();
+const page_type = ref(0); //页面类型
+const templatesList: H5.WorksList = reactive([]); //作品列表
+const workRefs: Array<HTMLElement> = reactive([]); //作品dom
+const previewVisible = ref(false); //预览
+const workId = ref(""); //预览作品ID
+const userInfo = computed(() => store.state.user.userInfo);
+const page = reactive({
+  totalCount: 0,
+  count1: 0,
+  count2: 0,
+  totalPage: 1,
+  pageSize: 15,
+  currentPage: 0,
+}); //分页数据
+const setWorkRef = (el: any) => {
+  workRefs.push(el);
+};
+//获取作品列表
+async function fetchTemplateList(pageIndex?: number) {
+  let params = {
+    page_type: page_type.value,
+    pageSize: page.pageSize,
+    pageIndex: 1,
+  };
+  if (pageIndex) params.pageIndex = pageIndex;
+  const res = await getTemplateWorksList(params);
+  if (res && res.code == 0) {
+    templatesList.length = 0;
+    let data = res.data.map((item: H5.WorkInfo) => {
+      item.showQrcode = false;
+      return item;
+    });
+    templatesList.push(...data);
+    Object.assign(page, res.page); //重置页码信息
+    await nextTick();
+    drawQRcode();
+  }
+}
+//根据类型获取作品列表
+function getWorksByType(index: string) {
+  page_type.value = parseInt(index);
+  fetchTemplateList();
+}
+//生成二维码
+function drawQRcode() {
+  for (let key in workRefs) {
+    QRCode.toCanvas(
+      workRefs[key],
+      window.location.origin + "/viewer/" + key + "/preview",
+      { margin: 1, scale: 4, width: 150 },
+      (err: Error) => { }
+    );
+  }
+}
+//使用模板
+async function onUse(work_id: string) {
+  let loading = ElLoading.service({ fullscreen: true });
+  const res = await useTemplate({
+    work_id,
+  });
+  loading.close();
+  if (res && res.code == 0) {
+    ElMessageBox.confirm("作品已经创建成功，是否去编辑作品?", "成功提醒", {
+      confirmButtonText: "去编辑",
+      cancelButtonText: "看看其他",
+      type: "success",
+    })
+      .then(() => {
+        let url = "/editor/" + res.property.work_id;
+        window.open(url, "_blank");
+      })
+      .catch(() => { });
+  } else {
+    ElMessage.error(res.message);
+  }
+}
+//预览
+function onPreview(work_id: string) {
+  previewVisible.value = true;
+  workId.value = work_id;
+}
+//删除
+async function onDelete(work_id: string, index: number) {
+  let loading = ElLoading.service({ fullscreen: true });
+  const res = await deleteWork({
+    work_id,
+  });
+  loading.close();
+  if (res && res.code == 0) {
+    templatesList.splice(index, 1);
+    ElMessage.success("作品删除成功");
+  } else {
+    ElMessage.error(res.message);
+  }
+}
+onMounted(() => {
+  fetchTemplateList();
+})
+
+
 </script>
 <style lang="less"  scoped>
 .el-menu-nav {

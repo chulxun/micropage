@@ -10,13 +10,11 @@ mongoose.set("useFindAndModify", false);
 mongoose.connect(
   config.get("mongodb"),
   {
-    // useMongoClient: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
     poolSize: 20,
   },
   (err) => {
-    /* istanbul ignore if */
     if (err) {
       logger.error("connect to %s error: ", config.get("mongodb"), err.message);
       process.exit(1);
