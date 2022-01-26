@@ -65,15 +65,6 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('@/views/about.vue'),
-    meta: {
-      requireAuth: true,
-      title: '关于微页'
-    }
-  },
-  {
     path: '/editor/:workId',
     name: 'Editor',
     component: () => import('@/views/editor.vue'),

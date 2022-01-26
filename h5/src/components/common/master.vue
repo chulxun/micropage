@@ -5,12 +5,7 @@
     </el-header>
     <el-container class="el-container-height">
       <el-aside width="180px">
-        <el-menu
-          :default-active="defaultActive"
-          class="el-menu-left"
-          @select="handleSelect"
-          :router="true"
-        >
+        <el-menu :default-active="defaultActive" class="el-menu-left" @select="handleSelect">
           <el-menu-item index="/works">
             <el-icon>
               <suitcase />
@@ -35,7 +30,7 @@
             </el-icon>
             <template #title>账户管理</template>
           </el-menu-item>
-          <el-menu-item index="/about">
+          <el-menu-item index="about">
             <el-icon>
               <postcard />
             </el-icon>
@@ -61,16 +56,21 @@ import {
 } from "element-plus";
 import { Postcard, User, Document, Suitcase, DataAnalysis } from '@element-plus/icons-vue'
 import comHeader from "@/components/common/comHeader.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 const props = defineProps({
   defaultActive: String
 })
-
 const handleSelect = (key: any, keyPath: any) => {
-  // console.log(key, keyPath);
+  if (key == "about") {
+    window.open("https://github.com/chulxun/micropage", "_blank");
+  } else {
+    router.push(key);
+  }
 };
-
-
 </script>
+
 <style lang="less"  scoped>
 .el-menu-left {
   height: 100%;

@@ -32,8 +32,6 @@
 1、npm install
 2、npm run dev
    预览：http://localhost:8000
-
-
 ```
 
 ## 项目部署
@@ -42,6 +40,4 @@
 1、npm run build
 2、将dist中打包好的文件上传到服务器
 3、nginx配置（省略）
-
-
 ```

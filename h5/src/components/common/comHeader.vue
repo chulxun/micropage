@@ -6,7 +6,11 @@
     </div>
     <slot></slot>
     <div class="user_info">
-      <i class="iconfont icon-github" style="font-size: 24px"></i>
+      <i
+        @click="handleCommand('github')"
+        class="iconfont icon-github"
+        style="font-size: 24px;cursor:pointer"
+      ></i>
       <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
           {{ userInfo.user_name }}
