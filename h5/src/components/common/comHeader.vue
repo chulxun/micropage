@@ -6,65 +6,57 @@
     </div>
     <slot></slot>
     <div class="user_info">
-      <el-menu
-        mode="horizontal"
-        @select="handleSelect"
-        background-color="var(--bgColor)"
-        text-color="#fff"
-        active-text-color="#ff"
-      >
-        <el-menu-item index="github">
-          <i class="iconfont icon-github" style="font-size: 24px"></i>
-        </el-menu-item>
-        <el-sub-menu index="2" v-if="userInfo.token">
-          <template #title>{{ userInfo.user_name }}</template>
-          <el-menu-item index="/works">我的作品</el-menu-item>
-          <el-menu-item index="/formdata">数据中心</el-menu-item>
-          <el-menu-item index="/userEdit">账号管理</el-menu-item>
-          <el-menu-item index="loginout">退出登录</el-menu-item>
-        </el-sub-menu>
-      </el-menu>
+      <i class="iconfont icon-github" style="font-size: 24px"></i>
+      <el-dropdown @command="handleCommand">
+        <span class="el-dropdown-link">
+          {{ userInfo.user_name }}
+          <el-icon class="el-icon--right">
+            <arrow-down />
+          </el-icon>
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="/works">我的作品</el-dropdown-item>
+            <el-dropdown-item command="/formdata">数据中心</el-dropdown-item>
+            <el-dropdown-item command="/userEdit">账号管理</el-dropdown-item>
+            <el-dropdown-item command="loginout">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
   </div>
 </template>
-<script lang="ts">
-import { ElHeader, ElMenu, ElMenuItem, ElSubMenu } from "element-plus";
+<script setup lang="ts">
+import { ElHeader, ElMenu, ElMenuItem, ElSubMenu, ElDropdown, ElDropdownMenu, ElDropdownItem, ElIcon } from "element-plus";
 import { useStore } from "@/store/index";
 import { useRouter, useRoute } from "vue-router";
 import { defineComponent, computed } from "vue";
-export default defineComponent({
-  components: {
-    ElHeader,
-    ElMenu,
-    ElMenuItem,
-    ElSubMenu,
-  },
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-    const route = useRoute();
-    const userInfo = computed(() => store.state.user.userInfo);
-    const delUserInfo = () => store.commit("user/delUserInfo");
-    function handleSelect(index: string) {
-      if (index == "github") {
-        window.open("https://github.com/chulxun/micropage", "_blank");
-      } else if (index == "loginout") {
-        //退出登录
-        delUserInfo();
-        router.push("/login");
-      } else {
-        let routeName = route.name;
-        if (routeName == "Editor") {
-          window.open(index, "_blank");
-        } else {
-          router.push(index);
-        }
-      }
+import { ArrowDown } from '@element-plus/icons-vue'
+
+const store = useStore();
+const router = useRouter();
+const route = useRoute();
+const userInfo = computed(() => store.state.user.userInfo);
+const delUserInfo = () => store.commit("user/delUserInfo");
+
+const handleCommand = (command: string | number | object) => {
+  if (command == "github") {
+    window.open("https://github.com/chulxun/micropage", "_blank");
+  } else if (command == "loginout") {
+    //退出登录
+    delUserInfo();
+    router.push("/login");
+  } else {
+    let routeName = route.name;
+    if (routeName == "Editor") {
+      window.open(command, "_blank");
+    } else {
+      router.push(command);
     }
-    return { userInfo, handleSelect };
-  },
-  methods: {},
-});
+  }
+}
+
+
 </script>
 <style lang='less' scoped>
 .header {
@@ -88,5 +80,20 @@ export default defineComponent({
 }
 .el-menu-item:hover {
   background-color: #202e3c !important;
+}
+.user_info {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding-left: 30px;
+  > div {
+    padding: 0 15px;
+  }
+  :deep(.el-dropdown-link) {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
 }
 </style>

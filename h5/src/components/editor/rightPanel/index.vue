@@ -102,8 +102,9 @@ export default defineComponent({
   line-height: 1.2;
   padding-top: 10px;
 }
-
-:deep(.animation_drawer) {
+</style>
+<style lang="less">
+.animation_drawer {
   .el-drawer__header {
     margin-bottom: 0;
     font-size: 16px;

@@ -7,7 +7,6 @@ import tinymce from "tinymce/tinymce";
 import Editor from "@tinymce/tinymce-vue";
 // import "tinymce/themes/silver/theme"; // 引用主题文件
 import "tinymce/icons/default"; // 引用图标文件
-import "tinymce/plugins/image";
 import "tinymce/plugins/link";
 import "tinymce/plugins/table";
 import "tinymce/plugins/lists";
@@ -27,9 +26,9 @@ export default defineComponent({
       content_css: "/tinymce/skins/ui/oxide/content.min.css",
       menubar: false, // 隐藏菜单栏
       height: 600,
-      plugins: "image link table lists fullscreen", // 插件需要import进来
+      plugins: "link table lists fullscreen", // 插件需要import进来
       toolbar:
-        "fontselect fontsizeselect styleselect lineheight forecolor backcolor numlist bullist image link table removeformat fullscreen",
+        "fontselect fontsizeselect styleselect lineheight forecolor backcolor numlist bullist link table removeformat fullscreen",
       content_style: "*{padding:0;margin:0;};",
       fontsize_formats: "12px 14px 16px 18px 24px 36px 48px 56px 72px",
       font_formats:

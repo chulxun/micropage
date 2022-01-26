@@ -147,6 +147,8 @@ function onDrop(event: DragEvent) {
   background: #fff;
   border: 1px solid var(--borderColor);
   user-select: none;
+  display: flex;
+  flex-direction: column;
   .title {
     display: flex;
     align-items: center;
@@ -162,6 +164,8 @@ function onDrop(event: DragEvent) {
 }
 .list {
   padding: 10px 0;
+  flex: 1;
+  overflow-y: auto;
   .item {
     display: flex;
     align-items: center;

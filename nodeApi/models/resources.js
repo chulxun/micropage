@@ -11,11 +11,11 @@ const schema = new Schema({
   type: Number,
   created_at: {
     type: Number,
-    default: Date.now(),
+    default: Date.now,
   },
   updated_at: {
     type: Number,
-    default: Date.now(),
+    default: Date.now,
   },
 }, {
   versionKey: false

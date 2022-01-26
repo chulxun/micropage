@@ -41,6 +41,16 @@
               </div>
               <div
                 :class="{ icon: true, disabled: work.user_id != userInfo.id }"
+                @click="onEdit(work.work_id)"
+              >
+                <el-tooltip effect="dark" content="编辑" placement="top">
+                  <el-icon>
+                    <edit />
+                  </el-icon>
+                </el-tooltip>
+              </div>
+              <div
+                :class="{ icon: true, disabled: work.user_id != userInfo.id }"
                 @click="onDelete(work.work_id, index)"
               >
                 <el-tooltip effect="dark" content="删除" placement="top">
@@ -98,7 +108,7 @@ import { useRouter } from "vue-router";
 import preview from "@/components/editor/preview/index.vue";
 import { formatDate } from "@/utils/index";
 import { useStore } from "@/store/index";
-import { CirclePlus, Delete, View } from '@element-plus/icons-vue'
+import { CirclePlus, Delete, View, Edit } from '@element-plus/icons-vue'
 
 const router = useRouter();
 const store = useStore();
@@ -156,6 +166,10 @@ function drawQRcode() {
     );
   }
 }
+//去编辑模版
+function onEdit(work_id: string) {
+  window.open("/editor/" + work_id, "_blank");
+}
 //使用模板
 async function onUse(work_id: string) {
   let loading = ElLoading.service({ fullscreen: true });
@@ -167,7 +181,6 @@ async function onUse(work_id: string) {
     ElMessageBox.confirm("作品已经创建成功，是否去编辑作品?", "成功提醒", {
       confirmButtonText: "去编辑",
       cancelButtonText: "看看其他",
-      type: "success",
     })
       .then(() => {
         let url = "/editor/" + res.property.work_id;
@@ -185,17 +198,30 @@ function onPreview(work_id: string) {
 }
 //删除
 async function onDelete(work_id: string, index: number) {
-  let loading = ElLoading.service({ fullscreen: true });
-  const res = await deleteWork({
-    work_id,
-  });
-  loading.close();
-  if (res && res.code == 0) {
-    templatesList.splice(index, 1);
-    ElMessage.success("作品删除成功");
-  } else {
-    ElMessage.error(res.message);
-  }
+  ElMessageBox.confirm(
+    '确定要删除该模板吗？',
+    '提醒',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+    }
+  )
+    .then(async () => {
+      let loading = ElLoading.service({ fullscreen: true });
+      const res = await deleteWork({
+        work_id,
+      });
+      loading.close();
+      if (res && res.code == 0) {
+        templatesList.splice(index, 1);
+        ElMessage.success("模板删除成功");
+      } else {
+        ElMessage.error(res.message);
+      }
+    })
+    .catch(() => {
+
+    })
 }
 onMounted(() => {
   fetchTemplateList();
@@ -207,7 +233,7 @@ onMounted(() => {
 .el-menu-nav {
   padding: 0 45px;
   .el-menu-item {
-    padding: 0;
+    padding: 0 8px;
     margin: 0 20px;
     color: #303133;
   }

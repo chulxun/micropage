@@ -16,27 +16,35 @@
         </el-icon>
       </div>
       <div class="form_content">
-        <el-form ref="form" :model="work" label-position="top" size="small">
-          <el-form-item label="作品标题">
+        <el-form :model="work" label-position="top" size="small">
+          <el-form-item label="作品标题:">
             <el-input v-model="work.title" maxlength="50"></el-input>
           </el-form-item>
-          <el-form-item label="作品描述">
+          <el-form-item label="作品描述:">
             <el-input type="textarea" v-model="work.description" maxlength="200"></el-input>
           </el-form-item>
+        </el-form>
+        <el-form :model="work" size="small">
           <!-- 翻页类型作品 Swiper参数配置 -->
           <template v-if="work.page_type === 2">
             <el-divider content-position="left">Swiper参数配置</el-divider>
-            <el-form-item label="切换方向" v-if="work.config">
+            <el-form-item label="切换方向:" v-if="work.config">
               <el-radio-group v-model="work.config.swiper_direction">
                 <el-radio-button label="horizontal">水平</el-radio-button>
                 <el-radio-button label="vertical">垂直</el-radio-button>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="显示分页" v-if="work.config">
+            <el-form-item label="显示分页:" v-if="work.config">
               <el-switch v-model="work.config.swiper_pag"></el-switch>
             </el-form-item>
-            <el-form-item label="分页颜色" v-if="work.config">
+            <el-form-item label="分页颜色:" v-if="work.config">
               <el-color-picker v-model="work.config.swiper_pag_color" show-alpha></el-color-picker>
+            </el-form-item>
+            <el-form-item label="循环模式:" v-if="work.config">
+              <el-switch v-model="work.config.swiper_loop"></el-switch>
+            </el-form-item>
+            <el-form-item label="提示箭头:" v-if="work.config">
+              <el-switch v-model="work.config.swiper_arrow"></el-switch>
             </el-form-item>
           </template>
         </el-form>
@@ -91,6 +99,8 @@ const toggleShow = () => {
   background: #fff;
   border: 1px solid var(--borderColor);
   user-select: none;
+  display: flex;
+  flex-direction: column;
   .title {
     display: flex;
     align-items: center;
@@ -106,5 +116,7 @@ const toggleShow = () => {
 }
 .form_content {
   padding: 10px 16px;
+  flex: 1;
+  overflow-y: auto;
 }
 </style>

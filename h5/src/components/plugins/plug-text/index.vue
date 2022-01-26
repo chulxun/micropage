@@ -1,5 +1,8 @@
 <template>
-  <div v-html="getElementRichTextRem(props.text, workMode === 'formal')" class="text"></div>
+  <div
+    v-html="getElementRichTextRem(props.text, workMode === 'formal')"
+    :class="{ text: true, editorIng: workMode === 'formal' }"
+  ></div>
 </template>
 <script lang="ts">
 import { computed, defineComponent } from "vue";
@@ -25,12 +28,15 @@ export default defineComponent({
     },
   },
   setup(props) {
-    return {getElementRichTextRem}
+    return { getElementRichTextRem }
   },
 });
 </script>
 <style lang='less' scoped>
 .text {
   word-break: break-all;
+  &.editorIng * {
+    pointer-events: none;
+  }
 }
 </style>

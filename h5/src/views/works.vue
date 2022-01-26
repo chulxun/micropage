@@ -223,7 +223,7 @@ onMounted(() => {
 .el-menu-nav {
   padding: 0 45px;
   .el-menu-item {
-    padding: 0;
+    padding: 0 8px;
     margin: 0 20px;
     color: #303133;
   }

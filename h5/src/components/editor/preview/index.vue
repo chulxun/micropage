@@ -1,16 +1,16 @@
 <template>
   <el-dialog title="作品预览" v-model="previewShow" custom-class="preview_dialog" width="700px">
-    <div class="preview_content" v-if="workId">
+    <div class="preview_content" v-if="workId && work">
       <div class="preview">
         <iframe :src="mobileUrl" frameborder="0" width="375px" height="667px"></iframe>
       </div>
       <div class="note">
         <div class="title">作品信息</div>
-        <div class="share" v-if="work.title">
-          <div class="tt">{{ work.title }}</div>
+        <div class="share" v-if="work?.title">
+          <div class="tt">{{ work?.title }}</div>
           <div class="flex">
-            <img :src="work.share_img_url" />
-            <p>{{ work.description }}</p>
+            <img :src="work?.share_img_url" />
+            <p>{{ work?.description }}</p>
           </div>
         </div>
         <div class="qrcode">
@@ -24,11 +24,7 @@
             </a>
           </div>
         </div>
-        <template
-          v-if="
-            encodeURIComponent(JSON.stringify(work.pages)) != work.publish_pages
-          "
-        >
+        <template v-if="!work?.is_template && !isPublished && route.name.indexOf('Editor') !== -1">
           <div class="tips">您的作品有新内容未发布，发布后所有人才能看到哦</div>
           <el-button type="primary" @click="onPublish">立即发布</el-button>
         </template>
@@ -50,23 +46,36 @@ import { ElButton, ElDialog, ElLoading, ElMessage, ElIcon } from "element-plus";
 import { TopRight } from '@element-plus/icons-vue'
 import { formatDate } from "@/utils/index";
 import { publishWork } from "@/api/works";
+import { useRoute } from "vue-router";
 export default defineComponent({
   props: ["workId", "previewVisible"],
   components: { ElButton, ElDialog, ElIcon, TopRight },
   setup(props, ctx) {
+    const route = useRoute();
+    console.log(route.name)
     const previewShow = ref(props.previewVisible);
     const mobileUrl = ref("");
     const qrcodeImg = ref(null); //二维码dom元素
-    const work: H5.WorkInfo | null = reactive(null);
+    const work: H5.WorkInfo = reactive({});
+    const isPublished = ref(false) // 作品是否已发布
     watch(previewShow, (val, oldval) => {
       ctx.emit("update:previewVisible", val);
     });
+    watch(work, (val, oldval) => {
+      if (encodeURIComponent(JSON.stringify(val.pages)) === val.publish_pages
+        && encodeURIComponent(JSON.stringify(val.config)) === val.publish_config) {
+        isPublished.value = true
+      } else {
+        isPublished.value = false
+      }
+    })
     onMounted(async () => {
       mobileUrl.value = "/viewer/?workId=" + props.workId + "&mode=preview";
       await nextTick();
       drawQRcode();
       //定义一个方法，获取作品信息
       window.getWorkInfo = (val: object) => {
+        console.log(val)
         Object.assign(work, val);
       };
     });
@@ -92,8 +101,7 @@ export default defineComponent({
         ElMessage.error(res.message);
       }
     }
-
-    return { previewShow, work, mobileUrl, qrcodeImg, formatDate, onPublish };
+    return { previewShow, work, isPublished, mobileUrl, qrcodeImg, formatDate, onPublish, route };
   },
 });
 </script>
@@ -106,6 +114,7 @@ export default defineComponent({
   }
   .note {
     padding: 16px;
+    flex: 1;
     .title {
       font-weight: bold;
       font-size: 16px;

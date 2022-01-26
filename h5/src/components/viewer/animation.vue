@@ -52,7 +52,6 @@ export default defineComponent({
         animationDuration: `${item.duration}s`,
         animationIterationCount: item.infinite ? "infinite" : item.count,
         animationDelay: `${item.delay}s`,
-        animationFillMode: "both",
         animationTimingFunction: item.timing || "ease",
         display: "block",
       };
@@ -84,8 +83,15 @@ export default defineComponent({
       anis = props.element.animations;
       if (anis && anis.length > 0) {
         hasAnimate.value = true;
-        index = 0;
-        playAnimation(anis[0]);
+        // 监听当前dom是否在可视区域，在的话才开始动画
+        const intersectionObserver = new IntersectionObserver(entries => {
+          if (entries[0].intersectionRatio <= 0) return
+          index = 0
+          playAnimation(anis[0])
+          intersectionObserver.unobserve(animationBox.value)
+        })
+        // start observing
+        intersectionObserver.observe(animationBox.value)
         //监听顺序播放动画
         if (animationBox.value)
           animationBox.value.addEventListener("animationend", function () {
@@ -123,7 +129,7 @@ export default defineComponent({
   }
 }
 .animCan {
-  animation-play-state: paused;
+  // animation-play-state: paused;
 }
 .text {
   padding: 0 16px;

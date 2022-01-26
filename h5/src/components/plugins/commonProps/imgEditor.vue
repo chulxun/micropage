@@ -21,8 +21,6 @@
 
       <div
         :class="{
-          'el-icon-video-pause': audioPlaying,
-          'el-icon-video-play': !audioPlaying,
           'uploader-icon': true,
           'music-icon': true,
         }"
@@ -30,6 +28,10 @@
         @click="togglePlay"
       >
         <audio ref="audio" :src="imgUrl"></audio>
+        <el-icon>
+          <VideoPause v-if="audioPlaying" />
+          <VideoPlay v-else />
+        </el-icon>
       </div>
     </div>
     <ElButton size="mini" @click="onShowSourceList">更换</ElButton>
@@ -46,7 +48,7 @@ import { ElImage, ElButton, ElIcon } from "element-plus";
 import { defineComponent, ref, onMounted, nextTick } from "vue";
 import { useStore } from "@/store/index";
 import videoPreview from "@/components/common/videoPreview.vue";
-import { Plus } from '@element-plus/icons-vue'
+import { Plus, VideoPause, VideoPlay } from '@element-plus/icons-vue'
 
 export default defineComponent({
   props: {
@@ -62,7 +64,7 @@ export default defineComponent({
   components: {
     ElImage,
     ElButton,
-    videoPreview, ElIcon, Plus
+    videoPreview, ElIcon, Plus, VideoPlay, VideoPause
   },
   setup(props, ctx) {
     const store = useStore();

@@ -15,11 +15,11 @@ const FormSchema = new mongoose.Schema({
   },
   created_at: {
     type: Number,
-    default: Date.now(),
+    default: Date.now,
   },
   updated_at: {
     type: Number,
-    default: Date.now(),
+    default: Date.now,
   },
 })
 

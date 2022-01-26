@@ -60,7 +60,6 @@ function deletePage(item: any, index: number) {
   ElMessageBox.confirm("确定删除该页面吗？", "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
-    type: "warning",
   })
     .then(() => {
       if (editingPage.value.ukey == item.ukey) {

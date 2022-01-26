@@ -50,9 +50,12 @@
       <el-button :icon="Plus" circle size="mini" @click="changeScale(1)"></el-button>
     </div>
     <div>
-      <el-button round size="small" :icon="Finished" @click="createWorkAsTemplate">设为模版</el-button>
-      <el-button type="primary" round size="small" @click="onPreview">预览</el-button>
-      <el-button type="success" round size="small" :icon="MessageBox" @click="onPublish">发布</el-button>
+      <template v-if="!work.is_template">
+        <el-button round size="small" :icon="Finished" @click="createWorkAsTemplate">设为模版</el-button>
+        <el-button type="primary" round size="small" @click="onPreview">预览</el-button>
+        <el-button type="success" round size="small" :icon="MessageBox" @click="onPublish">发布</el-button>
+      </template>
+      <el-button v-else type="primary" round size="small" @click="onSaveTemplate">保存并预览模板</el-button>
     </div>
     <preview :workId="workId" v-model="previewVisible" v-if="previewVisible"></preview>
     <publishUrl :workId="workId" v-model="publishVisible" v-if="publishVisible"></publishUrl>
@@ -126,6 +129,15 @@ async function onPreview() {
   await saveWork(); //先保存再预览
   await nextTick();
   previewVisible.value = true;
+}
+// 保存模板并预览
+async function onSaveTemplate() {
+  let loading = ElLoading.service({ fullscreen: true });
+  await getPreviewImg();
+  await saveWork();
+  await nextTick();
+  previewVisible.value = true;
+  loading.close();
 }
 //发布
 async function onPublish() {

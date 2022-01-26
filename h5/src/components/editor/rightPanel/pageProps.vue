@@ -1,13 +1,10 @@
 <template>
   <div v-if="editingPageProps">
     <el-form label-width="80px" size="small">
-      <el-form-item label="背景颜色">
-        <el-color-picker
-          v-model="editingPageProps.bgColor"
-          show-alpha
-        ></el-color-picker>
+      <el-form-item label="背景颜色:">
+        <el-color-picker v-model="editingPageProps.bgColor" show-alpha></el-color-picker>
       </el-form-item>
-      <el-form-item label="页面高度" v-if="work.page_type == 1">
+      <el-form-item label="页面高度:" v-if="work.page_type == 1">
         <el-input-number
           v-model.number="editingPageProps.pageHeight"
           :min="667"
@@ -20,11 +17,7 @@
         <imgEditor v-model:imgUrl="editingPageProps.imgUrl"></imgEditor>
       </el-form-item>
       <el-form-item label="背景填充:">
-        <el-select
-          style="width: 100%"
-          v-model="editingPageProps.bgSize"
-          placeholder="请选择"
-        >
+        <el-select style="width: 100%" v-model="editingPageProps.bgSize" placeholder="请选择">
           <el-option
             v-for="item in sizeList"
             :key="item.value"
@@ -37,11 +30,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="背景重复:">
-        <el-select
-          style="width: 100%"
-          v-model="editingPageProps.bgRepeat"
-          placeholder="请选择"
-        >
+        <el-select style="width: 100%" v-model="editingPageProps.bgRepeat" placeholder="请选择">
           <el-option
             v-for="item in repeatList"
             :key="item.value"
@@ -54,11 +43,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="背景位置:">
-        <el-select
-          style="width: 100%"
-          v-model="editingPageProps.bgPosition"
-          placeholder="请选择"
-        >
+        <el-select style="width: 100%" v-model="editingPageProps.bgPosition" placeholder="请选择">
           <el-option
             v-for="item in positionList"
             :key="item.value"

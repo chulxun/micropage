@@ -26,7 +26,6 @@ export default defineComponent({
         animationDuration: `${item.duration}s`,
         animationIterationCount: item.infinite ? "infinite" : item.count,
         animationDelay: `${item.delay}s`,
-        animationFillMode: "both",
         animationTimingFunction: item.timing || "ease",
         display: "block",
       };

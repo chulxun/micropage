@@ -26,12 +26,12 @@ const actions = {
   async createWork({ commit }: ActionContext<State, any>, payload: any) {
     let work: any = new Work(payload);
     work.pages = encodeURIComponent(JSON.stringify(work.pages))
+    work.config = encodeURIComponent(JSON.stringify(work.config))
     let res = await createWork(work)
     if (res && res.code == 0) {
       ElMessageBox.confirm("作品已经创建成功，是否去编辑作品?", "成功提醒", {
         confirmButtonText: "去编辑",
         cancelButtonText: "留在原地",
-        type: "success",
       })
         .then(() => {
           let url = "/editor/" + res.property.work_id;
@@ -69,6 +69,7 @@ const actions = {
   async saveWork({ commit }: ActionContext<State, any>) {
     let work: any = JSON.parse(JSON.stringify(state.work));
     work.pages = encodeURIComponent(JSON.stringify(work.pages))
+    work.config = encodeURIComponent(JSON.stringify(work.config))
     delete work._id;
     let res = await updateWork(work)
     if (res && res.code == 0) {

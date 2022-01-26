@@ -1,8 +1,11 @@
-# 微页接口项目
+# 微页 server 端介绍
 
-koa 框架 + mongodb 数据库
+```
+技术栈：Nodejs + Koa2 + mongodb
+包含H5和admin的所有接口
+```
 
-## 项目结构
+## server 项目结构
 
 项目下主要文件目录介绍：
 
@@ -84,6 +87,5 @@ db.createUser({
    const cmd = require('node-cmd');
    cmd.run('npm run start');
 
-   综上，完成部署：
-   预览：http://localhost:9001
+   综上，完成部署
 ```

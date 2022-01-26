@@ -56,45 +56,27 @@
     <help v-else-if="operaType == 5"></help>
   </el-aside>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import { ElAside, ElButton, ElDrawer, ElTooltip, ElIcon } from "element-plus";
 import pluginList from "./common/pluginList.vue";
 import keyList from "./common/keyList.vue";
 import sourceList from "./common/sourceList.vue";
 import help from "./common/help.vue";
-import { defineComponent, ref, computed } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "@/store/index";
 import { UploadFilled, CaretLeft } from '@element-plus/icons-vue'
-export default defineComponent({
-  components: {
-    ElAside,
-    ElButton,
-    ElDrawer,
-    pluginList,
-    keyList,
-    sourceList,
-    ElTooltip,
-    help, ElIcon, UploadFilled, CaretLeft
-  },
-  setup() {
-    const store = useStore();
 
-    const operaType = computed(() => store.state.common.operaType);
-    const setOperaType = (type: any) =>
-      store.commit("common/setOperaType", type);
-    function changeOperaType(val: number) {
-      if (val == operaType.value) {
-        setOperaType(0);
-      } else {
-        setOperaType(val);
-      }
-    }
-    return {
-      operaType,
-      changeOperaType,
-    };
-  },
-});
+const store = useStore();
+const operaType = computed(() => store.state.common.operaType);
+const setOperaType = (type: any) =>
+  store.commit("common/setOperaType", type);
+function changeOperaType(val: number) {
+  if (val == operaType.value) {
+    setOperaType(0);
+  } else {
+    setOperaType(val);
+  }
+}
 </script>
 <style lang='less' scoped>
 .editor_left {

@@ -1,8 +1,5 @@
 <template>
-  <div
-    :class="{ 'bg-music-btn': true, rotate: true, playing: isPlaying }"
-    @click="togglePlay"
-  >
+  <div :class="{ 'bg-music-btn': true, rotate: true, playing: isPlaying }" @click="togglePlay">
     <audio
       :src="props.audioUrl"
       :autoplay="props.autoplay && workMode == 'formal'"
@@ -61,8 +58,7 @@ export default defineComponent({
 
 .bg-music-btn {
   border-radius: 15px;
-  background: url("https://public.fanjinyan.com/weiye_bg_music.svg") no-repeat
-    center center;
+  background: url("/images/weiye_bg_music.svg") no-repeat center center;
   background-size: contain;
 
   &.rotate {

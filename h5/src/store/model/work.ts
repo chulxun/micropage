@@ -8,6 +8,7 @@ interface workInitnal {
   share_img_url: string;
   page_type: number;
   pages: Array<object>;
+  config?:object;
 }
 class Work {
   title: string;
@@ -16,6 +17,7 @@ class Work {
   share_img_url: string;
   page_type: number;
   pages: Array<object>;
+  config:object;
   constructor(work: workInitnal) {
     // 通用属性
     this.title = work.title || '标题'
@@ -34,6 +36,15 @@ class Work {
       })
     }
     this.pages = work.pages || pages
+    // 作品初始化配置信息
+    const defaultConfig = work.page_type === 2 ? {
+      swiper_pag_color: '#1890ff',
+      swiper_direction: 'vertical',
+      swiper_pag: false,
+      swiper_loop: false,
+      swiper_arrow: true,
+    } : {}
+    this.config = work.config ? cloneDeep(work.config) : defaultConfig
   }
   //添加一个空页面
   static addPage(pages: any) {

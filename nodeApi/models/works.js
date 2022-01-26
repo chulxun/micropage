@@ -30,11 +30,11 @@ const worksSchema = new Schema({
   },
   created_at: {  //创建时间
     type: Number,
-    default: Date.now(),
+    default: Date.now,
   },
   updated_at: {  //更新时间
     type: Number,
-    default: Date.now(),
+    default: Date.now,
   },
   hits: {  //点击率
     type: Number,

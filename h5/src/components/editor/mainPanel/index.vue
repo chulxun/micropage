@@ -22,8 +22,8 @@
         :element="item"
         @click.right="clickRightKey(item, $event)"
       >
-        <element :element="item"></element
-      ></draggable>
+        <element :element="item"></element>
+      </draggable>
       <dragHeight v-if="work.page_type == 1"></dragHeight>
       <rightKeyMenu
         v-if="showRightKeyMenu && editingElement"
@@ -159,8 +159,7 @@ export default defineComponent({
 .editor_container {
   width: 375px;
   height: 667px;
-  background: url(https://public.fanjinyan.com/weiye_default_transparent.png)
-    no-repeat center center;
+  background: url(/images/weiye_default_transparent.png) no-repeat center center;
   background-size: cover;
   position: relative;
   margin: 0 auto;

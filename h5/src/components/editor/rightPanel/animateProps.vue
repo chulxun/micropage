@@ -4,37 +4,6 @@
       <el-button type="primary" round :icon="CirclePlus" @click="animationTabVisible = true">添加一个动画</el-button>
       <el-button type="success" round :icon="VideoPlay" @click="playAllAni">预览所有动画</el-button>
     </div>
-
-    <!-- <Popup
-      v-model:show="animationTabVisible"
-      class="animation_popup"
-      position="bottom"
-      closeable
-      :style="{ height: '100%' }"
-      :overlay-style="{ position: 'absolute' }"
-    >
-      <el-tabs v-model="animationTab">
-        <el-tab-pane
-          v-for="(item, index) in animationList"
-          :key="index"
-          :label="item.type"
-          :name="item.type"
-        >
-          <div class="animation_list">
-            <div
-              v-for="(item1, index1) in item.children"
-              :key="index1"
-              @mouseenter="addAnimation(item1, 'preview')"
-              @mouseleave="leaveAnimation(item1)"
-              @click="addAnimation(item1)"
-            >
-              <p>{{ item1.title }}</p>
-            </div>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
-    </Popup>-->
-
     <template v-if="editingElement.animations && editingElement.animations.length > 0">
       <el-divider content-position="left">已有动画</el-divider>
       <el-collapse accordion>
@@ -99,7 +68,8 @@
     custom-class="animation_drawer"
     v-model="animationTabVisible"
     title="请选择动画"
-    size="100%"
+    size="360px"
+    :append-to-body="true"
   >
     <el-tabs v-model="animationTab">
       <el-tab-pane
@@ -142,7 +112,6 @@ import {
   ElSelect, ElOption, ElIcon, ElDrawer
 } from "element-plus";
 import { Delete, CaretRight, CirclePlus, VideoPlay } from '@element-plus/icons-vue'
-import { Popup } from "vant";
 import { animationList } from "@/data/animate";
 
 const store = useStore();
@@ -266,7 +235,6 @@ function playAllAni() {
   justify-content: center;
   height: 36px;
   border-radius: 5px;
-
   cursor: pointer;
   &:hover {
     background: var(--primaryColor);
@@ -284,10 +252,7 @@ function playAllAni() {
   padding-top: 20px;
   padding-bottom: 0;
 }
-:deep(.animation_popup) {
-  position: absolute;
-  // padding: 10px 15px;
-}
+
 :deep(.el-button.is-circle) {
   padding: 8px;
 }

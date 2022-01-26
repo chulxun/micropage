@@ -51,11 +51,14 @@ export default defineComponent({
       () => import("./plug-form-picker/editor.vue")
     ),
   },
-  setup(props) {},
+  setup(props) { },
 });
 </script>
 <style lang='less' scoped>
 .element {
   position: absolute;
+}
+:deep(.small_input_number) {
+  width: 110px;
 }
 </style>

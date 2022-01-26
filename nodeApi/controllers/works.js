@@ -149,7 +149,6 @@ module.exports = class WorksController {
         let work = works[0]
         if (work.publish_pages) {
           let res = await Works.updateMany({ work_id }, { $inc: { hits: 1 } })
-          console.log(res)
           work.pages = JSON.parse(decodeURIComponent(work.publish_pages))
           if(work.publish_config){
              work.config = JSON.parse(decodeURIComponent(work.publish_config))
@@ -180,6 +179,7 @@ module.exports = class WorksController {
     const share_img_url = ctx.checkBody('share_img_url').notEmpty('作品分享图不能为空').value
     const page_type = ctx.checkBody('page_type').notEmpty('作品类型不能为空').value
     const pages = ctx.checkBody('pages').notEmpty('作品内容不能为空').value
+    const config =  ctx.checkBody('config').notEmpty('作品配置不能为空').value
     if (ctx.errors) {
       let tip = ''
       for (let key in ctx.errors[0]) {

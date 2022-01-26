@@ -3,22 +3,61 @@
 <template>
   <div>
     <el-divider content-position="left">位置</el-divider>
-    <el-form :model="element" size="small" label-width="80px">
-      <el-form-item label="唯一标识:">
+    <el-form :inline="true" :model="element" size="small" label-width="50px">
+      <!-- <el-form-item label="标识:">
         <el-input v-model="element.ukey" disabled></el-input>
-      </el-form-item>
-      <el-form-item label="宽度:">
-        <el-input-number v-model.number="element.style.width" :min="1" :max="1000" label="px"></el-input-number>
-      </el-form-item>
-      <el-form-item label="高度:">
-        <el-input-number v-model.number="element.style.height" :min="1" :max="1000" label="px"></el-input-number>
-      </el-form-item>
-      <el-form-item label="居左距离:">
-        <el-input-number v-model.number="element.style.left" :min="-1000" :max="100000" label="px"></el-input-number>
-      </el-form-item>
-      <el-form-item label="居上距离:">
-        <el-input-number v-model.number="element.style.top" :min="-1000" :max="100000" label="px"></el-input-number>
-      </el-form-item>
+      </el-form-item>-->
+      <el-row :gutter="10">
+        <el-col :span="12">
+          <el-form-item label="宽度:">
+            <el-input-number
+              v-model.number="element.style.width"
+              :min="1"
+              :max="1000"
+              label="px"
+              controls-position="right"
+              class="small_input_number"
+            ></el-input-number>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="高度:">
+            <el-input-number
+              v-model.number="element.style.height"
+              :min="1"
+              :max="10000"
+              label="px"
+              controls-position="right"
+              class="small_input_number"
+            ></el-input-number>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="居左:">
+            <el-input-number
+              v-model.number="element.style.left"
+              :min="-1000"
+              :max="100000"
+              label="px"
+              controls-position="right"
+              class="small_input_number"
+            ></el-input-number>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="居上:">
+            <el-input-number
+              v-model.number="element.style.top"
+              :min="-1000"
+              :max="100000"
+              label="px"
+              controls-position="right"
+              class="small_input_number"
+            ></el-input-number>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
       <el-form-item label="定位:">
         <el-radio-group v-model="element.style.position">
           <el-radio-button label="absolute">默认</el-radio-button>
@@ -29,32 +68,17 @@
     </el-form>
   </div>
 </template>
-<script lang='ts'>
+<script setup lang='ts'>
 import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElInputNumber,
-  ElDivider,
-  ElButton, ElRadioGroup,
-  ElRadioButton,
+  ElForm, ElFormItem,
+  ElInput, ElInputNumber, ElDivider,
+  ElButton, ElRadioGroup, ElRadioButton,
+  ElRow, ElCol
 } from "element-plus";
 import { defineComponent } from "vue";
-export default defineComponent({
-  props: ["element"],
-  components: {
-    ElForm,
-    ElFormItem,
-    ElInput,
-    ElInputNumber,
-    ElDivider,
-    ElButton, ElRadioGroup,
-    ElRadioButton,
-  },
-  setup() {
-    return {};
-  },
-});
+const props = defineProps({
+  element: Object
+})
 </script>
 <style lang='less' scoped>
 </style>
