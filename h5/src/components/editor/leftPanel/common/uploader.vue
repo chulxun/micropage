@@ -20,7 +20,7 @@
 import { ElButton, ElUpload, ElMessage } from "element-plus";
 import { ref, reactive, watch, onMounted } from "vue";
 import { addResources } from "@/api/resources";
-import qiniuUpload from "@/mixins/qiniuUpload";
+import qiniuUpload from "@/utils/qiniuUpload";
 import { cdnDomain } from "@/data/constant";
 
 const props = defineProps({

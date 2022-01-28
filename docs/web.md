@@ -26,7 +26,8 @@
 │   │       ├── mixins     //混淆js
 │   │       │   └── importPlugs.ts  //引入所有组件文件
 │   │       │   └── qiniuUpload.ts  //七牛云获取token、上传base64图片方法
-│   │       └── plug-*     //插件详情（除了plugin-page，必须包含以下2个文件）
+│   │       └── plug-*     //插件详情（除了plugin-page，必须包含以下3个文件）
+│   │       │   ├── model.ts  //插件初始化数据
 │   │       │   ├── editor.vue  //插件属性编辑器
 │   │       │   └── index.vue  //插件UI、逻辑
 │   │       ├── editor.vue  //插件编辑器使用前封装
