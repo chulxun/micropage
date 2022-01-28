@@ -6,7 +6,7 @@
         <el-form
           :model="pwdInfo"
           status-icon
-          ref="pwdRules"
+          ref="pwdForm"
           label-width="85px"
           class="form_one"
           label-position="left"
@@ -22,12 +22,7 @@
               },
             ]"
           >
-            <el-input
-              type="password"
-              autocomplete="off"
-              v-model="pwdInfo.old_pwd"
-              maxlength="18"
-            ></el-input>
+            <el-input type="password" autocomplete="off" v-model="pwdInfo.old_pwd" maxlength="18"></el-input>
           </el-form-item>
           <el-form-item
             label="新密码"
@@ -43,12 +38,7 @@
               },
             ]"
           >
-            <el-input
-              type="password"
-              v-model="pwdInfo.pwd"
-              autocomplete="off"
-              maxlength="18"
-            ></el-input>
+            <el-input type="password" v-model="pwdInfo.pwd" autocomplete="off" maxlength="18"></el-input>
           </el-form-item>
           <el-form-item
             label="确认密码"
@@ -66,18 +56,11 @@
               },
             ]"
           >
-            <el-input
-              type="password"
-              v-model="pwdInfo.pwd2"
-              autocomplete="off"
-              maxlength="18"
-            ></el-input>
+            <el-input type="password" v-model="pwdInfo.pwd2" autocomplete="off" maxlength="18"></el-input>
           </el-form-item>
 
           <el-form-item>
-            <el-button type="primary" @click="submitPwd('pwdRules')"
-              >确认修改</el-button
-            >
+            <el-button type="primary" @click="submitPwd(pwdForm)">确认修改</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -86,7 +69,7 @@
         <el-form
           :model="editInfo"
           status-icon
-          ref="editRules"
+          ref="editForm"
           label-width="85px"
           class="form_one"
           label-position="left"
@@ -96,11 +79,7 @@
             prop="user_name"
             :rules="[{ required: true, message: '用户名不能为空' }]"
           >
-            <el-input
-              v-model="editInfo.user_name"
-              autocomplete="off"
-              maxlength="20"
-            ></el-input>
+            <el-input v-model="editInfo.user_name" autocomplete="off" maxlength="20"></el-input>
           </el-form-item>
           <el-form-item
             label="邮箱"
@@ -110,12 +89,7 @@
               { type: 'email', message: '邮箱格式不正确' },
             ]"
           >
-            <el-input
-              type="email"
-              v-model="editInfo.email"
-              autocomplete="off"
-              maxlength="20"
-            ></el-input>
+            <el-input type="email" v-model="editInfo.email" autocomplete="off" maxlength="20"></el-input>
           </el-form-item>
           <el-form-item
             label="手机号"
@@ -128,24 +102,18 @@
               },
             ]"
           >
-            <el-input
-              maxlength="11"
-              v-model="editInfo.mobile"
-              autocomplete="off"
-            ></el-input>
+            <el-input maxlength="11" v-model="editInfo.mobile" autocomplete="off"></el-input>
           </el-form-item>
 
           <el-form-item>
-            <el-button type="primary" @click="submitEdit('editRules')"
-              >确认修改</el-button
-            >
+            <el-button type="primary" @click="submitEdit(editForm)">确认修改</el-button>
           </el-form-item>
         </el-form>
       </div>
     </div>
   </master>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import {
   ElButton,
   ElForm,
@@ -155,106 +123,89 @@ import {
   ElMessage,
 } from "element-plus";
 import master from "@/components/common/master.vue";
-import { computed, defineComponent, reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import { useStore } from "@/store/index";
 import { useRouter } from "vue-router";
 import { changePwd, editUserInfo } from "@/api/user";
-export default defineComponent({
-  components: {
-    master,
-    ElButton,
-    ElForm,
-    ElFormItem,
-    ElInput,
-    ElLoading,
-    ElMessage,
-  },
-  methods: {},
-  setup(props, ctx) {
-    const store = useStore();
-    const router = useRouter();
-    const userInfo = computed(() => store.state.user.userInfo);
-    const delUserInfo = () => store.commit("user/delUserInfo");
-    const setUserInfo = (userInfo: object) =>
-      store.commit("user/setUserInfo", userInfo);
-    const editInfo = reactive({
-      user_name: userInfo.value.user_name || "",
-      email: userInfo.value.email || "",
-      mobile: userInfo.value.mobile || "",
-    });
-    const pwdInfo = reactive({
-      old_pwd: "",
-      pwd: "",
-      pwd2: "",
-    });
-    const pwdRules = ref(null);
-    var validatePwd = (rule, value, callback) => {
-      if (pwdInfo.pwd !== pwdInfo.pwd2) {
-        callback(new Error("两次输入密码不一致!"));
-      } else {
-        callback();
-      }
-    };
-    //修改密码
-    function submitPwd(formName) {
-      this.$refs[formName].validate(async (valid) => {
-        if (valid) {
-          if (userInfo.value.id == 1) {
-            return ElMessage.error("该账号为测试账号，不能修改信息");
-          }
-          let loading = ElLoading.service({ target: ".con.left" });
-          const res = await changePwd({
-            old_pwd: pwdInfo.old_pwd,
-            password: pwdInfo.pwd,
-          });
-          loading.close();
-          if (res && res.code == 0) {
-            delUserInfo();
-            ElMessage.success("密码修改成功，您需要重新登录");
-            router.replace("/login");
-          } else {
-            ElMessage.error(res.message);
-          }
-        } else {
-          return false;
-        }
-      });
-    }
-    //修改个人信息
-    function submitEdit(formName) {
-      this.$refs[formName].validate(async (valid) => {
-        if (valid) {
-          if (userInfo.value.id == 1) {
-            return ElMessage.error("该账号为测试账号，不能修改信息");
-          }
-          let loading = ElLoading.service({ target: ".con.right" });
-          const res = await editUserInfo(editInfo);
-          loading.close();
-          if (res && res.code == 0) {
-            const newUserInfo = { ...userInfo.value };
-            newUserInfo.user_name = editInfo.user_name;
-            newUserInfo.email = editInfo.email;
-            newUserInfo.mobile = editInfo.mobile;
-            setUserInfo(newUserInfo);
-            ElMessage.success("用户信息修改成功");
-          } else {
-            ElMessage.error(res.message);
-          }
-        } else {
-          return false;
-        }
-      });
-    }
-    return {
-      pwdInfo,
-      validatePwd,
-      editInfo,
-      submitPwd,
-      submitEdit,
-      pwdRules,
-    };
-  },
+
+const store = useStore();
+const router = useRouter();
+const userInfo = computed(() => store.state.user.userInfo);
+const delUserInfo = () => store.commit("user/delUserInfo");
+const setUserInfo = (userInfo: object) =>
+  store.commit("user/setUserInfo", userInfo);
+const editInfo = reactive({
+  user_name: userInfo.value.user_name || "",
+  email: userInfo.value.email || "",
+  mobile: userInfo.value.mobile || "",
 });
+const pwdInfo = reactive({
+  old_pwd: "",
+  pwd: "",
+  pwd2: "",
+});
+
+const pwdForm = ref<InstanceType<typeof ElForm>>()
+const editForm = ref<InstanceType<typeof ElForm>>()
+var validatePwd = (rule: any, value: any, callback: any) => {
+  if (pwdInfo.pwd !== pwdInfo.pwd2) {
+    callback(new Error("两次输入密码不一致!"));
+  } else {
+    callback();
+  }
+};
+//修改密码
+const submitPwd = (formEl: InstanceType<typeof ElForm> | undefined) => {
+  if (!formEl) return
+  formEl.validate(async (valid) => {
+    if (valid) {
+      if (userInfo.value.id == 1) {
+        return ElMessage.error("该账号为测试账号，不能修改信息");
+      }
+      let loading = ElLoading.service({ target: ".con.left" });
+      const res = await changePwd({
+        old_pwd: pwdInfo.old_pwd,
+        password: pwdInfo.pwd,
+      });
+      loading.close();
+      if (res && res.code == 0) {
+        delUserInfo();
+        ElMessage.success("密码修改成功，您需要重新登录");
+        router.replace("/login");
+      } else {
+        ElMessage.error(res.message);
+      }
+    } else {
+      return false;
+    }
+  });
+}
+//修改个人信息
+const submitEdit = (formEl: InstanceType<typeof ElForm> | undefined) => {
+  if (!formEl) return
+  formEl.validate(async (valid) => {
+    if (valid) {
+      if (userInfo.value.id == 1) {
+        return ElMessage.error("该账号为测试账号，不能修改信息");
+      }
+      let loading = ElLoading.service({ target: ".con.right" });
+      const res = await editUserInfo(editInfo);
+      loading.close();
+      if (res && res.code == 0) {
+        const newUserInfo = { ...userInfo.value };
+        newUserInfo.user_name = editInfo.user_name;
+        newUserInfo.email = editInfo.email;
+        newUserInfo.mobile = editInfo.mobile;
+        setUserInfo(newUserInfo);
+        ElMessage.success("用户信息修改成功");
+      } else {
+        ElMessage.error(res.message);
+      }
+    } else {
+      return false;
+    }
+  });
+}
 </script>
 <style lang="less"  scoped>
 .user_center {

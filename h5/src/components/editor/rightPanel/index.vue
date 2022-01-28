@@ -18,63 +18,47 @@
     </el-tabs>
   </el-aside>
 </template>
-<script lang="ts">
-import { ElAside, ElButton, ElTabs, ElTabPane } from "element-plus";
+<script setup lang="ts">
+import { ElAside, ElTabs, ElTabPane } from "element-plus";
 import layers from "./layers/index.vue";
 import workSetting from "./workSetting.vue";
 import pluginProps from "./pluginProps.vue";
 import animateProps from "./animateProps.vue";
 import pageProps from "./pageProps.vue";
 import scriptProps from "./scriptProps.vue";
-import { defineComponent, ref, watch, computed } from "vue";
+import { ref, watch, computed } from "vue";
 import { useStore } from "@/store/index";
-export default defineComponent({
-  components: {
-    ElAside,
-    ElButton,
-    ElTabs,
-    ElTabPane,
-    pluginProps,
-    pageProps,
-    scriptProps,
-    animateProps,
-    layers,
-    workSetting,
-  },
-  setup() {
-    const store = useStore();
-    const editingElement: any = computed(
-      () => store.state.editor.editingElement
-    );
-    const editingPageProps: any = computed(
-      () => store.state.editor.editingPageProps
-    );
-    const setSourceStack = (preload: any) =>
-      store.commit("common/setSourceStack", preload);
-    const tabIndex = ref("props");
-    //监听tab切换，找到图片
-    watch(
-      () => tabIndex.value,
-      function (val) {
-        if (
-          val == "props" &&
-          editingElement.value &&
-          editingElement.value.props.hasOwnProperty("imgUrl")
-        ) {
-          setSourceStack({
-            stack: editingPageProps.value.props,
-            key: "imgUrl",
-          });
-        } else if (val == "page") {
-          setSourceStack({ stack: editingPageProps.value, key: "imgUrl" });
-        } else {
-          setSourceStack({ stack: null, key: "" });
-        }
-      }
-    );
-    return { tabIndex };
-  },
-});
+
+const store = useStore();
+const editingElement: any = computed(
+  () => store.state.editor.editingElement
+);
+const editingPageProps: any = computed(
+  () => store.state.editor.editingPageProps
+);
+const setSourceStack = (preload: any) =>
+  store.commit("common/setSourceStack", preload);
+const tabIndex = ref("props");
+//监听tab切换，找到图片
+watch(
+  () => tabIndex.value,
+  function (val) {
+    if (
+      val == "props" &&
+      editingElement.value &&
+      editingElement.value.props.hasOwnProperty("imgUrl")
+    ) {
+      setSourceStack({
+        stack: editingPageProps.value.props,
+        key: "imgUrl",
+      });
+    } else if (val == "page") {
+      setSourceStack({ stack: editingPageProps.value, key: "imgUrl" });
+    } else {
+      setSourceStack({ stack: null, key: "" });
+    }
+  }
+);
 </script>
 <style lang='less' scoped>
 .editor_right {

@@ -16,96 +16,88 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 import { useStore } from "@/store/index";
 import { ElIcon } from 'element-plus'
 import { Close } from '@element-plus/icons-vue'
-export default defineComponent({
-  props: ["pluginType"],
-  components: { ElIcon, Close },
-  data() {
-    return {
-      keyList: [
-        {
-          name: "保存",
-          key: "⌘ + S",
-        },
-        {
-          name: "删除",
-          key: "⌘ + (Delete /D)",
-        },
-        {
-          name: "撤销",
-          key: "⌘ + Z",
-        },
-        {
-          name: "重做",
-          key: "⌘ + Y",
-        },
-        {
-          name: "复制",
-          key: "⌘ + C",
-        },
-        {
-          name: "剪切",
-          key: "⌘ + X",
-        },
-        {
-          name: "粘贴",
-          key: "⌘ + V",
-        },
-        {
-          name: "标尺",
-          key: "⌘ + R",
-        },
-        {
-          name: "上移",
-          key: "⌘ + UP",
-        },
-        {
-          name: "下移",
-          key: "⌘ + DOWN",
-        },
-        {
-          name: "左对齐",
-          key: "Shift + L",
-        },
-        {
-          name: "右对齐",
-          key: "Shift + R",
-        },
-        {
-          name: "垂直居中",
-          key: "Shift + M",
-        },
-        {
-          name: "水平居中",
-          key: "Shift + C",
-        },
-        {
-          name: "顶对齐",
-          key: "Shift + T",
-        },
-        {
-          name: "底对齐",
-          key: "Shift + B",
-        },
-      ],
-    };
+defineProps({
+  pluginType: Number
+})
+const keyList = [
+  {
+    name: "保存",
+    key: "⌘ + S",
   },
+  {
+    name: "删除",
+    key: "⌘ + (Delete /D)",
+  },
+  {
+    name: "撤销",
+    key: "⌘ + Z",
+  },
+  {
+    name: "重做",
+    key: "⌘ + Y",
+  },
+  {
+    name: "复制",
+    key: "⌘ + C",
+  },
+  {
+    name: "剪切",
+    key: "⌘ + X",
+  },
+  {
+    name: "粘贴",
+    key: "⌘ + V",
+  },
+  {
+    name: "标尺",
+    key: "⌘ + R",
+  },
+  {
+    name: "上移",
+    key: "⌘ + UP",
+  },
+  {
+    name: "下移",
+    key: "⌘ + DOWN",
+  },
+  {
+    name: "左对齐",
+    key: "Shift + L",
+  },
+  {
+    name: "右对齐",
+    key: "Shift + R",
+  },
+  {
+    name: "垂直居中",
+    key: "Shift + M",
+  },
+  {
+    name: "水平居中",
+    key: "Shift + C",
+  },
+  {
+    name: "顶对齐",
+    key: "Shift + T",
+  },
+  {
+    name: "底对齐",
+    key: "Shift + B",
+  },
+]
+const store = useStore();
+const operaType = computed(() => store.state.common.operaType);
+const setOperaType = (type: any) =>
+  store.commit("common/setOperaType", type);
+function closedThis() {
+  setOperaType(0);
+}
 
-  setup(props, ctx) {
-    const store = useStore();
-    const operaType = computed(() => store.state.common.operaType);
-    const setOperaType = (type: any) =>
-      store.commit("common/setOperaType", type);
-    function closedThis() {
-      setOperaType(0);
-    }
-    return { closedThis };
-  },
-});
 </script>
 <style lang='less' scoped>
 .key_list {

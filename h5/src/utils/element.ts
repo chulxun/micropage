@@ -65,7 +65,7 @@ export function pxToRem(num: number) {
   if (num) {
     return parseFloat(num / 100 + '').toFixed(2) + 'rem'
   }
-  return num
+  return num+''
 }
 
 // 替换富文本中的px为rem

@@ -70,15 +70,12 @@
 </template>
 <script setup lang='ts'>
 import {
-  ElForm, ElFormItem,
-  ElInput, ElInputNumber, ElDivider,
-  ElButton, ElRadioGroup, ElRadioButton,
-  ElRow, ElCol
+  ElForm, ElFormItem, ElInputNumber, ElDivider,
+  ElRadioGroup, ElRadioButton, ElRow, ElCol
 } from "element-plus";
-import { defineComponent } from "vue";
-const props = defineProps({
-  element: Object
-})
+const props = defineProps<{
+  element: H5.Element
+}>()
 </script>
 <style lang='less' scoped>
 </style>

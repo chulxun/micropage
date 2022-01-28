@@ -118,8 +118,6 @@ function onDrop(event: DragEvent) {
     }
   }
 }
-
-
 </script>
 <style lang='less' scoped>
 .layer_container {

@@ -4,25 +4,17 @@
     <el-divider content-position="left">属性</el-divider>
     <el-form label-width="80px" size="small">
       <el-form-item label="类型:">
-        <el-select
-          style="width: 100%"
-          v-model="element.props.type"
-          placeholder="请选择类型"
-        >
+        <el-select style="width: 100%" v-model="element.props.type" placeholder="请选择类型">
           <el-option
             v-for="item in typeOptions"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          >
-          </el-option>
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="占位文字:">
-        <el-input
-          v-model="element.props.placeholder"
-          maxlength="100"
-        ></el-input>
+        <el-input v-model="element.props.placeholder" maxlength="100"></el-input>
       </el-form-item>
       <el-form-item label="标题:" required>
         <el-input v-model="element.props.name" maxlength="100"></el-input>
@@ -58,66 +50,43 @@
     </el-form>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import {
   ElForm,
   ElFormItem,
-  ElColorPicker,
   ElInputNumber,
   ElInput,
-  ElButton,
   ElDivider,
-  ElRadioGroup,
-  ElRadioButton,
   ElSelect,
   ElOption,
   ElSwitch,
 } from "element-plus";
 import cellEditor from "../commonProps/cellEditor.vue";
-export default defineComponent({
-  components: {
-    ElForm,
-    ElColorPicker,
-    ElInputNumber,
-    ElFormItem,
-    ElInput,
-    ElButton,
-    ElDivider,
-    ElRadioGroup,
-    ElRadioButton,
-    ElSelect,
-    ElOption,
-    ElSwitch,
-    cellEditor,
+const props = defineProps<{
+  element: H5.Element
+}>()
+const typeOptions = [
+  {
+    label: "文字",
+    value: "text",
   },
-  props: ["element"],
-  setup(props, ctx) {
-    const typeOptions = [
-      {
-        label: "文字",
-        value: "text",
-      },
-      {
-        label: "密码",
-        value: "password",
-      },
-      {
-        label: "邮箱",
-        value: "email",
-      },
-      {
-        label: "手机号",
-        value: "tel",
-      },
-      {
-        label: "多行文本框",
-        value: "textarea",
-      },
-    ];
-    return { typeOptions };
+  {
+    label: "密码",
+    value: "password",
   },
-});
+  {
+    label: "邮箱",
+    value: "email",
+  },
+  {
+    label: "手机号",
+    value: "tel",
+  },
+  {
+    label: "多行文本框",
+    value: "textarea",
+  },
+];
 </script>
 <style lang='less' scoped>
 </style>

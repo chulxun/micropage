@@ -10,10 +10,8 @@
         :key="index"
         class="button_option"
       >
-        <el-input v-model="option.val"></el-input
-        ><el-button v-if="index > 1" @click.prevent="removeOption(index)"
-          >删除</el-button
-        >
+        <el-input v-model="option.val"></el-input>
+        <el-button v-if="index > 1" @click.prevent="removeOption(index)">删除</el-button>
       </el-form-item>
       <el-form-item>
         <el-button @click="addOption" type="primary" plain>新增</el-button>
@@ -21,30 +19,19 @@
     </el-form>
   </div>
 </template>
-<script lang='ts'>
+<script setup lang='ts'>
 import { ElForm, ElFormItem, ElInput, ElButton, ElDivider } from "element-plus";
-import { defineComponent } from "vue";
-export default defineComponent({
-  props: ["element"],
-  components: {
-    ElForm,
-    ElFormItem,
-    ElInput,
-    ElButton,
-    ElDivider,
-  },
-  setup(props) {
-    function addOption() {
-      props.element.props.options.push({
-        val: "新选项" + (props.element.props.options.length + 1),
-      });
-    }
-    function removeOption(index) {
-      props.element.props.options.splice(index, 1);
-    }
-    return { addOption, removeOption };
-  },
-});
+const props = defineProps<{
+  element: H5.Element
+}>()
+function addOption() {
+  props.element.props.options.push({
+    val: "新选项" + (props.element.props.options.length + 1),
+  });
+}
+function removeOption(index: number) {
+  props.element.props.options.splice(index, 1);
+}
 </script>
 <style lang='less' scoped>
 .button_option {

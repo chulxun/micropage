@@ -43,82 +43,64 @@
     </el-icon>
   </div>
 </template>
-<script lang='ts'>
+<script setup lang='ts'>
 import { ElImage, ElButton, ElIcon } from "element-plus";
-import { defineComponent, ref, onMounted, nextTick } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 import { useStore } from "@/store/index";
 import videoPreview from "@/components/common/videoPreview.vue";
 import { Plus, VideoPause, VideoPlay } from '@element-plus/icons-vue'
 
-export default defineComponent({
-  props: {
-    imgUrl: {
-      default: "",
-      type: String,
-    },
-    sourceType: {
-      type: Number,
-      default: 1, // 1图片 2视频 3音乐
-    },
+const props = defineProps({
+  imgUrl: {
+    default: "",
+    type: String,
   },
-  components: {
-    ElImage,
-    ElButton,
-    videoPreview, ElIcon, Plus, VideoPlay, VideoPause
+  sourceType: {
+    type: Number,
+    default: 1, // 1图片 2视频 3音乐
   },
-  setup(props, ctx) {
-    const store = useStore();
-    const setOperaType = (type: any) =>
-      store.commit("common/setOperaType", type);
-    const setChangeSourceType = (type: any) =>
-      store.commit("common/setChangeSourceType", type);
-    function onRemove() {
-      ctx.emit("update:imgUrl", "");
-    }
-    const video = ref(null);
-    function onShowSourceList() {
-      setOperaType(4);
-      setChangeSourceType(props.sourceType);
-    }
-    const audio = ref(null);
-    const audioPlaying = ref(false);
-    onMounted(async () => {
-      await nextTick();
-      if (audio.value) {
-        audio.value.addEventListener("playing", function () {
-          audioPlaying.value = true;
-        });
-        audio.value.addEventListener("pause", function () {
-          audioPlaying.value = false;
-        });
-      }
+})
+const emit = defineEmits(['update:imgUrl'])
+const store = useStore();
+const setOperaType = (type: any) =>
+  store.commit("common/setOperaType", type);
+const setChangeSourceType = (type: any) =>
+  store.commit("common/setChangeSourceType", type);
+function onRemove() {
+  emit("update:imgUrl", "");
+}
+const video = ref(null);
+function onShowSourceList() {
+  setOperaType(4);
+  setChangeSourceType(props.sourceType);
+}
+const audio: any = ref(null);
+const audioPlaying = ref(false);
+onMounted(async () => {
+  await nextTick();
+  if (audio.value) {
+    audio.value.addEventListener("playing", function () {
+      audioPlaying.value = true;
     });
-    //播放音乐
-    function togglePlay() {
-      if (!props.imgUrl) return;
-      if (audioPlaying.value) {
-        audio.value.pause();
-      } else {
-        audio.value.play();
-      }
-    }
-    //预览视频
-    const previewVisible = ref(false);
-    function previewVideo() {
-      previewVisible.value = true;
-    }
-    return {
-      previewVideo,
-      previewVisible,
-      onShowSourceList,
-      onRemove,
-      togglePlay,
-      audio,
-      audioPlaying,
-      video,
-    };
-  },
+    audio.value.addEventListener("pause", function () {
+      audioPlaying.value = false;
+    });
+  }
 });
+//播放音乐
+function togglePlay() {
+  if (!props.imgUrl) return;
+  if (audioPlaying.value) {
+    audio.value.pause();
+  } else {
+    audio.value.play();
+  }
+}
+//预览视频
+const previewVisible = ref(false);
+function previewVideo() {
+  previewVisible.value = true;
+}
 </script>
 <style lang='less' scoped>
 .img,

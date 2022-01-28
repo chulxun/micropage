@@ -31,10 +31,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElHeader, ElMenu, ElMenuItem, ElSubMenu, ElDropdown, ElDropdownMenu, ElDropdownItem, ElIcon } from "element-plus";
+import { ElDropdown, ElDropdownMenu, ElDropdownItem, ElIcon } from "element-plus";
 import { useStore } from "@/store/index";
 import { useRouter, useRoute } from "vue-router";
-import { defineComponent, computed } from "vue";
+import { computed } from "vue";
 import { ArrowDown } from '@element-plus/icons-vue'
 
 const store = useStore();
@@ -43,7 +43,7 @@ const route = useRoute();
 const userInfo = computed(() => store.state.user.userInfo);
 const delUserInfo = () => store.commit("user/delUserInfo");
 
-const handleCommand = (command: string | number | object) => {
+const handleCommand = (command: string) => {
   if (command == "github") {
     window.open("https://github.com/chulxun/micropage", "_blank");
   } else if (command == "loginout") {

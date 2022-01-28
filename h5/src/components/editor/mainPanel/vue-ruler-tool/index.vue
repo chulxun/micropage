@@ -1,44 +1,24 @@
 <template>
-  <div
-    :style="wrapperStyle"
-    class="vue-ruler-wrapper"
-    onselectstart="return false;"
-  >
+  <div :style="wrapperStyle" class="vue-ruler-wrapper" onselectstart="return false;">
     <section v-show="rulerToggle">
-      <div
-        ref="horizontalRuler"
-        class="vue-ruler-h"
-        @mousedown.stop="horizontalDragRuler"
-      >
+      <div ref="horizontalRuler" class="vue-ruler-h" @mousedown.stop="horizontalDragRuler">
         <span
           v-for="(item, index) in xScale"
           :key="index"
           :style="{ left: index * 50 + 2 + 'px' }"
           class="n"
-          >{{ item.id }}</span
-        >
+        >{{ item.id }}</span>
       </div>
-      <div
-        ref="verticalRuler"
-        class="vue-ruler-v"
-        @mousedown.stop="verticalDragRuler"
-      >
+      <div ref="verticalRuler" class="vue-ruler-v" @mousedown.stop="verticalDragRuler">
         <span
           v-for="(item, index) in yScale"
           :key="index"
           :style="{ top: index * 50 + 2 + 'px' }"
           class="n"
-          >{{ item.id }}</span
-        >
+        >{{ item.id }}</span>
       </div>
-      <div
-        :style="{ top: verticalDottedTop + 'px' }"
-        class="vue-ruler-ref-dot-h"
-      />
-      <div
-        :style="{ left: horizontalDottedLeft + 'px' }"
-        class="vue-ruler-ref-dot-v"
-      />
+      <div :style="{ top: verticalDottedTop + 'px' }" class="vue-ruler-ref-dot-h" />
+      <div :style="{ left: horizontalDottedLeft + 'px' }" class="vue-ruler-ref-dot-v" />
       <div
         v-for="item in lineList"
         :title="item.title"

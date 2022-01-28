@@ -41,7 +41,7 @@
       </div>
       <div class="icon_btn" @click="saveWork">
         <p>保存</p>
-        <i class="iconfont icon-baocun"></i>
+        <i class="iconfont icon-save"></i>
       </div>
     </div>
     <div class="precent_div">
@@ -64,7 +64,7 @@
 <script setup lang='ts'>
 import { ref, nextTick, computed } from "vue";
 import {
-  ElButton, ElDialog, ElLoading, ElMessage, ElPopover, ElIcon
+  ElButton, ElLoading, ElMessage, ElPopover, ElIcon
 } from "element-plus";
 import { RefreshLeft, RefreshRight, Grid, Delete, Finished, MessageBox, Minus, Plus } from '@element-plus/icons-vue'
 import preview from "../preview/index.vue";
@@ -248,7 +248,6 @@ function onRule() {
 
 .icon_list {
   display: flex;
-  align-items: center;
   justify-content: center;
   flex: 1;
 }

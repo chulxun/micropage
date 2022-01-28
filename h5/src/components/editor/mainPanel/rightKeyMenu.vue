@@ -23,73 +23,67 @@
     <div class="tips">在图层中执行更多操作</div>
   </div>
 </template>
-<script lang='ts'>
-import { defineComponent, computed } from "vue";
+<script setup lang='ts'>
+import { computed } from "vue";
 import { ElMessage, ElIcon } from "element-plus";
 import { useStore } from "@/store/index";
 import { Top, Bottom, Delete, CopyDocument } from '@element-plus/icons-vue'
-export default defineComponent({
-  components: {
-    ElIcon, Top, Bottom, Delete, CopyDocument
-  },
-  setup(props, ctx) {
-    const store = useStore();
-    const editingElement: any = computed(
-      () => store.state.editor.editingElement
-    );
-    const operateElement = (preload: any) =>
-      store.commit("editor/operateElement", preload); //操作元素方法
-    //复制
-    function onCopy(e) {
-      if (editingElement.value) {
-        operateElement({
-          type: "copy",
-          value: {},
-        });
-        ctx.emit("hideRightKey");
-      } else {
-        ElMessage.error("请选择一个元素进行操作");
-      }
-    }
-    //删除
-    function onDelete() {
-      if (editingElement.value) {
-        operateElement({
-          type: "delete",
-          value: editingElement.value,
-        });
-        ctx.emit("hideRightKey");
-      } else {
-        ElMessage.error("请选择一个元素进行操作");
-      }
-    }
-    //上移
-    function onMoveUp() {
-      if (editingElement.value) {
-        operateElement({
-          type: "moveup",
-          value: editingElement.value,
-        });
-        ctx.emit("hideRightKey");
-      } else {
-        ElMessage.error("请选择一个元素进行操作");
-      }
-    }
-    //下移
-    function onMoveDown() {
-      if (editingElement.value) {
-        operateElement({
-          type: "movedown",
-          value: editingElement.value,
-        });
-        ctx.emit("hideRightKey");
-      } else {
-        ElMessage.error("请选择一个元素进行操作");
-      }
-    }
-    return { editingElement, onCopy, onDelete, onMoveUp, onMoveDown };
-  },
-});
+const emit = defineEmits(["hideRightKey"])
+const store = useStore();
+const editingElement: any = computed(
+  () => store.state.editor.editingElement
+);
+const operateElement = (preload: any) =>
+  store.commit("editor/operateElement", preload); //操作元素方法
+//复制
+function onCopy() {
+  if (editingElement.value) {
+    operateElement({
+      type: "copy",
+      value: {},
+    });
+    emit("hideRightKey");
+  } else {
+    ElMessage.error("请选择一个元素进行操作");
+  }
+}
+//删除
+function onDelete() {
+  if (editingElement.value) {
+    operateElement({
+      type: "delete",
+      value: editingElement.value,
+    });
+    emit("hideRightKey");
+  } else {
+    ElMessage.error("请选择一个元素进行操作");
+  }
+}
+//上移
+function onMoveUp() {
+  if (editingElement.value) {
+    operateElement({
+      type: "moveup",
+      value: editingElement.value,
+    });
+    emit("hideRightKey");
+  } else {
+    ElMessage.error("请选择一个元素进行操作");
+  }
+}
+//下移
+function onMoveDown() {
+  if (editingElement.value) {
+    operateElement({
+      type: "movedown",
+      value: editingElement.value,
+    });
+    emit("hideRightKey");
+  } else {
+    ElMessage.error("请选择一个元素进行操作");
+  }
+}
+
 </script>
 <style lang='less' scoped>
 .right_key_menu {

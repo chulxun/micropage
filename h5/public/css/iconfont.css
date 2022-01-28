@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2714096 */
-  src: url('iconfont.woff2?t=1636620538546') format('woff2'),
-       url('iconfont.woff?t=1636620538546') format('woff'),
-       url('iconfont.ttf?t=1636620538546') format('truetype');
+  src: url('iconfont.woff2?t=1643351990545') format('woff2'),
+       url('iconfont.woff?t=1643351990545') format('woff'),
+       url('iconfont.ttf?t=1643351990545') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-save:before {
+  content: "\e607";
 }
 
 .icon-wenzi:before {

@@ -32,10 +32,9 @@
     </div>
   </el-dialog>
 </template>
-<script lang='ts'>
+<script setup lang='ts'>
 import QRCode from "qrcode";
 import {
-  defineComponent,
   onMounted,
   ref,
   nextTick,
@@ -44,66 +43,62 @@ import {
 } from "vue";
 import { ElButton, ElDialog, ElLoading, ElMessage, ElIcon } from "element-plus";
 import { TopRight } from '@element-plus/icons-vue'
-import { formatDate } from "@/utils/index";
 import { publishWork } from "@/api/works";
 import { useRoute } from "vue-router";
-export default defineComponent({
-  props: ["workId", "previewVisible"],
-  components: { ElButton, ElDialog, ElIcon, TopRight },
-  setup(props, ctx) {
-    const route = useRoute();
-    console.log(route.name)
-    const previewShow = ref(props.previewVisible);
-    const mobileUrl = ref("");
-    const qrcodeImg = ref(null); //二维码dom元素
-    const work: H5.WorkInfo = reactive({});
-    const isPublished = ref(false) // 作品是否已发布
-    watch(previewShow, (val, oldval) => {
-      ctx.emit("update:previewVisible", val);
-    });
-    watch(work, (val, oldval) => {
-      if (encodeURIComponent(JSON.stringify(val.pages)) === val.publish_pages
-        && encodeURIComponent(JSON.stringify(val.config)) === val.publish_config) {
-        isPublished.value = true
-      } else {
-        isPublished.value = false
-      }
-    })
-    onMounted(async () => {
-      mobileUrl.value = "/viewer/?workId=" + props.workId + "&mode=preview";
-      await nextTick();
-      drawQRcode();
-      //定义一个方法，获取作品信息
-      window.getWorkInfo = (val: object) => {
-        console.log(val)
-        Object.assign(work, val);
-      };
-    });
-    //生成二维码
-    function drawQRcode() {
-      QRCode.toCanvas(
-        qrcodeImg.value,
-        window.location.origin + mobileUrl.value,
-        { margin: 1, scale: 4, width: 130 },
-        (err: Error) => { }
-      );
-    }
-    //发布作品
-    async function onPublish() {
-      let loading = ElLoading.service({ fullscreen: true });
-      const res = await publishWork({
-        work_id: props.workId,
-      });
-      loading.close();
-      if (res && res.code == 0) {
-        ElMessage.success("作品发布成功");
-      } else {
-        ElMessage.error(res.message);
-      }
-    }
-    return { previewShow, work, isPublished, mobileUrl, qrcodeImg, formatDate, onPublish, route };
-  },
+const props = defineProps({
+  workId: String,
+  previewVisible: Boolean
+})
+const emit = defineEmits(["update:previewVisible"])
+const route: any = useRoute();
+const previewShow = ref(props.previewVisible);
+const mobileUrl = ref("");
+const qrcodeImg = ref(null); //二维码dom元素
+const work: any = reactive({});
+const isPublished = ref(false) // 作品是否已发布
+watch(previewShow, (val, oldval) => {
+  emit("update:previewVisible", val);
 });
+watch(work, (val, oldval) => {
+  if (encodeURIComponent(JSON.stringify(val.pages)) === val.publish_pages
+    && encodeURIComponent(JSON.stringify(val.config)) === val.publish_config) {
+    isPublished.value = true
+  } else {
+    isPublished.value = false
+  }
+})
+onMounted(async () => {
+  mobileUrl.value = "/viewer/?workId=" + props.workId + "&mode=preview";
+  await nextTick();
+  drawQRcode();
+  //定义一个方法，获取作品信息
+  window.getWorkInfo = (val: object) => {
+    console.log(val)
+    Object.assign(work, val);
+  };
+});
+//生成二维码
+function drawQRcode() {
+  QRCode.toCanvas(
+    qrcodeImg.value,
+    window.location.origin + mobileUrl.value,
+    { margin: 1, scale: 4, width: 130 },
+    (err: Error) => { }
+  );
+}
+//发布作品
+async function onPublish() {
+  let loading = ElLoading.service({ fullscreen: true });
+  const res = await publishWork({
+    work_id: props.workId,
+  });
+  loading.close();
+  if (res && res.code == 0) {
+    ElMessage.success("作品发布成功");
+  } else {
+    ElMessage.error(res.message);
+  }
+}
 </script>
 <style lang='less' scoped>
 .preview_content {

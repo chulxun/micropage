@@ -54,7 +54,7 @@ const props = defineProps({
 })
 const pcUrl = ref('')
 const isLoading = ref(true)
-const work = reactive({})
+const work: any = reactive({})
 const pageHeight = ref(667)
 const { width, height } = useWindowSize()
 const workId = getSearchQueryString('workId')

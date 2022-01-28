@@ -1,31 +1,27 @@
 <template>
-  <div v-if="props" class="plug-page" :style="bgStyle"></div>
+  <div v-if="element" class="plug-page" :style="bgStyle"></div>
 </template>
-<script lang="ts">
-import { defineComponent, computed } from "vue";
-export default defineComponent({
-  props: ["props"],
-  name: "plug-page",
-  setup(props) {
-    const bgStyle = computed(() => {
-      let style = {
-        backgroundColor: props.props.bgColor,
-        backgroundImage: "url(" + props.props.imgUrl + ")",
-      };
-      if (props.props.bgSize) {
-        style.backgroundSize = props.props.bgSize;
-      }
-      if (props.props.bgPosition) {
-        style.backgroundPosition = props.props.bgPosition;
-      }
-      if (props.props.bgRepeat) {
-        style.backgroundRepeat = props.props.bgRepeat;
-      }
-      return style;
-    });
-
-    return { bgStyle };
-  },
+<script setup lang="ts">
+import { computed } from "vue";
+const props = defineProps<{
+  element: H5.Element,
+  workMode: string
+}>()
+const bgStyle = computed(() => {
+  let style: any = {
+    backgroundColor: props.element.props.bgColor,
+    backgroundImage: "url(" + props.element.props.imgUrl + ")",
+  };
+  if (props.element.props.bgSize) {
+    style.backgroundSize = props.element.props.bgSize;
+  }
+  if (props.element.props.bgPosition) {
+    style.backgroundPosition = props.element.props.bgPosition;
+  }
+  if (props.element.props.bgRepeat) {
+    style.backgroundRepeat = props.element.props.bgRepeat;
+  }
+  return style;
 });
 </script>
 <style lang='less' scoped>

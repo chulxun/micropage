@@ -1,10 +1,5 @@
 <template>
-  <el-dialog
-    title="发布作品成功"
-    v-model="show"
-    custom-class="publish_dialog"
-    width="700px"
-  >
+  <el-dialog title="发布作品成功" v-model="show" custom-class="publish_dialog" width="700px">
     <div class="publish_content" id="publish_dialog" v-if="workId">
       <div class="note">
         <div class="title">发布作品成功</div>
@@ -13,72 +8,59 @@
           <div>
             <a :href="mobileUrl" target="_blank">{{ mobileUrl }}</a>
           </div>
-          <el-button
-            type="primary"
-            plain
-            :data-clipboard-text="mobileUrl"
-            ref="copyBtn"
-            >复制链接</el-button
-          >
+          <el-button type="primary" plain :data-clipboard-text="mobileUrl" ref="copyBtn">复制链接</el-button>
         </div>
         <div class="url">
           <p>作品二维码：</p>
           <canvas ref="qrcodeImg"></canvas>
         </div>
-      </div></div
-  ></el-dialog>
+      </div>
+    </div>
+  </el-dialog>
 </template>
-<script lang='ts'>
+<script setup lang='ts'>
 import QRCode from "qrcode";
 import ClipboardJS from "clipboard";
-import {
-  defineComponent,
-  onMounted,
-  ref,
-  nextTick,
-  watch,
-  reactive,
-} from "vue";
+import { onMounted, ref, nextTick, watch, reactive, } from "vue";
 import { ElButton, ElDialog, ElMessage } from "element-plus";
-export default defineComponent({
-  props: ["workId", "publishVisible"],
-  components: { ElButton, ElDialog },
-  setup(props, ctx) {
-    const show = ref(props.publishVisible);
-    const mobileUrl = ref("");
-    const qrcodeImg = ref(null); //二维码dom元素
-    const copyBtn = ref(null); //复制btn元素
-    const work = reactive({});
-    watch(show, (val, oldval) => {
-      ctx.emit("update:publishVisible", val);
-    });
-    onMounted(async () => {
-      mobileUrl.value =
-        window.location.origin + "/viewer/?workId=" + props.workId;
-      await nextTick();
-      drawQRcode();
-      let clipboard = new ClipboardJS(copyBtn.value.$el); //这里用ref.$el取dom元素，不然复制没反应
-      clipboard.on("success", (e) => {
-        ElMessage.success("复制成功");
-      });
-
-      clipboard.on("error", (e) => {
-        ElMessage.error("复制失败");
-      });
-    });
-
-    //生成二维码
-    function drawQRcode() {
-      QRCode.toCanvas(
-        qrcodeImg.value,
-        mobileUrl.value,
-        { margin: 1, scale: 4, width: 130 },
-        (err: Error) => {}
-      );
-    }
-    return { copyBtn, show, work, mobileUrl, qrcodeImg };
-  },
+const props = defineProps({
+  workId: String,
+  publishVisible: Boolean
+})
+const emit = defineEmits(['update:publishVisible'])
+const show = ref(props.publishVisible);
+const mobileUrl = ref("");
+const qrcodeImg = ref(null); //二维码dom元素
+const copyBtn: any = ref(null); //复制btn元素
+const work = reactive({});
+watch(show, (val, oldval) => {
+  emit("update:publishVisible", val);
 });
+onMounted(async () => {
+  mobileUrl.value =
+    window.location.origin + "/viewer/?workId=" + props.workId;
+  await nextTick();
+  drawQRcode();
+  let clipboard = new ClipboardJS(copyBtn.value.$el); //这里用ref.$el取dom元素，不然复制没反应
+  clipboard.on("success", (e) => {
+    ElMessage.success("复制成功");
+  });
+
+  clipboard.on("error", (e) => {
+    ElMessage.error("复制失败");
+  });
+});
+
+//生成二维码
+function drawQRcode() {
+  QRCode.toCanvas(
+    qrcodeImg.value,
+    mobileUrl.value,
+    { margin: 1, scale: 4, width: 130 },
+    (err: Error) => { }
+  );
+}
+
 </script>
 <style lang='less' scoped>
 .publish_content {

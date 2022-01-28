@@ -58,125 +58,103 @@
     </el-form>
   </div>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import {
   ElForm,
   ElFormItem,
-  ElInput,
   ElColorPicker,
   ElInputNumber,
   ElSelect,
   ElOption,
 } from "element-plus";
 import imgEditor from "@/components/plugins/commonProps/imgEditor.vue";
-import { defineComponent, computed } from "vue";
+import { computed } from "vue";
 import { useStore } from "@/store/index";
-export default defineComponent({
-  components: {
-    ElForm,
-    ElFormItem,
-    ElInput,
-    ElColorPicker,
-    ElInputNumber,
-    imgEditor,
-    ElSelect,
-    ElOption,
-  },
-  setup() {
-    const store = useStore();
-    const editingPageProps: any = computed(
-      () => store.state.editor.editingPageProps
-    );
 
-    const work = computed(() => store.state.editor.work);
-    const sizeList = [
-      {
-        value: "cover",
-        label: "完全覆盖",
-      },
-      {
-        value: "contain",
-        label: "自动适应",
-      },
-      {
-        value: "100% 100%",
-        label: "拉伸背景",
-      },
-      {
-        value: "100% auto",
-        label: "拉伸x轴",
-      },
-      {
-        value: "auto 100%",
-        label: "拉伸y轴",
-      },
-    ];
-    const repeatList = [
-      {
-        value: "no-repeat",
-        label: "不重复",
-      },
-      {
-        value: "repeat",
-        label: "垂直水平重复",
-      },
-      {
-        value: "repeat-x",
-        label: "水平重复",
-      },
-      {
-        value: "repeat-y",
-        label: "垂直重复",
-      },
-    ];
-
-    const positionList = [
-      {
-        value: "top left",
-        label: "上左",
-      },
-      {
-        value: "top center",
-        label: "上中心",
-      },
-      {
-        value: "top right",
-        label: "上右",
-      },
-      {
-        value: "center left",
-        label: "中心左",
-      },
-      {
-        value: "center center",
-        label: "中心",
-      },
-      {
-        value: "center right",
-        label: "中心右",
-      },
-      {
-        value: "bottom left",
-        label: "下左",
-      },
-      {
-        value: "bottom center",
-        label: "下中心",
-      },
-      {
-        value: "bottom right",
-        label: "下右",
-      },
-    ];
-    return {
-      editingPageProps,
-      work,
-      sizeList,
-      repeatList,
-      positionList,
-    };
+const store = useStore();
+const editingPageProps: any = computed(
+  () => store.state.editor.editingPageProps
+);
+const work = computed(() => store.state.editor.work);
+const sizeList = [
+  {
+    value: "cover",
+    label: "完全覆盖",
   },
-});
+  {
+    value: "contain",
+    label: "自动适应",
+  },
+  {
+    value: "100% 100%",
+    label: "拉伸背景",
+  },
+  {
+    value: "100% auto",
+    label: "拉伸x轴",
+  },
+  {
+    value: "auto 100%",
+    label: "拉伸y轴",
+  },
+];
+const repeatList = [
+  {
+    value: "no-repeat",
+    label: "不重复",
+  },
+  {
+    value: "repeat",
+    label: "垂直水平重复",
+  },
+  {
+    value: "repeat-x",
+    label: "水平重复",
+  },
+  {
+    value: "repeat-y",
+    label: "垂直重复",
+  },
+];
+
+const positionList = [
+  {
+    value: "top left",
+    label: "上左",
+  },
+  {
+    value: "top center",
+    label: "上中心",
+  },
+  {
+    value: "top right",
+    label: "上右",
+  },
+  {
+    value: "center left",
+    label: "中心左",
+  },
+  {
+    value: "center center",
+    label: "中心",
+  },
+  {
+    value: "center right",
+    label: "中心右",
+  },
+  {
+    value: "bottom left",
+    label: "下左",
+  },
+  {
+    value: "bottom center",
+    label: "下中心",
+  },
+  {
+    value: "bottom right",
+    label: "下右",
+  },
+];
 </script>
 <style lang='less' scoped>
 .span_right {

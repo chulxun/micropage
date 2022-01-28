@@ -10,7 +10,7 @@
     @click.stop="onClickEvent"
   >
     <slot></slot>
-    <van-popup
+    <Popup
       teleport="#app"
       v-if="element.props.clickType == 3"
       v-model:show="show"
@@ -24,99 +24,87 @@
       }"
     >
       <div class="text">{{ element.props.clickContent }}</div>
-    </van-popup>
+    </Popup>
   </div>
 </template>
-<script lang='ts'>
-import { Ref, defineComponent, ref, onMounted } from "vue";
+<script setup lang='ts'>
+import { ref, onMounted } from "vue";
 import { Toast, Popup } from "vant";
-export default defineComponent({
-  props: ["element"],
-  components: {
-    [Popup.name]: Popup,
-  },
-  setup(props) {
-    const animationBox: Ref<HTMLElement | null> = ref(null);
-    const curAnimate = ref({});
-    const hasAnimate = ref(false);
-    const show = ref(false);
-    let index = 0;
-    let anis: any = [];
-    // //播放一个动画
-    function playAnimation(item: any) {
-      curAnimate.value = {
-        display: "none",
-      };
-      let animationStyle = {
-        animationName: item.classname,
-        animationDuration: `${item.duration}s`,
-        animationIterationCount: item.infinite ? "infinite" : item.count,
-        animationDelay: `${item.delay}s`,
-        animationTimingFunction: item.timing || "ease",
-        display: "block",
-      };
-      setTimeout(() => {
-        curAnimate.value = animationStyle;
-      }, 10);
+const props = defineProps<{
+  element: H5.Element
+}>()
+const animationBox: any = ref(null);
+const curAnimate = ref({});
+const hasAnimate = ref(false);
+const show = ref(false);
+let index = 0;
+let anis: any = [];
+// //播放一个动画
+function playAnimation(item: any) {
+  curAnimate.value = {
+    display: "none",
+  };
+  let animationStyle = {
+    animationName: item.classname,
+    animationDuration: `${item.duration}s`,
+    animationIterationCount: item.infinite ? "infinite" : item.count,
+    animationDelay: `${item.delay}s`,
+    animationTimingFunction: item.timing || "ease",
+    display: "block",
+  };
+  setTimeout(() => {
+    curAnimate.value = animationStyle;
+  }, 10);
+}
+//触发 在属性面板设置的点击事件
+function onClickEvent() {
+  if (props.element.props.clickType && props.element.props.clickContent) {
+    let clickType = props.element.props.clickType;
+    let clickContent = props.element.props.clickContent;
+    switch (clickType) {
+      case 1:
+        window.location.href = clickContent;
+        break;
+      case 2:
+        Toast(clickContent);
+        break;
+      case 3:
+        show.value = true;
+        break;
+      default:
+        break;
     }
-    //触发 在属性面板设置的点击事件
-    function onClickEvent() {
-      if (props.element.props.clickType && props.element.props.clickContent) {
-        let clickType = props.element.props.clickType;
-        let clickContent = props.element.props.clickContent;
-        switch (clickType) {
-          case 1:
-            window.location.href = clickContent;
-            break;
-          case 2:
-            Toast(clickContent);
-            break;
-          case 3:
-            show.value = true;
-            break;
-          default:
-            break;
+  }
+}
+onMounted(() => {
+  anis = props.element.animations;
+  if (anis && anis.length > 0) {
+    hasAnimate.value = true;
+    // 监听当前dom是否在可视区域，在的话才开始动画
+    const intersectionObserver = new IntersectionObserver(entries => {
+      if (entries[0].intersectionRatio <= 0) return
+      index = 0
+      playAnimation(anis[0])
+      intersectionObserver.unobserve(animationBox.value)
+    })
+    // start observing
+    intersectionObserver.observe(animationBox.value)
+    //监听顺序播放动画
+    if (animationBox.value)
+      animationBox.value.addEventListener("animationend", function () {
+        if (anis.length > index + 1) {
+          index++;
+          playAnimation(anis[index]);
+        } else if (anis.length == index + 1) {
+          index = 0;
+          //动画播放完毕，清空状态
+          curAnimate.value = {};
         }
-      }
-    }
-    onMounted(() => {
-      anis = props.element.animations;
-      if (anis && anis.length > 0) {
-        hasAnimate.value = true;
-        // 监听当前dom是否在可视区域，在的话才开始动画
-        const intersectionObserver = new IntersectionObserver(entries => {
-          if (entries[0].intersectionRatio <= 0) return
-          index = 0
-          playAnimation(anis[0])
-          intersectionObserver.unobserve(animationBox.value)
-        })
-        // start observing
-        intersectionObserver.observe(animationBox.value)
-        //监听顺序播放动画
-        if (animationBox.value)
-          animationBox.value.addEventListener("animationend", function () {
-            if (anis.length > index + 1) {
-              index++;
-              playAnimation(anis[index]);
-            } else if (anis.length == index + 1) {
-              index = 0;
-              //动画播放完毕，清空状态
-              curAnimate.value = {};
-            }
-          });
-      }
-    });
-
-    return {
-      hasAnimate,
-      animationBox,
-      curAnimate,
-      playAnimation,
-      onClickEvent,
-      show,
-    };
-  },
+      });
+  }
 });
+
+
 </script>
 <style lang='less' scoped>
 .animation-box {
@@ -127,9 +115,6 @@ export default defineComponent({
   &.noani {
     z-index: 0;
   }
-}
-.animCan {
-  // animation-play-state: paused;
 }
 .text {
   padding: 0 16px;

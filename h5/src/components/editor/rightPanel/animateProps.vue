@@ -97,19 +97,9 @@
 import { computed, ref } from "vue";
 import { useStore } from "@/store/index";
 import {
-  ElDivider,
-  ElTabs,
-  ElTabPane,
-  ElEmpty,
-  ElButton,
-  ElCollapse,
-  ElCollapseItem,
-  ElInput,
-  ElForm,
-  ElFormItem,
-  ElSwitch,
-  ElInputNumber,
-  ElSelect, ElOption, ElIcon, ElDrawer
+  ElDivider, ElTabs, ElTabPane, ElEmpty, ElButton,
+  ElCollapse, ElCollapseItem, ElForm, ElFormItem,
+  ElSwitch, ElInputNumber, ElSelect, ElOption, ElDrawer
 } from "element-plus";
 import { Delete, CaretRight, CirclePlus, VideoPlay } from '@element-plus/icons-vue'
 import { animationList } from "@/data/animate";
@@ -191,8 +181,6 @@ function playAllAni() {
     );
   }
 }
-
-
 </script>
 <style lang='less' scoped>
 .container {

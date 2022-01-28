@@ -75,12 +75,8 @@ import {
   ElForm,
   ElFormItem,
   ElColorPicker,
-  ElInputNumber,
   ElInput,
-  ElButton,
   ElDivider,
-  ElRadioGroup,
-  ElRadioButton,
   ElSwitch,
   ElPagination,
   ElSelect,
@@ -88,11 +84,9 @@ import {
 } from "element-plus";
 import iconEditor from "../commonProps/iconEditor.vue";
 import { Plus, Minus } from '@element-plus/icons-vue'
-
-
-const props = defineProps({
-  element: Object
-})
+const props = defineProps<{
+  element: H5.Element
+}>()
 const curIndex = ref(1);
 function onMinus() {
   if (curIndex.value == props.element.props.options.length) {
@@ -107,7 +101,6 @@ function onPlus() {
     content: "内容" + index,
   });
 }
-
 </script>
 <style lang='less' scoped>
 .swiper_btns {

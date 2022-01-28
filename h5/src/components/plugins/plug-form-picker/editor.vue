@@ -30,46 +30,20 @@
     <optionsEditor :element="element"></optionsEditor>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import {
   ElForm,
   ElFormItem,
-  ElColorPicker,
   ElInputNumber,
   ElInput,
-  ElButton,
   ElDivider,
-  ElRadioGroup,
-  ElRadioButton,
-  ElSelect,
-  ElOption,
   ElSwitch,
 } from "element-plus";
 import cellEditor from "../commonProps/cellEditor.vue";
 import optionsEditor from "../commonProps/optionsEditor.vue";
-export default defineComponent({
-  components: {
-    ElForm,
-    ElColorPicker,
-    ElInputNumber,
-    ElFormItem,
-    ElInput,
-    ElButton,
-    ElDivider,
-    ElRadioGroup,
-    ElRadioButton,
-    ElSelect,
-    ElOption,
-    ElSwitch,
-    cellEditor,
-    optionsEditor,
-  },
-  props: ["element"],
-  setup(props, ctx) {
-    return {};
-  },
-});
+const props = defineProps<{
+  element: H5.Element
+}>()
 </script>
 <style lang='less' scoped>
 </style>

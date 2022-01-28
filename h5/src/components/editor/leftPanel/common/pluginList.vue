@@ -17,16 +17,16 @@
               :class="item1.icon"
               v-if="item1.icon"
               draggable="true"
-              @click="addElement(item1.name, item1.component, $event)"
-              @dragstart="onDragStart(item1.name, item1.component, $event)"
+              @click="addElement(item1.name, $event)"
+              @dragstart="onDragStart(item1.name, $event)"
             ></i>
             <img
               v-else
               :src="item1.img"
               class="img"
               draggable="true"
-              @click="addElement(item1.name, item1.component, $event)"
-              @dragstart="onDragStart(item1.name, item1.component, $event)"
+              @click="addElement(item1.name, $event)"
+              @dragstart="onDragStart(item1.name, $event)"
             />
             <p>{{ item1.title }}</p>
           </div>
@@ -36,47 +36,43 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, computed } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 import { useStore } from "@/store/index";
-import importPlugs from "@/mixins/importPlugs";
 import { ElEmpty, ElAlert, ElIcon } from "element-plus";
 import { Close } from '@element-plus/icons-vue'
-export default defineComponent({
-  mixins: [importPlugs],
-  components: { ElEmpty, ElAlert, ElIcon, Close },
-  setup(props, ctx) {
-    const store = useStore();
-    const operaType = computed(() => store.state.common.operaType);
-    const setOperaType = (type: any) =>
-      store.commit("common/setOperaType", type);
-    const operateElement = (preload: any) =>
-      store.commit("editor/operateElement", preload);
-    //元素开始拖拽
-    function onDragStart(name: string, component: any, event: DragEvent) {
-      //设置拖动的数据
-      event?.dataTransfer?.setData("pluginName", name);
-      event?.dataTransfer?.setData("startX", event.offsetX + "");
-      event?.dataTransfer?.setData("startY", event.offsetY + "");
-      //设置组件默认属性和样式
-      event?.dataTransfer?.setData(
-        "defaultElement",
-        JSON.stringify(component.defaultElement)
-      );
-    }
-    function addElement(name: string, component: any, e: MouseEvent) {
-      let defaultElement = component.defaultElement;
-      operateElement({
-        type: "add",
-        value: { name, ...defaultElement },
-      });
-    }
-    function closedThis() {
-      setOperaType(0);
-    }
-    return { operaType, addElement, onDragStart, closedThis };
-  },
-});
+import { pluginList } from '@/data/pluginList'
+import { pluginDefaultElements } from '@/components/plugins/config'
+
+const store = useStore();
+const operaType = computed(() => store.state.common.operaType);
+const setOperaType = (type: any) =>
+  store.commit("common/setOperaType", type);
+const operateElement = (preload: any) =>
+  store.commit("editor/operateElement", preload);
+//元素开始拖拽
+function onDragStart(name: string, event: DragEvent) {
+  //设置拖动的数据
+  event?.dataTransfer?.setData("pluginName", name);
+  event?.dataTransfer?.setData("startX", event.offsetX + "");
+  event?.dataTransfer?.setData("startY", event.offsetY + "");
+  const defaultElement = pluginDefaultElements[name];
+  //设置组件默认属性和样式
+  event?.dataTransfer?.setData(
+    "defaultElement",
+    JSON.stringify(defaultElement)
+  );
+}
+function addElement(name: string, e: MouseEvent) {
+  const defaultElement = pluginDefaultElements[name];
+  operateElement({
+    type: "add",
+    value: { name, ...defaultElement },
+  });
+}
+function closedThis() {
+  setOperaType(0);
+}
 </script>
 <style lang='less' scoped>
 .plugin_list {

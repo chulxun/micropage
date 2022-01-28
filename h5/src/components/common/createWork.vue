@@ -18,29 +18,23 @@
     </div>
   </div>
 </template>
-<script lang='ts'>
-import { defineComponent, onMounted, ref, nextTick } from "vue";
+<script setup lang='ts'>
 import { ElButton, ElIcon } from "element-plus";
-import { useRoute } from "vue-router";
 import { useStore } from "@/store/index";
 import { Tickets, DocumentCopy } from '@element-plus/icons-vue'
-export default defineComponent({
-  props: ["addVisible"],
-  components: { ElButton, ElIcon, DocumentCopy, Tickets },
-  setup(props, ctx) {
-    const route = useRoute();
-    const store = useStore();
-    const createWorkAction = (work) =>
-      store.dispatch("editor/createWork", work);
-    //创建作品
-    async function createWork(page_type: number) {
-      await createWorkAction({ page_type });
-      ctx.emit("update:addVisible", false);
-      ctx.emit("refreshData");
-    }
-    return { createWork };
-  },
-});
+const props = defineProps({
+  addVisible: Boolean
+})
+const emit = defineEmits(['update:addVisible', 'refreshData'])
+const store = useStore();
+const createWorkAction = (work: any) =>
+  store.dispatch("editor/createWork", work);
+//创建作品
+async function createWork(page_type: number) {
+  await createWorkAction({ page_type });
+  emit("update:addVisible", false);
+  emit("refreshData");
+}
 </script>
 <style lang='less' scoped>
 .add_content {

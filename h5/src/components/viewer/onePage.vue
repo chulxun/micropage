@@ -14,10 +14,10 @@
 import animation from "./animation.vue";
 import element from "@/components/plugins/element.vue";
 import { getElementStyle } from "@/utils/element";
-defineProps({
-  page: Object,
-  pageHeight: Number
-})
+const props = defineProps<{
+  page: H5.Options,
+  pageHeight: number
+}>()
 </script>
 
 <style lang="less" scoped>

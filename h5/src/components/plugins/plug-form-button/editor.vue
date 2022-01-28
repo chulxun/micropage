@@ -103,8 +103,7 @@
     </el-form>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import {
   ElForm,
   ElFormItem,
@@ -118,81 +117,66 @@ import {
 } from "element-plus";
 import imgEditor from "../commonProps/imgEditor.vue";
 import { Warning } from '@element-plus/icons-vue'
-export default defineComponent({
-  components: {
-    ElForm,
-    ElColorPicker,
-    ElInputNumber,
-    ElFormItem,
-    ElInput,
-    ElButton,
-    ElDivider,
-    imgEditor,
-    ElRadioGroup,
-    ElRadioButton, ElIcon, Warning
+const props = defineProps<{
+  element: H5.Element
+}>()
+const themeList = [
+  {
+    name: "default",
+    backgroundColor: "#fff",
+    color: "rgba(0,0,0,.65)",
+    fontSize: 14,
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: "#d9d9d9",
   },
-  props: ["element"],
-  setup(props, ctx) {
-    const themeList = [
-      {
-        name: "default",
-        backgroundColor: "#fff",
-        color: "rgba(0,0,0,.65)",
-        fontSize: 14,
-        borderWidth: 1,
-        borderRadius: 4,
-        borderColor: "#d9d9d9",
-      },
-      {
-        name: "primary",
-        backgroundColor: "#1890ff",
-        color: "#fff",
-        fontSize: 14,
-        borderWidth: 0,
-        borderRadius: 4,
-      },
+  {
+    name: "primary",
+    backgroundColor: "#1890ff",
+    color: "#fff",
+    fontSize: 14,
+    borderWidth: 0,
+    borderRadius: 4,
+  },
 
-      {
-        name: "success",
-        backgroundColor: "#67C23A",
-        color: "#fff",
-        fontSize: 14,
-        borderWidth: 0,
-        borderRadius: 4,
-      },
-      {
-        name: "warning",
-        backgroundColor: "#E6A23C",
-        color: "#fff",
-        fontSize: 14,
-        borderWidth: 0,
-        borderRadius: 4,
-      },
-      {
-        name: "danger",
-        backgroundColor: "#ff4d4f",
-        color: "#fff",
-        fontSize: 14,
-        borderWidth: 0,
-        borderRadius: 4,
-      },
-      {
-        name: "info",
-        backgroundColor: "#909399",
-        color: "#fff",
-        fontSize: 14,
-        borderWidth: 0,
-        borderRadius: 4,
-      },
-    ];
-    function useThisStyle(item: any) {
-      let style = JSON.parse(JSON.stringify(item));
-      delete style.name;
-      Object.assign(props.element.style, style);
-    }
-    return { themeList, useThisStyle };
+  {
+    name: "success",
+    backgroundColor: "#67C23A",
+    color: "#fff",
+    fontSize: 14,
+    borderWidth: 0,
+    borderRadius: 4,
   },
-});
+  {
+    name: "warning",
+    backgroundColor: "#E6A23C",
+    color: "#fff",
+    fontSize: 14,
+    borderWidth: 0,
+    borderRadius: 4,
+  },
+  {
+    name: "danger",
+    backgroundColor: "#ff4d4f",
+    color: "#fff",
+    fontSize: 14,
+    borderWidth: 0,
+    borderRadius: 4,
+  },
+  {
+    name: "info",
+    backgroundColor: "#909399",
+    color: "#fff",
+    fontSize: 14,
+    borderWidth: 0,
+    borderRadius: 4,
+  },
+];
+function useThisStyle(item: any) {
+  let style = JSON.parse(JSON.stringify(item));
+  delete style.name;
+  Object.assign(props.element.style, style);
+}
 </script>
 <style lang='less' scoped>
 </style>

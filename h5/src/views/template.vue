@@ -89,12 +89,10 @@
 <script setup lang="ts">
 import QRCode from "qrcode";
 import {
-  ElButton,
   ElMenu,
   ElMenuItem,
   ElTag,
   ElTooltip,
-  ElDialog,
   ElPagination,
   ElLoading,
   ElMessage,
@@ -106,7 +104,6 @@ import { onMounted, ref, reactive, computed, nextTick } from "vue";
 import { getTemplateWorksList, deleteWork, useTemplate } from "@/api/works";
 import { useRouter } from "vue-router";
 import preview from "@/components/editor/preview/index.vue";
-import { formatDate } from "@/utils/index";
 import { useStore } from "@/store/index";
 import { CirclePlus, Delete, View, Edit } from '@element-plus/icons-vue'
 
@@ -226,8 +223,6 @@ async function onDelete(work_id: string, index: number) {
 onMounted(() => {
   fetchTemplateList();
 })
-
-
 </script>
 <style lang="less"  scoped>
 .el-menu-nav {

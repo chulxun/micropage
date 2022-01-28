@@ -7,14 +7,7 @@
     append-to-body
   >
     <div class="preview_content" v-if="videoUrl">
-      <video
-        playsinline="true"
-        webkit-playsinline=""
-        width="700"
-        height="400"
-        controls
-        autoplay
-      >
+      <video playsinline="true" webkit-playsinline width="700" height="400" controls autoplay>
         <source type="video/mp4" :src="videoUrl" />
       </video>
     </div>
@@ -23,20 +16,19 @@
     </div>
   </el-dialog>
 </template>
-<script lang='ts'>
-import { defineComponent, ref, watch } from "vue";
+<script setup lang='ts'>
+import { ref, watch } from "vue";
 import { ElButton, ElDialog } from "element-plus";
 
-export default defineComponent({
-  props: ["videoUrl", "audioUrl", "previewVisible"],
-  components: { ElButton, ElDialog },
-  setup(props, ctx) {
-    const previewShow = ref(props.previewVisible);
-    watch(previewShow, (val, oldval) => {
-      ctx.emit("update:previewVisible", val);
-    });
-    return { previewShow };
-  },
+const props = defineProps({
+  videoUrl: String,
+  audioUrl: String,
+  previewVisible: Boolean
+})
+const emit = defineEmits(['update:previewVisible'])
+const previewShow = ref(props.previewVisible);
+watch(previewShow, (val, oldval) => {
+  emit("update:previewVisible", val);
 });
 </script>
 <style lang='less' scoped>

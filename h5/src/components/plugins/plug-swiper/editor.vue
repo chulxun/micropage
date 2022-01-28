@@ -59,19 +59,15 @@
     </el-form>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, ref, onMounted, onUnmounted } from "vue";
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from "vue";
 import {
   ElForm,
   ElFormItem,
-  ElInput,
-  ElButton,
   ElDivider,
   ElColorPicker,
   ElRadioGroup,
   ElRadioButton,
-  ElSelect,
-  ElOption,
   ElSwitch,
   ElInputNumber,
   ElPagination, ElIcon,
@@ -79,49 +75,29 @@ import {
 import imgEditor from "../commonProps/imgEditor.vue";
 import { useStore } from "@/store/index";
 import { Plus, Minus } from '@element-plus/icons-vue'
-export default defineComponent({
-  components: {
-    ElForm,
-    ElFormItem,
-    ElInput,
-    ElButton,
-    ElDivider,
-    imgEditor,
-    ElRadioGroup,
-    ElColorPicker,
-    ElRadioButton,
-    ElSelect,
-    ElOption,
-    ElSwitch,
-    ElInputNumber,
-    ElPagination, ElIcon, Plus, Minus
-  },
-  props: ["element"],
-  setup(props, ctx) {
-    const store = useStore();
-    const setSourceStack = (preload: any) =>
-      store.commit("common/setSourceStack", preload);
-    const curIndex = ref(1);
+const props = defineProps<{
+  element: H5.Element
+}>()
+const store = useStore();
+const setSourceStack = (preload: any) =>
+  store.commit("common/setSourceStack", preload);
+const curIndex = ref(1);
 
-    onMounted(() => {
-      setSourceStack({ stack: props.element.props.swiper, key: 0 });
-    });
-    function handleCurrentChange(val) {
-      setSourceStack({ stack: props.element.props.swiper, key: val - 1 });
-    }
-    function onMinus() {
-      props.element.props.swiper.splice(-1, 1);
-    }
-    function onPlus() {
-      props.element.props.swiper.push("");
-    }
-    //组件销毁时
-    onUnmounted(() => {
-      setSourceStack({ stack: null, key: "" });
-    });
-    return { curIndex, handleCurrentChange, onMinus, onPlus };
-  },
-  methods: {},
+onMounted(() => {
+  setSourceStack({ stack: props.element.props.swiper, key: 0 });
+});
+function handleCurrentChange(val: number) {
+  setSourceStack({ stack: props.element.props.swiper, key: val - 1 });
+}
+function onMinus() {
+  props.element.props.swiper.splice(-1, 1);
+}
+function onPlus() {
+  props.element.props.swiper.push("");
+}
+//组件销毁时
+onUnmounted(() => {
+  setSourceStack({ stack: null, key: "" });
 });
 </script>
 <style lang='less' scoped>

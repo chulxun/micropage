@@ -1,69 +1,40 @@
 <template>
   <div>
- 
-    <div class="input_title" v-if="props.showTitle">
-      <span class="red" v-if="props.required">*</span>{{ props.name }}
+    <div class="input_title" v-if="element.props.showTitle">
+      <span class="red" v-if="element.props.required">*</span>
+      {{ element.props.name }}
     </div>
-    <van-radio-group
+    <RadioGroup
       v-model="checked"
-      :checked-color="props.checkedColor"
-      :direction="props.direction"
+      :checked-color="element.props.checkedColor"
+      :direction="element.props.direction"
       :readonly="workMode == 'editor'"
-      :style="{color:props.color}"
+      :style="{ color: element.props.color }"
     >
-      <van-radio
+      <Radio
         :name="item.val"
-        v-for="(item, index) in props.options"
+        v-for="(item, index) in element.props.options"
         :key="index"
-        :shape="props.shape"
-        >{{ item.val }}</van-radio
-      >
-    </van-radio-group>
+        :shape="element.props.shape"
+      >{{ item.val }}</Radio>
+    </RadioGroup>
     <input
       type="hidden"
       :value="checked"
-      :data-id="dataUkey"
+      :data-id="element.ukey"
       data-type="form-input"
-      :required="props.required"
+      :required="element.props.required"
     />
   </div>
 </template>
-<script lang="ts">
-import {  ref, defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import { RadioGroup, Radio } from "vant";
-export default defineComponent({
-  props: ["props", "workMode", "dataUkey"],
-  name: "plug-form-radio",
-  components: {
-    [RadioGroup.name]: RadioGroup,
-    [Radio.name]: Radio,
-  },
-  //默认组件 参数
-  defaultElement: {
-    style: {
-      width: 335,
-      height: 90,
-      left: 20,
-      color: "#333",
-      fontSize: 14,
-      fontWeight: "normal",
-    },
-    props: {
-      name: "单选标题",
-      showTitle: true,
-      required: true,
-      options: [{ val: "单选框 1" }, { val: "单选框 2" }],
-      shape: "round",
-      color:'#333',
-      checkedColor: "#1989fa",
-      direction: "vertical",
-    },
-  },
-  setup(props) {
-    const checked = ref("");
-    return { checked };
-  },
-});
+const props = defineProps<{
+  element: H5.Element,
+  workMode: string
+}>()
+const checked = ref("");
 </script>
 <style lang='less' scoped>
 :deep(.van-radio) {

@@ -7,38 +7,25 @@
         <Close />
       </el-icon>
     </div>
-
     <el-empty description="开发中，下个版本见"></el-empty>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import { ElEmpty, ElButton, ElIcon } from "element-plus";
 import { useStore } from "@/store/index";
 import { Close } from '@element-plus/icons-vue'
-export default defineComponent({
-  props: ["pluginType"],
-  components: {
-    ElEmpty, ElIcon,
-    ElButton, Close
-  },
-  setup(props, ctx) {
-    const store = useStore();
 
-    const setOperaType = (type: any) =>
-      store.commit("common/setOperaType", type);
-
-    function closedThis() {
-      setOperaType(0);
-    }
-
-    return {
-      closedThis,
-    };
-  },
-});
+defineProps({
+  pluginType: Number
+})
+const store = useStore();
+const setOperaType = (type: any) => store.commit("common/setOperaType", type);
+function closedThis() {
+  setOperaType(0);
+}
 </script>
+
 <style lang='less' scoped>
 .source_content {
   position: fixed;

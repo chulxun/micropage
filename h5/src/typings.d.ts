@@ -1,5 +1,8 @@
 
 declare namespace H5 {
+   type Options = {
+     [key: string]: any;
+   };
   //作品详情
   type WorkInfo = {
     created_at: number;
@@ -24,7 +27,14 @@ declare namespace H5 {
   };
   //作品列表
   type WorksList = WorkInfo[];
-
+  // 组件详情
+  type Element = {
+    name:string,
+    ukey:string,
+    animations?:array[],
+    style:Options,
+    props:Options
+  }
 
 
 }

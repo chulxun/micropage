@@ -3,88 +3,60 @@
     :class="{ disabled: workMode == 'editor' }"
     :slides-per-view="1"
     :space-between="0"
-    :direction="props.direction"
+    :direction="element.props.direction"
     :modules="modules"
     :pagination="
-      props.showPage ? { clickable: true, type: props.pagType } : false
+      element.props.showPage ? { clickable: true, type: element.props.pagType } : false
     "
-    :autoplay="props.autoplay && workMode == 'formal' ? true : false"
+    :autoplay="element.props.autoplay && workMode == 'formal' ? true : false"
     v-if="ismounted"
   >
-    <swiper-slide class="swiper-item" v-for="(item, index) in props.swiper" :key="index">
+    <swiper-slide class="swiper-item" v-for="(item, index) in element.props.swiper" :key="index">
       <img :src="item" class="img" />
     </swiper-slide>
   </swiper>
 </template>
-<script lang="ts">
-import { defineComponent, watch, ref, onMounted, nextTick } from "vue";
+<script setup lang="ts">
+import { watch, ref, onMounted, nextTick } from "vue";
 import { Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import 'swiper/css'
 import 'swiper/css/pagination'
+const props = defineProps<{
+  element: H5.Element,
+  workMode: string
+}>()
 
-export default defineComponent({
-  props: ["props", "workMode"],
-  components: {
-    Swiper,
-    SwiperSlide,
+const modules = [Pagination, Autoplay]
+const activeColor = ref("");
+const ismounted = ref(false);
+//监听分页颜色设置
+watch(
+  () => props.element.props.indicatorColor,
+  function (val) {
+    activeColor.value = val;
   },
-  name: "plug-swiper",
-  //默认组件 参数
-  defaultElement: {
-    style: {
-      width: 375,
-      height: 200,
-      left: 0,
-      top: 0,
-    },
-    props: {
-      swiper: [
-        "https://public.fanjinyan.com/weiye_default_img_width.png",
-        "https://public.fanjinyan.com/weiye_default_img_width.png",
-      ],
-      direction: "horizontal",
-      autoplay: true,
-      delay: 4000,
-      showPage: true,
-      pagType: "bullets",
-      indicatorColor: "#3981EB",
-    },
-  },
-  setup(props) {
-    const modules = [Pagination, Autoplay]
-    const activeColor = ref("");
-    const ismounted = ref(false);
-    //监听分页颜色设置
-    watch(
-      () => props.props.indicatorColor,
-      function (val) {
-        activeColor.value = val;
-      },
-      {
-        immediate: true,
-      }
-    );
-    //监听分页样式改变
-    watch(
-      () => props.props.pagType,
-      function (val) {
-        //尝试直接调用swiper的方法改变type，未成功，so这里采用以下方式
-        if (props.props.showPage) {
-          props.props.showPage = false;
-          setTimeout(() => {
-            props.props.showPage = true;
-          }, 10);
-        }
-      }
-    );
-    onMounted(async () => {
-      await nextTick();
-      ismounted.value = true
-    })
-    return { ismounted, activeColor, modules };
-  },
-});
+  {
+    immediate: true,
+  }
+);
+//监听分页样式改变
+watch(
+  () => props.element.props.pagType,
+  function (val) {
+    //尝试直接调用swiper的方法改变type，未成功，so这里采用以下方式
+    if (props.element.props.showPage) {
+      props.element.props.showPage = false;
+      setTimeout(() => {
+        props.element.props.showPage = true;
+      }, 10);
+    }
+  }
+);
+onMounted(async () => {
+  await nextTick();
+  ismounted.value = true
+})
 </script>
 <style lang='less' scoped >
 .disabled {

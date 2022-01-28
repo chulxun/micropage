@@ -22,76 +22,49 @@
     <el-button type="primary" @click="goWorks">查看我的作品</el-button>
   </el-empty>
 </template>
-<script lang="ts">
-import {
-  ElContainer,
-  ElHeader,
-  ElMain,
-  ElAside,
-  ElButton,
-  ElLoading,
-  ElEmpty, ElIcon,
-} from "element-plus";
+<script setup lang="ts">
+import { ElContainer, ElHeader, ElMain, ElButton, ElLoading, ElEmpty, ElIcon, } from "element-plus";
 import comHeader from "@/components/common/comHeader.vue";
 import topPanel from "@/components/editor/topPanel/index.vue";
 import leftPanel from "@/components/editor/leftPanel/index.vue";
 import rightPanel from "@/components/editor/rightPanel/index.vue";
 import mainPanel from "@/components/editor/mainPanel/index.vue";
 import { useStore } from "../store/index";
-import { computed, ref } from "vue";
+import { onMounted, computed, ref, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import { Loading } from '@element-plus/icons-vue'
-export default {
-  props: ["workId"],
-  components: {
-    comHeader,
-    ElContainer,
-    ElHeader,
-    ElMain,
-    ElAside,
-    ElButton,
-    leftPanel,
-    rightPanel,
-    mainPanel,
-    topPanel,
-    ElEmpty, ElIcon, Loading
-  },
-  setup(props) {
-    const store = useStore();
-    const router = useRouter();
-    const isLoading = ref(true);
-    const setOperaType = (type: any) =>
-      store.commit("common/setOperaType", type);
-    const setWorkInfo = (payload: any) =>
-      store.dispatch("editor/setWorkInfo", payload);
-    const work = computed(() => store.state.editor.work);
-    //获取作品详情
-    async function fetchWorkInfo() {
-      isLoading.value = true;
-      let loading = ElLoading.service({ fullscreen: true });
-      await setWorkInfo({ workId: props.workId });
-      loading.close();
-      isLoading.value = false;
-    }
-    fetchWorkInfo();
-    //去查看我的作品
-    function goWorks() {
-      router.replace("/works");
-    }
-
-    return { work, goWorks, isLoading };
-  },
-  mounted() {
-    setTimeout(() => {
-      window.onbeforeunload = (e) => {
-        return "";
-      };
-    }, 0);
-  },
-  beforeDestory() {
-    window.onbeforeunload = null;
-  },
-};
+const props = defineProps({
+  workId: String
+})
+const store = useStore();
+const router = useRouter();
+const isLoading = ref(true);
+const setWorkInfo = (payload: any) =>
+  store.dispatch("editor/setWorkInfo", payload);
+const work = computed(() => store.state.editor.work);
+//获取作品详情
+async function fetchWorkInfo() {
+  isLoading.value = true;
+  let loading = ElLoading.service({ fullscreen: true });
+  await setWorkInfo({ workId: props.workId });
+  loading.close();
+  isLoading.value = false;
+}
+//去查看我的作品
+function goWorks() {
+  router.replace("/works");
+}
+onMounted(() => {
+  fetchWorkInfo();
+  setTimeout(() => {
+    window.onbeforeunload = (e) => {
+      return "";
+    };
+  }, 0);
+})
+onUnmounted(() => {
+  window.onbeforeunload = null;
+})
 </script>
 <style lang="less"  scoped>
 .main_container {

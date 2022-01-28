@@ -20,46 +20,43 @@
     </div>
   </div>
 </template>
-<script lang='ts'>
+<script setup lang='ts'>
 import QRCode from "qrcode";
-import { defineComponent, ref, reactive, onMounted, nextTick } from "vue";
-export default defineComponent({
-  props: ["workId", "mode"],
-  components: {},
-  setup(props) {
-    const mobileUrl = ref("");
-    const qrcodeImg = ref(null); //二维码dom元素
-    const work = reactive({})
-    onMounted(async () => {
-      let width = document.body.offsetWidth;
-      mobileUrl.value = "/viewer/?workId=" + props.workId;
-      if (props.mode) {
-        mobileUrl.value = mobileUrl.value + "&mode=" + props.mode;
-      }
-      if (width <= 750) {
-        window.location.replace(mobileUrl.value);
-        return;
-      }
-      await nextTick();
-      drawQRcode();
-      //定义一个方法，获取作品信息
-      window.getWorkInfo = (val: H5.WorkInfo) => {
-        document.title = val.title;
-        Object.assign(work, val);
-      };
-    });
-    //生成二维码
-    function drawQRcode() {
-      QRCode.toCanvas(
-        qrcodeImg.value,
-        window.location.origin + mobileUrl.value,
-        { margin: 1, scale: 4, width: 150 },
-        (err: Error) => { }
-      );
-    }
-    return { work, mobileUrl, qrcodeImg };
-  },
+import { ref, reactive, onMounted, nextTick } from "vue";
+const props = defineProps({
+  workId: String,
+  mode: String
+})
+const mobileUrl = ref("");
+const qrcodeImg = ref(null); //二维码dom元素
+const work: any = reactive({})
+onMounted(async () => {
+  let width = document.body.offsetWidth;
+  mobileUrl.value = "/viewer/?workId=" + props.workId;
+  if (props.mode) {
+    mobileUrl.value = mobileUrl.value + "&mode=" + props.mode;
+  }
+  if (width <= 750) {
+    window.location.replace(mobileUrl.value);
+    return;
+  }
+  await nextTick();
+  drawQRcode();
+  //定义一个方法，获取作品信息
+  window.getWorkInfo = (val: H5.WorkInfo) => {
+    document.title = val.title;
+    Object.assign(work, val);
+  };
 });
+//生成二维码
+function drawQRcode() {
+  QRCode.toCanvas(
+    qrcodeImg.value,
+    window.location.origin + mobileUrl.value,
+    { margin: 1, scale: 4, width: 150 },
+    (err: Error) => { }
+  );
+}
 </script>
 <style lang='less' scoped>
 .pc_container {
@@ -121,7 +118,6 @@ export default defineComponent({
       }
     }
     .qrcode {
-      // width: 200px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;

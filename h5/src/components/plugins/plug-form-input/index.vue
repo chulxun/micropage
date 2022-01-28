@@ -1,77 +1,45 @@
 <template>
   <div>
-    <van-field
+    <Field
       v-model="inputVal"
       :readonly="workMode == 'editor'"
-      :type="props.type"
-      :required="props.required"
-      :placeholder="props.placeholder"
+      :type="element.props.type"
+      :required="element.props.required"
+      :placeholder="element.props.placeholder"
       autocomplete="off"
-      :maxlength="props.maxlength"
+      :maxlength="element.props.maxlength"
       :label-class="{
-        hide: props.showTitle == false,
-        textareaLabel: props.type == 'textarea',
+        hide: element.props.showTitle == false,
+        textareaLabel: element.props.type == 'textarea',
       }"
-      :label="props.showTitle ? props.name : ''"
+      :label="element.props.showTitle ? element.props.name : ''"
       :border="false"
       :colon="true"
-      :show-word-limit="props.showWordLimit"
+      :show-word-limit="element.props.showWordLimit"
       :label-width="
         workMode == 'formal'
-          ? pxToRem(props.labelWidth)
-          : props.labelWidth + 'px'
+          ? pxToRem(element.props.labelWidth)
+          : element.props.labelWidth + 'px'
       "
     />
     <input
       type="hidden"
       :value="inputVal"
-      :data-id="dataUkey"
+      :data-id="element.ukey"
       data-type="form-input"
-      :required="props.required"
+      :required="element.props.required"
     />
   </div>
 </template>
-<script lang="ts">
-import { ref, defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import { Field } from "vant";
 import { pxToRem } from "@/utils/element";
-export default defineComponent({
-  props: ["props", "dataUkey", "workMode"],
-  components: {
-    [Field.name]: Field,
-  },
-  name: "plug-form-input",
-  //默认组件 参数
-  defaultElement: {
-    style: {
-      width: 335,
-      height: 40,
-      left: 20,
-      backgroundColor: "#fff",
-      borderRadius: 3,
-      textAlign: "left",
-      color: "#333",
-      fontSize: 14,
-      borderColor: "#fff",
-      borderWidth: 0,
-      fontWeight: "normal",
-    },
-    props: {
-      type: "text",
-      placeholder: "请输入",
-      name: "标题",
-      showTitle: true,
-      required: true,
-      maxlength: 50,
-      showWordLimit: false,
-      labelWidth: 80,
-    },
-  },
-  setup(props) {
-    const inputVal = ref("");
-    return { inputVal, pxToRem };
-  },
-});
+const props = defineProps<{
+  element: H5.Element,
+  workMode: string
+}>()
+const inputVal = ref("");
 </script>
 <style lang='less' scoped>
 :deep(.van-cell) {

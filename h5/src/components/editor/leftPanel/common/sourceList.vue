@@ -71,9 +71,8 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {
-  defineComponent,
   computed,
   ref,
   reactive,
@@ -98,187 +97,154 @@ import { getList, deleteResources } from "@/api/resources";
 import videoPreview from "@/components/common/videoPreview.vue";
 import Clipboard from "clipboard";
 import { Close } from '@element-plus/icons-vue'
-export default defineComponent({
-  props: ["pluginType"],
-  components: {
-    ElRadioGroup,
-    ElRadioButton,
-    ElImage,
-    ElEmpty,
-    ElButton,
-    uploader,
-    ElPagination,
-    videoPreview,
-    ElImageViewer, ElIcon, Close
-  },
-  setup(props, ctx) {
-    const store = useStore();
-    const sourceStack = computed(() => store.state.common.sourceStack);
-    const changeSourceType = computed(
-      () => store.state.common.changeSourceType
-    );
-    const setOperaType = (type: any) =>
-      store.commit("common/setOperaType", type);
+defineProps({
+  pluginType: Number
+})
+const store = useStore();
+const sourceStack = computed(() => store.state.common.sourceStack);
+const changeSourceType = computed(
+  () => store.state.common.changeSourceType
+);
+const setOperaType = (type: any) =>
+  store.commit("common/setOperaType", type);
 
-    const setChangeSourceType = (type: any) =>
-      store.commit("common/setChangeSourceType", type);
-    function closedThis() {
-      setOperaType(0);
-      setChangeSourceType(1);
-    }
-    const editingElement: any = computed(
-      () => store.state.editor.editingElement
-    );
-    const editingPageProps: any = computed(
-      () => store.state.editor.editingPageProps
-    );
-    const setEditingElement = (preload: any) =>
-      store.commit("editor/setEditingElement", preload);
-    const sourceType = ref(changeSourceType.value);
-    const page = reactive({
-      totalCount: 0,
-      count1: 0,
-      count2: 0,
-      totalPage: 1,
-      pageSize: 12,
-      currentPage: 0,
-    }); //分页数据
-    const dataList = reactive([]);
-    const imgList = computed(() =>
-      dataList.map((item) => {
-        return item.url;
-      })
-    );
-    //删除
-    function onDelete(id: number, index: number) {
-      ElMessageBox.confirm("确定要删除该资源吗？", "删除提醒", {
-        distinguishCancelAndClose: true,
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-      })
-        .then(async () => {
-          const res = await deleteResources({ id });
-          if (res && res.code == 0) {
-            ElMessage.success("删除成功");
-            dataList.splice(index, 1);
-          } else {
-            ElMessage.error(res.message);
-          }
-        })
-        .catch((action) => { });
-    }
-    //使用
-    function onUse(item: any) {
-      if (
-        sourceType.value == 1 &&
-        sourceStack.value.stack &&
-        (editingElement.value || editingPageProps.value)
-      ) {
-        sourceStack.value.stack[sourceStack.value.key] = item;
-      } else if (
-        sourceType.value == 1 &&
-        editingElement.value &&
-        editingElement.value.props.hasOwnProperty("imgUrl") == true
-      ) {
-        editingElement.value.props.imgUrl = item;
-        setEditingElement(editingElement.value);
-      } else if (
-        sourceType.value == 2 &&
-        editingElement.value &&
-        editingElement.value.props.hasOwnProperty("videoUrl") == true
-      ) {
-        editingElement.value.props.videoUrl = item;
-        setEditingElement(editingElement.value);
-      } else if (
-        sourceType.value == 3 &&
-        editingElement.value &&
-        editingElement.value.props.hasOwnProperty("audioUrl") == true
-      ) {
-        editingElement.value.props.audioUrl = item;
-        setEditingElement(editingElement.value);
-      } else {
-        ElMessage.warning("选中一个元素才能使用成功");
-      }
-    }
-    //预览图片、视频、音乐
-    const showImgViewer = ref(false);
-    const imgIndex = ref(0);
-    const videoUrl = ref("");
-    const audioUrl = ref("");
-    const previewVisible = ref(false);
-    function onPreview(item, index) {
-      if (sourceType.value == 1) {
-        imgIndex.value = index;
-        showImgViewer.value = true;
-      } else if (sourceType.value == 2) {
-        previewVisible.value = true;
-        audioUrl.value = "";
-        videoUrl.value = item.url;
-      } else if (sourceType.value == 3) {
-        previewVisible.value = true;
-        videoUrl.value = "";
-        audioUrl.value = item.url;
-      }
-    }
-    //关闭图片预览
-    function closeImgViewer() {
-      showImgViewer.value = false;
-    }
-
-    //获取资源列表
-    async function loadData(pageIndex?: number) {
-      let params = {
-        type: sourceType.value,
-        pageSize: page.pageSize,
-        pageIndex: 1,
-      };
-      if (pageIndex) params.pageIndex = pageIndex;
-      const res = await getList(params);
+const setChangeSourceType = (type: any) =>
+  store.commit("common/setChangeSourceType", type);
+function closedThis() {
+  setOperaType(0);
+  setChangeSourceType(1);
+}
+const editingElement: any = computed(
+  () => store.state.editor.editingElement
+);
+const editingPageProps: any = computed(
+  () => store.state.editor.editingPageProps
+);
+const setEditingElement = (preload: any) =>
+  store.commit("editor/setEditingElement", preload);
+const sourceType = ref(changeSourceType.value);
+const page = reactive({
+  totalCount: 0,
+  count1: 0,
+  count2: 0,
+  totalPage: 1,
+  pageSize: 12,
+  currentPage: 0,
+}); //分页数据
+const dataList = reactive([]);
+const imgList = computed(() =>
+  dataList.map((item) => {
+    return item.url;
+  })
+);
+//删除
+function onDelete(id: number, index: number) {
+  ElMessageBox.confirm("确定要删除该资源吗？", "删除提醒", {
+    distinguishCancelAndClose: true,
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+  })
+    .then(async () => {
+      const res = await deleteResources({ id });
       if (res && res.code == 0) {
-        dataList.length = 0;
-        dataList.push(...res.data);
-        Object.assign(page, res.page); //重置页码信息
+        ElMessage.success("删除成功");
+        dataList.splice(index, 1);
+      } else {
+        ElMessage.error(res.message);
       }
-    }
+    })
+    .catch((action) => { });
+}
+//使用
+function onUse(item: any) {
+  if (
+    sourceType.value == 1 &&
+    sourceStack.value.stack &&
+    (editingElement.value || editingPageProps.value)
+  ) {
+    sourceStack.value.stack[sourceStack.value.key] = item;
+  } else if (
+    sourceType.value == 1 &&
+    editingElement.value &&
+    editingElement.value.props.hasOwnProperty("imgUrl") == true
+  ) {
+    editingElement.value.props.imgUrl = item;
+    setEditingElement(editingElement.value);
+  } else if (
+    sourceType.value == 2 &&
+    editingElement.value &&
+    editingElement.value.props.hasOwnProperty("videoUrl") == true
+  ) {
+    editingElement.value.props.videoUrl = item;
+    setEditingElement(editingElement.value);
+  } else if (
+    sourceType.value == 3 &&
+    editingElement.value &&
+    editingElement.value.props.hasOwnProperty("audioUrl") == true
+  ) {
+    editingElement.value.props.audioUrl = item;
+    setEditingElement(editingElement.value);
+  } else {
+    ElMessage.warning("选中一个元素才能使用成功");
+  }
+}
+//预览图片、视频、音乐
+const showImgViewer = ref(false);
+const imgIndex = ref(0);
+const videoUrl = ref("");
+const audioUrl = ref("");
+const previewVisible = ref(false);
+function onPreview(item, index) {
+  if (sourceType.value == 1) {
+    imgIndex.value = index;
+    showImgViewer.value = true;
+  } else if (sourceType.value == 2) {
+    previewVisible.value = true;
+    audioUrl.value = "";
+    videoUrl.value = item.url;
+  } else if (sourceType.value == 3) {
+    previewVisible.value = true;
+    videoUrl.value = "";
+    audioUrl.value = item.url;
+  }
+}
+//关闭图片预览
+function closeImgViewer() {
+  showImgViewer.value = false;
+}
 
-    onMounted(async () => {
-      loadData();
-      await nextTick();
-      var clipboard = new Clipboard(".copy");
-      clipboard.on("success", (e) => {
-        ElMessage.success("复制成功");
-      });
+//获取资源列表
+async function loadData(pageIndex?: number) {
+  let params = {
+    type: sourceType.value,
+    pageSize: page.pageSize,
+    pageIndex: 1,
+  };
+  if (pageIndex) params.pageIndex = pageIndex;
+  const res = await getList(params);
+  if (res && res.code == 0) {
+    dataList.length = 0;
+    dataList.push(...res.data);
+    Object.assign(page, res.page); //重置页码信息
+  }
+}
 
-      clipboard.on("error", (e) => {
-        ElMessage.error("复制失败");
-      });
-    });
-    watch(sourceType, (newval, oldval) => {
-      if (newval != oldval) {
-        loadData();
-      }
-    });
-    return {
-      sourceType,
-      editingElement,
-      editingPageProps,
-      closedThis,
-      dataList,
-      onDelete,
-      onUse,
-      loadData,
-      page,
+onMounted(async () => {
+  loadData();
+  await nextTick();
+  var clipboard = new Clipboard(".copy");
+  clipboard.on("success", (e) => {
+    ElMessage.success("复制成功");
+  });
 
-      videoUrl,
-      audioUrl,
-      previewVisible,
-      closeImgViewer,
-      imgIndex,
-      showImgViewer,
-      imgList,
-      onPreview,
-    };
-  },
+  clipboard.on("error", (e) => {
+    ElMessage.error("复制失败");
+  });
+});
+watch(sourceType, (newval, oldval) => {
+  if (newval != oldval) {
+    loadData();
+  }
 });
 </script>
 <style lang='less' scoped>

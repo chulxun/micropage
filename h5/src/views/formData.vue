@@ -11,12 +11,7 @@
           <template #default="scope">
             <div class="title">
               <el-tag size="mini" v-if="scope.row.page_type == 1">长页</el-tag>
-              <el-tag
-                size="mini"
-                type="success"
-                v-else-if="scope.row.page_type == 2"
-                >多页</el-tag
-              >
+              <el-tag size="mini" type="success" v-else-if="scope.row.page_type == 2">多页</el-tag>
               <p>{{ scope.row.work_title }}</p>
             </div>
           </template>
@@ -33,15 +28,9 @@
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template #default="scope">
-            <el-button
-              type="primary"
-              plain
-              size="mini"
-              @click="handleOnDetail(scope.row)"
-              >查看详情</el-button
-            >
-          </template></el-table-column
-        >
+            <el-button type="primary" plain size="mini" @click="handleOnDetail(scope.row)">查看详情</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div class="pages">
         <el-pagination
@@ -52,65 +41,49 @@
           :current-page="page.currentPage"
           @current-change="fetchDataList"
           :hide-on-single-page="true"
-        >
-        </el-pagination>
+        ></el-pagination>
       </div>
     </div>
   </master>
 </template>
-<script lang="ts">
-import {
-  ElButton,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-  ElPagination,
-} from "element-plus";
+<script setup lang="ts">
+import { ElButton, ElTable, ElTableColumn, ElTag, ElPagination, } from "element-plus";
 import master from "@/components/common/master.vue";
-import { defineComponent, reactive } from "vue";
+import { onMounted, reactive } from "vue";
 import { getList } from "@/api/form";
 import { useRouter } from "vue-router";
-export default defineComponent({
-  components: {
-    master,
-    ElButton,
-    ElTable,
-    ElTableColumn,
-    ElTag,
-    ElPagination,
-  },
-  setup() {
-    const router = useRouter();
-    const dataList = reactive([]);
-    const page = reactive({
-      totalCount: 0,
-      totalPage: 1,
-      pageSize: 10,
-      currentPage: 0,
-    }); //分页数据
 
-    //获取数据
-    async function fetchDataList(pageIndex?: number) {
-      let params = {
-        pageSize: page.pageSize,
-        pageIndex: 1,
-      };
-      if (pageIndex) params.pageIndex = pageIndex;
-      const res = await getList(params);
-      if (res && res.code == 0) {
-        dataList.length = 0;
-        dataList.push(...res.data);
-        Object.assign(page, res.page); //重置页码信息
-      }
-    }
-    //查看详情
-    function handleOnDetail(item: any) {
-      router.push("/formdata/" + item.work_id);
-    }
-    fetchDataList(); //进入页面先获取数据
-    return { dataList, page, fetchDataList, handleOnDetail };
-  },
-});
+const router = useRouter();
+const dataList: any = reactive([]);
+const page = reactive({
+  totalCount: 0,
+  totalPage: 1,
+  pageSize: 10,
+  currentPage: 0,
+}); //分页数据
+
+//获取数据
+async function fetchDataList(pageIndex?: number) {
+  let params = {
+    pageSize: page.pageSize,
+    pageIndex: 1,
+  };
+  if (pageIndex) params.pageIndex = pageIndex;
+  const res = await getList(params);
+  if (res && res.code == 0) {
+    dataList.length = 0;
+    dataList.push(...res.data);
+    Object.assign(page, res.page); //重置页码信息
+  }
+}
+//查看详情
+function handleOnDetail(item: any) {
+  router.push("/formdata/" + item.work_id);
+}
+
+onMounted(() => {
+  fetchDataList(); //进入页面先获取数据
+})
 </script>
 <style lang="less"  scoped>
 .content {

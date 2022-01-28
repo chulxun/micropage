@@ -9,42 +9,35 @@
     </el-icon>
   </div>
 </template>
-<script lang='ts'>
-import { defineComponent, computed } from "vue";
+<script setup lang='ts'>
+import { computed } from "vue";
 import { useStore } from "@/store/index";
 import { ElIcon } from "element-plus";
-import { RefreshLeft, SortDown, SortUp } from '@element-plus/icons-vue'
-export default defineComponent({
-  components: {
-    ElIcon, RefreshLeft, SortDown, SortUp
-  },
-  setup() {
-    const store = useStore();
-    const editingPageProps: any = computed(
-      () => store.state.editor.editingPageProps
-    );
-    function onMousedownDrag(e: MouseEvent) {
-      let startY = e.clientY;
-      let mousemove = (event: MouseEvent) => {
-        event.stopPropagation();
-        event.preventDefault();
-        let curY = event.clientY - startY;
-        if (editingPageProps.value.pageHeight < 667) {
-          editingPageProps.value.pageHeight = 667;
-        } else {
-          editingPageProps.value.pageHeight += curY;
-        }
-      };
-      let mouseup = (event: MouseEvent) => {
-        document.removeEventListener("mousemove", mousemove);
-        document.removeEventListener("mouseup", mouseup);
-      };
-      document.addEventListener("mousemove", mousemove);
-      document.addEventListener("mouseup", mouseup);
+import { SortDown, SortUp } from '@element-plus/icons-vue'
+
+const store = useStore();
+const editingPageProps: any = computed(
+  () => store.state.editor.editingPageProps
+);
+function onMousedownDrag(e: MouseEvent) {
+  let startY = e.clientY;
+  let mousemove = (event: MouseEvent) => {
+    event.stopPropagation();
+    event.preventDefault();
+    let curY = event.clientY - startY;
+    if (editingPageProps.value.pageHeight < 667) {
+      editingPageProps.value.pageHeight = 667;
+    } else {
+      editingPageProps.value.pageHeight += curY;
     }
-    return { editingPageProps, onMousedownDrag };
-  },
-});
+  };
+  let mouseup = (event: MouseEvent) => {
+    document.removeEventListener("mousemove", mousemove);
+    document.removeEventListener("mouseup", mouseup);
+  };
+  document.addEventListener("mousemove", mousemove);
+  document.addEventListener("mouseup", mouseup);
+}
 </script>
 <style lang='less' scoped>
 .scale_height_btn {

@@ -49,7 +49,7 @@ import gVerify from "../utils/gVerify";
 
 const store = useStore();
 const router = useRouter();
-const codeImg = ref('');
+const codeImg: any = ref('');
 const setUserInfo = (userInfo: object) =>
   store.commit("user/setUserInfo", userInfo);
 const loginInfo = reactive({

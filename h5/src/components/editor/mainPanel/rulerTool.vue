@@ -5,37 +5,23 @@
     :visible="rulerVisible"
     @lineChange="onLineChange"
     :windowHeight="editingPageProps.pageHeight"
-  >
-  </vue-ruler-tool>
+  ></vue-ruler-tool>
 </template>
-<script lang='ts'>
-import { computed, defineComponent, reactive } from "vue";
+<script setup lang='ts'>
+import { computed, reactive } from "vue";
 import VueRulerTool from "./vue-ruler-tool/index.vue";
 import { useStore } from "@/store/index";
-export default defineComponent({
-  components: {
-    VueRulerTool,
-  },
-  setup() {
-    const store = useStore();
-    const rulerVisible = computed(() => store.state.common.rulerVisible);
-    const editingPageProps: any = computed(
-      () => store.state.editor.editingPageProps
-    );
 
-    const presetLine = reactive([]); //参考线
-    function onLineChange(val) {
-      Object.assign(presetLine, val);
-    }
+const store = useStore();
+const rulerVisible = computed(() => store.state.common.rulerVisible);
+const editingPageProps: any = computed(
+  () => store.state.editor.editingPageProps
+);
 
-    return {
-      editingPageProps,
-      presetLine,
-      rulerVisible,
-      onLineChange,
-    };
-  },
-});
+const presetLine = reactive([]); //参考线
+function onLineChange(val: any) {
+  Object.assign(presetLine, val);
+}
 </script>
 <style lang='less' scoped>
 </style>

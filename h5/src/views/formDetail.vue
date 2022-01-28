@@ -59,7 +59,7 @@ import { Place } from '@element-plus/icons-vue'
 const props = defineProps({
   workId: String
 })
-const dataList = reactive([]);
+const dataList: any = reactive([]);
 const work: any = reactive({});
 const page = reactive({
   totalCount: 0,
@@ -76,7 +76,7 @@ async function fetchDataList(pageIndex?: number) {
     pageIndex: 1,
   };
   if (pageIndex) params.pageIndex = pageIndex;
-  const res = await getFormDataByWork(params);
+  const res: any = await getFormDataByWork(params);
   if (res && res.code == 0) {
     Object.assign(formHeader, res.ukeyName);
     dataList.length = 0;

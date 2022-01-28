@@ -86,15 +86,14 @@
     </el-form>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, ref, defineAsyncComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import {
   ElForm,
   ElFormItem,
   ElColorPicker,
   ElInputNumber,
   ElInput,
-  ElButton,
   ElDivider,
   ElRadioGroup,
   ElRadioButton,
@@ -104,45 +103,25 @@ import {
   ElOption, ElIcon,
 } from "element-plus";
 import { Plus, Minus } from '@element-plus/icons-vue'
+import textEditor from '../commonProps/textEditor.vue'
+const props = defineProps<{
+  element: H5.Element
+}>()
+const curIndex = ref(1);
+function onMinus() {
+  if (curIndex.value == props.element.props.options.length) {
+    curIndex.value -= 1;
+  }
+  props.element.props.options.splice(-1, 1);
+}
+function onPlus() {
+  let index = props.element.props.options.length + 1;
+  props.element.props.options.push({
+    title: "标签" + index,
+    content: "内容" + index,
+  });
+}
 
-export default defineComponent({
-  components: {
-    ElForm,
-    ElColorPicker,
-    ElInputNumber,
-    ElFormItem,
-    ElInput,
-    ElButton,
-    ElDivider,
-    ElRadioGroup,
-    ElRadioButton,
-    ElSwitch,
-    ElPagination,
-    ElSelect,
-    ElOption, ElIcon, Plus, Minus,
-    textEditor: defineAsyncComponent(
-      () => import("../commonProps/textEditor.vue")
-    ),
-  },
-  props: ["element"],
-  setup(props, ctx) {
-    const curIndex = ref(1);
-    function onMinus() {
-      if (curIndex.value == props.element.props.options.length) {
-        curIndex.value -= 1;
-      }
-      props.element.props.options.splice(-1, 1);
-    }
-    function onPlus() {
-      let index = props.element.props.options.length + 1;
-      props.element.props.options.push({
-        title: "标签" + index,
-        content: "内容" + index,
-      });
-    }
-    return { curIndex, onMinus, onPlus };
-  },
-});
 </script>
 <style lang='less' scoped>
 .swiper_btns {
