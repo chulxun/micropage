@@ -1,5 +1,5 @@
 <template>
-  <img :src="element.props.imgUrl" />
+  <img :src="element.props.imgUrl" :style="{ objectFit: element.props.objectFit }" />
 </template>
 <script setup lang="ts">
 const props = defineProps<{
