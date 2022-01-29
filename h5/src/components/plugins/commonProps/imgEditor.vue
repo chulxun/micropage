@@ -1,5 +1,5 @@
 
-//图片编辑器
+//图片、视频、音频编辑器
 <template>
   <template v-if="imgUrl">
     <div>

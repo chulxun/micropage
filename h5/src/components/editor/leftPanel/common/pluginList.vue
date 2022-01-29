@@ -31,7 +31,7 @@
             <p>{{ item1.title }}</p>
           </div>
         </div>
-        <el-empty v-else description="开发中，下个版本见"></el-empty>
+        <el-empty v-else description="暂无组件"></el-empty>
       </div>
     </div>
   </div>

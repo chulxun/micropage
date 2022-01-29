@@ -122,4 +122,10 @@ const curComponent = computed(() => {
 :deep(.small_input_number) {
   width: 110px;
 }
+:deep(.el-color-picker--small) {
+  display: block;
+}
+:deep(.el-radio-group) {
+  display: block;
+}
 </style>

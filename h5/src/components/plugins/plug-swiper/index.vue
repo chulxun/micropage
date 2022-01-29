@@ -9,6 +9,7 @@
       element.props.showPage ? { clickable: true, type: element.props.pagType } : false
     "
     :autoplay="element.props.autoplay && workMode == 'formal' ? true : false"
+    :style="{ '--swiper-pagination-color': element.props.indicatorColor }"
     v-if="ismounted"
   >
     <swiper-slide class="swiper-item" v-for="(item, index) in element.props.swiper" :key="index">
@@ -28,18 +29,7 @@ const props = defineProps<{
 }>()
 
 const modules = [Pagination, Autoplay]
-const activeColor = ref("");
 const ismounted = ref(false);
-//监听分页颜色设置
-watch(
-  () => props.element.props.indicatorColor,
-  function (val) {
-    activeColor.value = val;
-  },
-  {
-    immediate: true,
-  }
-);
 //监听分页样式改变
 watch(
   () => props.element.props.pagType,
@@ -70,8 +60,5 @@ onMounted(async () => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-.swiper-container {
-  --swiper-pagination-color: v-bind(activeColor);
 }
 </style>
