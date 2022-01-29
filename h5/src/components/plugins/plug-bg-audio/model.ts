@@ -8,6 +8,8 @@ const  defaultElement= {
   props: {
     audioUrl: "",
     autoplay: false,
+    playIcon:'',
+    pauseIcon:''
   },
 }
 export default { defaultElement }

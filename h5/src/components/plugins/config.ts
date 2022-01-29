@@ -1,3 +1,4 @@
+// 基础
 import plugImage from "./plug-image/model";
 import plugSwiper from "./plug-swiper/model";
 import plugButton from "./plug-button/model";
@@ -8,7 +9,7 @@ import plugTimer from "./plug-timer/model";
 import plugNoticebar from "./plug-noticebar/model";
 import plugTabs from "./plug-tabs/model";
 import plugCollapse from "./plug-collapse/model";
-
+// 表单
 import plugFormInput from "./plug-form-input/model";
 import plugFormButton from "./plug-form-button/model";
 import plugFormCheckbox from "./plug-form-checkbox/model";

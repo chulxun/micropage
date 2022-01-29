@@ -3,18 +3,13 @@
 <template>
   <template v-if="imgUrl">
     <div>
-      <ElImage
-        class="img"
-        :src="imgUrl"
-        fit="cover"
-        :preview-src-list="[imgUrl]"
-        v-if="sourceType == 1"
-      ></ElImage>
-      <div v-else-if="sourceType == 2">
+      <ElImage class="img" :src="imgUrl" fit="cover" :preview-src-list="[imgUrl]" v-if="type == 1"></ElImage>
+      <div v-else-if="type == 2">
         <video @click="previewVideo" preload="preload" ref="video" :src="imgUrl"></video>
         <videoPreview
-          v-model:videoUrl="imgUrl"
+          v-model:url="imgUrl"
           v-model:previewVisible="previewVisible"
+          :type="type"
           v-if="previewVisible"
         ></videoPreview>
       </div>
@@ -24,7 +19,7 @@
           'uploader-icon': true,
           'music-icon': true,
         }"
-        v-else-if="sourceType == 3"
+        v-else-if="type == 3"
         @click="togglePlay"
       >
         <audio ref="audio" :src="imgUrl"></audio>
@@ -42,37 +37,35 @@
       <plus />
     </el-icon>
   </div>
+  <gallery v-model:visible="gelleryVisible" :type="type" @onChange="onChange" />
 </template>
 <script setup lang='ts'>
 import { ElImage, ElButton, ElIcon } from "element-plus";
 import { ref, onMounted, nextTick } from "vue";
 import { useStore } from "@/store/index";
-import videoPreview from "@/components/common/videoPreview.vue";
+import videoPreview from "@/components/support/resource/preview.vue";
 import { Plus, VideoPause, VideoPlay } from '@element-plus/icons-vue'
+import gallery from '@/components/support/resource/gallery.vue'
 
 const props = defineProps({
   imgUrl: {
     default: "",
     type: String,
   },
-  sourceType: {
+  type: {
     type: Number,
     default: 1, // 1图片 2视频 3音乐
   },
 })
 const emit = defineEmits(['update:imgUrl'])
 const store = useStore();
-const setOperaType = (type: any) =>
-  store.commit("common/setOperaType", type);
-const setChangeSourceType = (type: any) =>
-  store.commit("common/setChangeSourceType", type);
 function onRemove() {
   emit("update:imgUrl", "");
 }
 const video = ref(null);
+const gelleryVisible = ref(false)
 function onShowSourceList() {
-  setOperaType(4);
-  setChangeSourceType(props.sourceType);
+  gelleryVisible.value = true
 }
 const audio: any = ref(null);
 const audioPlaying = ref(false);
@@ -87,6 +80,10 @@ onMounted(async () => {
     });
   }
 });
+// 更换资源
+function onChange(val: string) {
+  emit("update:imgUrl", val);
+}
 //播放音乐
 function togglePlay() {
   if (!props.imgUrl) return;
@@ -110,12 +107,15 @@ video,
   height: 120px;
   border-radius: 3px;
   border: 1px dashed #dcdcdc;
+  display: block;
+  margin-bottom: 6px;
 }
 .uploader-icon {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
+  cursor: pointer;
 }
 .music-icon {
   font-size: 40px;

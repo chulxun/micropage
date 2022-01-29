@@ -20,7 +20,7 @@
           <p>创建新作品</p>
         </div>
       </div>
-      <div class="item" v-for="(work,index) in worksList" :key="work.work_id">
+      <div class="item" v-for="(work, index) in worksList" :key="work.work_id">
         <div class="bg work">
           <div class="img" :style="'background-image:url(' + work.preview_img_url + ')'">
             <div class="abs left" v-if="work.pages != work.publish_pages">未发布</div>
@@ -39,7 +39,7 @@
               <el-tag size="mini" type="success" v-else-if="work.page_type == 2">多页</el-tag>
               {{ work.title }}
             </div>
-            <div class="date">更新时间：{{ formatDate(work.updated_at) }}</div>
+            <div class="date">创建时间：{{ formatDate(work.created_at) }}</div>
             <div class="icon_list">
               <div class="icon" @click="onEdit(work.work_id)">
                 <el-tooltip effect="dark" content="编辑" placement="top">

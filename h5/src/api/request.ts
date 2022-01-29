@@ -1,19 +1,13 @@
 
 import axios from "axios";
 import qs from "qs";
-// import { store } from "@/store/index"
 let config = {
   withCredentials: false
 };
-import { ElMessage } from 'element-plus'
 // axios 配置
 axios.defaults.timeout = 0; //无超时限制
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded;charset=UTF-8";
-
-// if (store.state.user.userInfo.token) {
-//   axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.user.userInfo.token;
-// }
 
 // 添加请求拦截器
 axios.interceptors.request.use(

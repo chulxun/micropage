@@ -92,8 +92,8 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(res => res.meta.requireAuth)) {// 判断是否需要登录权限
+router.beforeEach((to:any, from, next) => {
+  if (to.matched.some((res:any) => res.meta.requireAuth)) {// 判断是否需要登录权限
     if (store.state.user.userInfo.token) {
       next()
     }

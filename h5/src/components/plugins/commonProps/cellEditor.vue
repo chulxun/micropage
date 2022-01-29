@@ -1,5 +1,5 @@
 
-//cell编辑器
+//通用样式编辑器编辑器
 <template>
   <div>
     <el-divider content-position="left">样式</el-divider>

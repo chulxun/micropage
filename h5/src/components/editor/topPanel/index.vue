@@ -74,7 +74,7 @@ import undoRedoHistory from "@/store/plugins/history";
 import publishUrl from "./publishUrl.vue";
 import { onCreateImgBySvg } from "@/utils/htmlToSvg";
 import alignment from "./alignment.vue";
-import qiniuUpload from "@/utils/qiniuUpload";
+import qiniuUpload from "@/components/support/upload/qiniuUpload";
 
 const props = defineProps({
   workId: String

@@ -1,3 +1,6 @@
+/**
+ * 富文本编辑器
+ */
 <template>
   <editor v-model="content" :init="init" />
 </template>
@@ -5,7 +8,6 @@
 import { onMounted, nextTick, ref, watch } from "vue";
 import tinymce from "tinymce/tinymce";
 import Editor from "@tinymce/tinymce-vue";
-// import "tinymce/themes/silver/theme"; // 引用主题文件
 import "tinymce/icons/default"; // 引用图标文件
 import "tinymce/plugins/link";
 import "tinymce/plugins/table";

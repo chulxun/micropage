@@ -1,5 +1,9 @@
 <template>
-  <div :class="{ 'bg-music-btn': true, rotate: true, playing: isPlaying }" @click="togglePlay">
+  <div
+    :class="{ 'bg-music-btn': true, rotate: true, playing: isPlaying }"
+    @click="togglePlay"
+    :style="bgStyle"
+  >
     <audio
       :src="element.props.audioUrl"
       :autoplay="element.props.autoplay && workMode == 'formal'"
@@ -10,13 +14,22 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 const props = defineProps<{
   element: H5.Element,
   workMode: string
 }>()
 const bgAudio: any = ref(null);
 const isPlaying = ref(false);
+const bgStyle = computed(() => {
+  if (props.element.props.playIcon && isPlaying.value === true) {
+    return { backgroundImage: 'url(' + props.element.props.playIcon + ')' }
+  } else if (props.element.props.pauseIcon && isPlaying.value === false) {
+    return { backgroundImage: 'url(' + props.element.props.pauseIcon + ')' }
+  } else {
+    return {}
+  }
+})
 function togglePlay() {
   if (props.workMode == "editor") return;
   if (!bgAudio.value) return;

@@ -41,7 +41,6 @@
           v-model:currentPage="curIndex"
           :page-count="element.props.swiper.length"
           :pager-count="5"
-          @current-change="handleCurrentChange"
         ></el-pagination>
         <div
           class="btn"
@@ -60,7 +59,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref } from "vue";
 import {
   ElForm,
   ElFormItem,
@@ -73,32 +72,19 @@ import {
   ElPagination, ElIcon,
 } from "element-plus";
 import imgEditor from "../commonProps/imgEditor.vue";
-import { useStore } from "@/store/index";
 import { Plus, Minus } from '@element-plus/icons-vue'
 const props = defineProps<{
   element: H5.Element
 }>()
-const store = useStore();
-const setSourceStack = (preload: any) =>
-  store.commit("common/setSourceStack", preload);
-const curIndex = ref(1);
 
-onMounted(() => {
-  setSourceStack({ stack: props.element.props.swiper, key: 0 });
-});
-function handleCurrentChange(val: number) {
-  setSourceStack({ stack: props.element.props.swiper, key: val - 1 });
-}
+const curIndex = ref(1);
 function onMinus() {
   props.element.props.swiper.splice(-1, 1);
 }
 function onPlus() {
   props.element.props.swiper.push("");
 }
-//组件销毁时
-onUnmounted(() => {
-  setSourceStack({ stack: null, key: "" });
-});
+
 </script>
 <style lang='less' scoped>
 .swiper_btns {

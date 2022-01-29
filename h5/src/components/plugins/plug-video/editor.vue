@@ -6,7 +6,7 @@
         <imgEditor v-model:imgUrl="element.props.imgUrl"></imgEditor>
       </el-form-item>
       <el-form-item label="上传视频:" required>
-        <imgEditor v-model:imgUrl="element.props.videoUrl" :sourceType="2"></imgEditor>
+        <imgEditor v-model:imgUrl="element.props.videoUrl" :type="2"></imgEditor>
       </el-form-item>
       <el-form-item label="显示菜单:">
         <el-switch v-model="element.props.controls" />

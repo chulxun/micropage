@@ -26,39 +26,9 @@ import pluginProps from "./pluginProps.vue";
 import animateProps from "./animateProps.vue";
 import pageProps from "./pageProps.vue";
 import scriptProps from "./scriptProps.vue";
-import { ref, watch, computed } from "vue";
-import { useStore } from "@/store/index";
-
-const store = useStore();
-const editingElement: any = computed(
-  () => store.state.editor.editingElement
-);
-const editingPageProps: any = computed(
-  () => store.state.editor.editingPageProps
-);
-const setSourceStack = (preload: any) =>
-  store.commit("common/setSourceStack", preload);
+import { ref } from "vue";
 const tabIndex = ref("props");
-//监听tab切换，找到图片
-watch(
-  () => tabIndex.value,
-  function (val) {
-    if (
-      val == "props" &&
-      editingElement.value &&
-      editingElement.value.props.hasOwnProperty("imgUrl")
-    ) {
-      setSourceStack({
-        stack: editingPageProps.value.props,
-        key: "imgUrl",
-      });
-    } else if (val == "page") {
-      setSourceStack({ stack: editingPageProps.value, key: "imgUrl" });
-    } else {
-      setSourceStack({ stack: null, key: "" });
-    }
-  }
-);
+
 </script>
 <style lang='less' scoped>
 .editor_right {

@@ -45,6 +45,13 @@ export async function onCreateImgBySvg() {
       imgList[i].src = newurl;
     }
   }
+  // 处理页面内plug-page组件背景图为base64
+  const curPage = cloneDom.querySelector('.plug-page')
+  if (curPage && curPage.style.backgroundImage) {
+    const bg = curPage.style.backgroundImage.replace(/url\("?([^)"]+)"?\)/, '$1')
+    const newBg = await toBase64(bg)
+    curPage.style.backgroundImage = `url(${newBg})`
+  }
   cloneDom.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
   // 图片地址显示为DOM转换的svg
   let data =
@@ -63,21 +70,23 @@ export async function onCreateImgBySvg() {
 
 }
 //图片url转为base64
-export async function toBase64(url: string): Promise<string> {
-  let image1 = new Image();
-  image1.setAttribute('crossOrigin', 'anonymous');
-  image1.src = url;
-  return new Promise(reslove => {
-    image1.onload = async function () {
-      let width = image1.width,
-        height = image1.height;
-      let canvas = document.createElement('canvas');
-      let context: any = canvas.getContext('2d');
-      canvas.width = width;
-      canvas.height = height;
-      context.drawImage(image1, 0, 0);
-      let base64 = canvas.toDataURL();
-      reslove(base64);
-    };
-  });
+export async function toBase64(url:string) {
+  return new Promise(resolve => {
+    const img = new Image()
+    img.setAttribute('crossOrigin', 'anonymous')
+    img.onload = () => {
+      const { width, height } = img
+      const canvas = document.createElement('canvas')
+      const context = canvas.getContext('2d')
+      canvas.width = width
+      canvas.height = height
+      context?.drawImage(img, 0, 0)
+      const base64 = canvas.toDataURL()
+      resolve(base64)
+    }
+    img.onerror = () => {
+      resolve('')
+    }
+    img.src = url
+  })
 }
