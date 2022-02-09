@@ -119,7 +119,12 @@ const ResourceList = () => {
                       {type === 2 && (
                         <img src={item.preview_url} onClick={() => handlePreview(item)} />
                       )}
-                      {type === 3 && <Typography.Text>{item.url}</Typography.Text>}
+                      {type === 3 && (
+                        <div className="audio_item" onClick={() => handlePreview(item)}>
+                          <Typography.Text>{item.url}</Typography.Text>
+                          <p>点击预览</p>
+                        </div>
+                      )}
                     </>
                   }
                 >

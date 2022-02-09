@@ -8,7 +8,7 @@
         <strong>作品名称：</strong>
         <el-link :href="'/pcviewer/' + workId" target="_blank">
           {{
-          work.title
+            work.title
           }}
         </el-link>
       </div>
@@ -22,8 +22,9 @@
           :prop="key"
           :label="item"
           align="center"
+          width="130"
         ></el-table-column>
-        <el-table-column prop="created_at" label="创建时间" align="center">
+        <el-table-column prop="created_at" label="创建时间" align="center" width="160">
           <template #default="scope">{{ formatDate(scope.row.created_at) }}</template>
         </el-table-column>
       </el-table>
