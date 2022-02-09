@@ -18,12 +18,12 @@
           </div>
           <div class="abs">
             <div>
-              <el-button v-if="canUse" type="primary" round size="mini" @click="onUse(item.url)">使用</el-button>
-              <el-button class="copy" size="mini" round :data-clipboard-text="item.url">复制</el-button>
+              <el-button v-if="canUse" type="primary" round size="small" @click="onUse(item.url)">使用</el-button>
+              <el-button class="copy" size="small" round :data-clipboard-text="item.url">复制</el-button>
             </div>
             <div>
-              <el-button type="success" size="mini" round @click="onPreview(item, index)">预览</el-button>
-              <el-button type="danger" size="mini" round @click="onDelete(item.id, index)">删除</el-button>
+              <el-button type="success" size="small" round @click="onPreview(item, index)">预览</el-button>
+              <el-button type="danger" size="small" round @click="onDelete(item.id, index)">删除</el-button>
             </div>
           </div>
         </div>

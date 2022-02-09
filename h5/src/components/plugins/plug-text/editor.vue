@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-divider content-position="left">属性</el-divider>
-    <el-form label-width="80px" size="small">
+    <el-form label-width="80px" size="default">
       <el-form-item label="背景颜色:">
         <el-color-picker v-model="element.style.backgroundColor" show-alpha></el-color-picker>
       </el-form-item>

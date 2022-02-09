@@ -2,7 +2,7 @@
   <div>
     <el-divider content-position="left">属性</el-divider>
 
-    <el-form label-width="80px" size="small">
+    <el-form label-width="80px" size="default">
       <el-form-item label="滑动方向:">
         <el-radio-group v-model="element.props.direction">
           <el-radio-button label="horizontal">水平</el-radio-button>

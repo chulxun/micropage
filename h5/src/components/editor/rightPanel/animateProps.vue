@@ -13,14 +13,14 @@
               <span>{{ index + 1 }}</span>
               <strong>{{ item.title }}</strong>
               <el-button
-                size="mini"
+                size="small"
                 type="success"
                 :icon="CaretRight"
                 circle
                 @click.stop="playAni(index)"
               ></el-button>
               <el-button
-                size="mini"
+                size="small"
                 type="danger"
                 :icon="Delete"
                 circle
@@ -29,7 +29,7 @@
             </div>
           </template>
           <div>
-            <el-form class="demo-form-inline" label-width="90px" size="small">
+            <el-form class="demo-form-inline" label-width="90px" size="default">
               <el-form-item label="时间：">
                 <el-input-number v-model="item.duration" :min="0" :max="100" :step="0.1" label="时间"></el-input-number>&nbsp;秒
               </el-form-item>

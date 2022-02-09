@@ -8,11 +8,11 @@
         <strong>作品名称：</strong>
         <el-link :href="'/pcviewer/' + workId" target="_blank">
           {{
-            work.title
+          work.title
           }}
         </el-link>
       </div>
-      <el-button type="primary" plain size="mini" @click="onExport">导出EXCEL</el-button>
+      <el-button type="primary" plain size="small" @click="onExport">导出EXCEL</el-button>
     </div>
     <div class="content">
       <el-table :data="dataList" style="width: 100%">

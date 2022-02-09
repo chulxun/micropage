@@ -29,8 +29,10 @@
         </el-icon>
       </div>
     </div>
-    <ElButton size="mini" @click="onShowSourceList">更换</ElButton>
-    <ElButton size="mini" @click="onRemove">移除</ElButton>
+    <div>
+      <ElButton size="small" @click="onShowSourceList">更换</ElButton>
+      <ElButton size="small" @click="onRemove">移除</ElButton>
+    </div>
   </template>
   <div v-else>
     <el-icon class="uploader-icon" @click="onShowSourceList">

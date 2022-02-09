@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-divider content-position="left">样式</el-divider>
-    <el-form label-width="80px" size="small">
+    <el-form label-width="80px" size="default">
       <el-form-item label="整体背景色:">
         <el-color-picker v-model="element.style.backgroundColor" show-alpha></el-color-picker>
       </el-form-item>
@@ -28,7 +28,7 @@
       </el-form-item>
     </el-form>
     <el-divider content-position="left">属性</el-divider>
-    <el-form label-width="80px" size="small">
+    <el-form label-width="80px" size="default">
       <el-form-item label="风格类型:">
         <el-radio-group v-model="element.props.type">
           <el-radio-button label="line">line</el-radio-button>

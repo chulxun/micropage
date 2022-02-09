@@ -3,7 +3,7 @@
 <template>
   <div>
     <el-divider content-position="left">位置</el-divider>
-    <el-form :inline="true" :model="element" size="small" label-width="50px">
+    <el-form :inline="true" :model="element" size="default" label-width="50px">
       <!-- <el-form-item label="标识:">
         <el-input v-model="element.ukey" disabled></el-input>
       </el-form-item>-->

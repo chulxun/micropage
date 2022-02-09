@@ -3,8 +3,8 @@
 <template>
   <div class="flex">
     <Icon :name="iconUrl" size="25" :color="color" />
-    <ElButton v-if="removeBtn" type="primary" plain size="mini" @click="onShow">更换</ElButton>
-    <ElButton plain size="mini" @click="onRemove">移除</ElButton>
+    <ElButton v-if="removeBtn" type="primary" plain size="small" @click="onShow">更换</ElButton>
+    <ElButton plain size="small" @click="onRemove">移除</ElButton>
     <el-dialog title="更换图标" v-model="visible" width="740px" append-to-body>
       <div class="dialog_content" v-if="visible">
         <el-tabs type="card" v-model="tabIndex">

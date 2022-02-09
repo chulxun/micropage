@@ -6,7 +6,7 @@
       </el-icon>
       <div class="title">长页H5</div>
       <p>单页灵活控制页面长度</p>
-      <el-button size="small" type="primary" round @click="createWork(1)">创建</el-button>
+      <el-button size="default" type="primary" round @click="createWork(1)">创建</el-button>
     </div>
     <div class="item">
       <el-icon>
@@ -14,7 +14,7 @@
       </el-icon>
       <div class="title">多页H5</div>
       <p>多页触摸滑动切换</p>
-      <el-button size="small" type="primary" round @click="createWork(2)">创建</el-button>
+      <el-button size="default" type="primary" round @click="createWork(2)">创建</el-button>
     </div>
   </div>
 </template>

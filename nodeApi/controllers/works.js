@@ -16,7 +16,7 @@ module.exports = class WorksController {
         if (item.pages) {
           item.pages = JSON.parse(decodeURIComponent(item.pages))
         }
-         if (item.config) {
+        if (item.config && item.config!='undefined') {
           item.config = JSON.parse(decodeURIComponent(item.config))
         }
       })
@@ -84,7 +84,7 @@ module.exports = class WorksController {
       if (works.length > 0) {
         let work = works[0]
         work.pages = JSON.parse(decodeURIComponent(work.pages))
-        if(work.config)
+        if(work.config&&work.config!='undefined')
         work.config = JSON.parse(decodeURIComponent(work.config))
         const userInfo = await UsersProxy.getByUserId(userId)
         // 管理员和作品所有者 有编辑权限
@@ -119,7 +119,7 @@ module.exports = class WorksController {
       if (works.length > 0) {
         let work = works[0]
         work.pages = JSON.parse(decodeURIComponent(work.pages))
-        if(work.config)
+       if(work.config&&work.config!='undefined')
         work.config = JSON.parse(decodeURIComponent(work.config))
         ctx.body = ctx.util.resuccess('操作成功', { property: work })
       } else {
@@ -150,7 +150,7 @@ module.exports = class WorksController {
         if (work.publish_pages) {
           let res = await Works.updateMany({ work_id }, { $inc: { hits: 1 } })
           work.pages = JSON.parse(decodeURIComponent(work.publish_pages))
-          if(work.publish_config){
+          if(work.publish_config&&work.publish_config!='undefined'){
              work.config = JSON.parse(decodeURIComponent(work.publish_config))
           }else{
             work.config ={}

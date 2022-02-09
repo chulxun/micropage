@@ -45,17 +45,17 @@
       </div>
     </div>
     <div class="precent_div">
-      <el-button :icon="Minus" circle size="mini" @click="changeScale(-1)"></el-button>
+      <el-button :icon="Minus" circle size="small" @click="changeScale(-1)"></el-button>
       <div class="text">{{ parseInt(String(scaleValue * 100)) }}%</div>
-      <el-button :icon="Plus" circle size="mini" @click="changeScale(1)"></el-button>
+      <el-button :icon="Plus" circle size="small" @click="changeScale(1)"></el-button>
     </div>
     <div>
       <template v-if="!work.is_template">
-        <el-button round size="small" :icon="Finished" @click="createWorkAsTemplate">设为模版</el-button>
-        <el-button type="primary" round size="small" @click="onPreview">预览</el-button>
-        <el-button type="success" round size="small" :icon="MessageBox" @click="onPublish">发布</el-button>
+        <el-button round size="default" :icon="Finished" @click="createWorkAsTemplate">设为模版</el-button>
+        <el-button type="primary" round size="default" @click="onPreview">预览</el-button>
+        <el-button type="success" round size="default" :icon="MessageBox" @click="onPublish">发布</el-button>
       </template>
-      <el-button v-else type="primary" round size="small" @click="onSaveTemplate">保存并预览模板</el-button>
+      <el-button v-else type="primary" round size="default" @click="onSaveTemplate">保存并预览模板</el-button>
     </div>
     <preview :workId="workId" v-model="previewVisible" v-if="previewVisible"></preview>
     <publishUrl :workId="workId" v-model="publishVisible" v-if="publishVisible"></publishUrl>

@@ -8,7 +8,7 @@
       </el-icon>
     </div>
     <div class="source_title">
-      <el-radio-group v-model="type" size="small">
+      <el-radio-group v-model="type" size="default">
         <el-radio-button :label="1">图片</el-radio-button>
         <el-radio-button :label="2">视频</el-radio-button>
         <el-radio-button :label="3">音乐</el-radio-button>

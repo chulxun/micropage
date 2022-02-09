@@ -35,8 +35,8 @@
           </div>
           <div class="desc">
             <div class="title" :title="work.title">
-              <el-tag size="mini" v-if="work.page_type == 1">长页</el-tag>
-              <el-tag size="mini" type="success" v-else-if="work.page_type == 2">多页</el-tag>
+              <el-tag size="small" v-if="work.page_type == 1">长页</el-tag>
+              <el-tag size="small" type="success" v-else-if="work.page_type == 2">多页</el-tag>
               {{ work.title }}
             </div>
             <div class="date">创建时间：{{ formatDate(work.created_at) }}</div>

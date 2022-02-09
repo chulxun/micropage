@@ -1,7 +1,7 @@
 <template>
   <div>
     <cellEditor :element="element"></cellEditor>
-    <el-form label-width="80px" size="small">
+    <el-form label-width="80px" size="default">
       <el-form-item label="左右内边距:">
         <el-input-number
           v-model.number="element.style.padding"

@@ -2,7 +2,7 @@
   <div>
     <cellEditor :element="element"></cellEditor>
     <el-divider content-position="left">属性</el-divider>
-    <el-form label-width="80px" size="small">
+    <el-form label-width="80px" size="default">
       <el-form-item label="类型:">
         <el-select style="width: 100%" v-model="element.props.type" placeholder="请选择类型">
           <el-option

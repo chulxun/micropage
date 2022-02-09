@@ -5,7 +5,7 @@ const defaultElement=  {
     height: 120,
   },
   props: {
-    imgUrl: "https://public.fanjinyan.com/weiye_default_img_squre.png",
+    imgUrl: "https://public.fanjinyan.com/weiye/weiye_default_img_squre.png",
     clickType: 0,
     clickContent: "",
   },

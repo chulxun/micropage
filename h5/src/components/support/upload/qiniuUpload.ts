@@ -20,7 +20,7 @@ export default function () {
   async function uploadBase64Img(base64: string, filename: string) {
     const pic :any= base64.replace("data:image/png;base64,", ""); //base64后的字符串
     let key = await window.btoa(
-      new Date().getTime() + "--" + filename
+      "weiye/preview/"+ new Date().getTime() + "--" + filename
     );
     let res = await axPost(
       "https://upload.qiniup.com/putb64/-1/key/" + key,

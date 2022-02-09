@@ -10,8 +10,8 @@
         <el-table-column label="作品名称" align="center">
           <template #default="scope">
             <div class="title">
-              <el-tag size="mini" v-if="scope.row.page_type == 1">长页</el-tag>
-              <el-tag size="mini" type="success" v-else-if="scope.row.page_type == 2">多页</el-tag>
+              <el-tag size="small" v-if="scope.row.page_type == 1">长页</el-tag>
+              <el-tag size="small" type="success" v-else-if="scope.row.page_type == 2">多页</el-tag>
               <p>{{ scope.row.work_title }}</p>
             </div>
           </template>
@@ -28,7 +28,7 @@
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template #default="scope">
-            <el-button type="primary" plain size="mini" @click="handleOnDetail(scope.row)">查看详情</el-button>
+            <el-button type="primary" plain size="small" @click="handleOnDetail(scope.row)">查看详情</el-button>
           </template>
         </el-table-column>
       </el-table>

@@ -128,8 +128,9 @@ function copyPage(item: any, index: number) {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  span {
-    font-size: 18px;
+  padding: 4px 0;
+  > * {
+    font-size: 16px;
     cursor: pointer;
   }
 }

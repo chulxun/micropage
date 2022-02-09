@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-divider content-position="left">样式</el-divider>
-    <el-form label-width="80px" size="small">
+    <el-form label-width="80px" size="default">
       <el-form-item label="背景颜色:">
         <el-color-picker v-model="element.style.backgroundColor" show-alpha></el-color-picker>
       </el-form-item>
@@ -25,7 +25,7 @@
       </el-form-item>
     </el-form>
     <el-divider content-position="left">属性</el-divider>
-    <el-form label-width="80px" size="small">
+    <el-form label-width="80px" size="default">
       <el-form-item label="文案:" required>
         <el-input type="textarea" :rows="4" v-model="element.props.text" maxlength="1000"></el-input>
       </el-form-item>

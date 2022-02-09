@@ -3,7 +3,7 @@
     <cellEditor :element="element"></cellEditor>
 
     <el-divider content-position="left">属性</el-divider>
-    <el-form label-width="80px" size="small">
+    <el-form label-width="80px" size="default">
       <el-form-item label="倒计时间:" required>
         <el-date-picker
           v-model="element.props.time"

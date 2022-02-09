@@ -3,7 +3,7 @@
 <template>
   <div>
     <el-divider content-position="left">事件</el-divider>
-    <el-form label-width="80px" size="small">
+    <el-form label-width="80px" size="default">
       <el-form-item label="点击事件:">
         <el-select v-model="element.props.clickType" placeholder="请选择类型" style="width: 100%">
           <el-option

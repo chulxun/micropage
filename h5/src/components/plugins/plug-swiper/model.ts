@@ -8,8 +8,8 @@ const defaultElement= {
   },
   props: {
     swiper: [
-      "https://public.fanjinyan.com/weiye_default_img_width.png",
-      "https://public.fanjinyan.com/weiye_default_img_width.png",
+      "https://public.fanjinyan.com/weiye/weiye_default_img_width.png",
+      "https://public.fanjinyan.com/weiye/weiye_default_img_width.png",
     ],
     direction: "horizontal",
     autoplay: true,

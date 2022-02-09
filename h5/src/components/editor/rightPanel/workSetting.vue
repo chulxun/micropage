@@ -16,7 +16,7 @@
         </el-icon>
       </div>
       <div class="form_content">
-        <el-form :model="work" label-position="top" size="small">
+        <el-form :model="work" label-position="top" size="default">
           <el-form-item label="作品标题:">
             <el-input v-model="work.title" maxlength="50"></el-input>
           </el-form-item>
@@ -24,7 +24,7 @@
             <el-input type="textarea" v-model="work.description" maxlength="200"></el-input>
           </el-form-item>
         </el-form>
-        <el-form :model="work" size="small">
+        <el-form :model="work" size="default">
           <!-- 翻页类型作品 Swiper参数配置 -->
           <template v-if="work.page_type === 2">
             <el-divider content-position="left">Swiper参数配置</el-divider>

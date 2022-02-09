@@ -3,7 +3,7 @@
 <template>
   <div>
     <el-divider content-position="left">样式</el-divider>
-    <el-form label-width="50px" size="small">
+    <el-form label-width="50px" size="default">
       <el-row :gutter="10">
         <el-col :span="14">
           <el-form-item label="字号:">

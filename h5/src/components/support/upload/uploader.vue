@@ -61,7 +61,7 @@ const beforeUpload = (file: File) => {
     ElMessage.error("上传内容大小不能超过 20MB!");
   }
   if (isAccept && isLt2M) {
-    uploadData.key = new Date().getTime() + "--" + file.name;
+    uploadData.key = "weiye/static/" + new Date().getTime() + "--" + file.name;
     if (props.type == 2) {
       video.value.src = window.URL.createObjectURL(file);
       video.value.load();

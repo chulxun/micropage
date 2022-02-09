@@ -5,11 +5,11 @@ export const pluginList =  [
       {
         name: 'plug-image',
         title: '图片',
-        img: 'https://public.fanjinyan.com/weiye_default_img_squre.png',
+        img: 'https://public.fanjinyan.com/weiye/weiye_default_img_squre.png',
       }, {
         name: 'plug-swiper',
         title: '轮播图',
-        img: 'https://public.fanjinyan.com/weiye_default_slide_squre2.png',
+        img: 'https://public.fanjinyan.com/weiye/weiye_default_slide_squre2.png',
       },
       {
         name: 'plug-text',
