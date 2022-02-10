@@ -20,7 +20,7 @@ const loginOut = async () => {
   const { query = {}, pathname } = history.location;
   const { redirect } = query;
   // Note: There may be security issues, please note
-  if (window.location.pathname !== '/login' && !redirect) {
+  if (window.location.pathname.indexOf('/login') === -1 && !redirect) {
     history.replace({
       pathname: '/login',
       search: stringify({
@@ -41,7 +41,6 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         loginOut();
         return;
       }
-      history.push(`/account/${key}`);
     },
     [setInitialState],
   );
@@ -79,7 +78,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   return (
     <HeaderDropdown overlay={menuHeaderDropdown}>
       <span className={`${styles.action} ${styles.account}`}>
-        <Avatar size="small" className={styles.avatar} src="/avatar.gif" alt="avatar" />
+        <Avatar size="small" className={styles.avatar} src="./avatar.gif" alt="avatar" />
         <span className={`${styles.name} anticon`}>{currentUser.user_name}</span>
       </span>
     </HeaderDropdown>
