@@ -95,7 +95,7 @@ const curComponent = computed(() => {
 // 请注意：所有插件元素template中的父元素只能有一个
 .element {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   border-style: solid;
   border-width: 0;
   position: absolute;

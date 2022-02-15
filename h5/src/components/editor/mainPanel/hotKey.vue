@@ -96,7 +96,7 @@ function bindKey(e: KeyboardEvent) {
       if (hotKey.CTRL.status) undoRedoHistory.redo();
       break;
     case hotKey.X.val: //剪切
-      if (/input|textarea/gi.test(nodeName.toLowerCase())) return; //?监控按键所在的标签
+      if (/input|textarea/gi.test(nodeName.toLowerCase())) return;
       if (hotKey.CTRL.status)
         operateElement({
           type: "cut",
@@ -104,7 +104,7 @@ function bindKey(e: KeyboardEvent) {
         });
       break;
     case hotKey.V.val: //粘贴
-      if (/input|textarea/gi.test(nodeName.toLowerCase())) return; //?监控按键所在的标签
+      if (/input|textarea/gi.test(nodeName.toLowerCase())) return;
       if (hotKey.CTRL.status)
         operateElement({
           type: "paste",
@@ -112,7 +112,7 @@ function bindKey(e: KeyboardEvent) {
         });
       break;
     case hotKey.C.val: //复制
-      if (/input|textarea/gi.test(nodeName.toLowerCase())) return; //?监控按键所在的标签
+      if (/input|textarea/gi.test(nodeName.toLowerCase())) return;
       if (hotKey.CTRL.status) {
         operateElement({
           type: "copy",
@@ -126,7 +126,7 @@ function bindKey(e: KeyboardEvent) {
       break;
     case hotKey.D.val: //删除
     case hotKey.DELETE.val: //删除
-      if (/input|textarea/gi.test(nodeName.toLowerCase())) return; //?监控按键所在的标签
+      if (/input|textarea/gi.test(nodeName.toLowerCase())) return;
       if (hotKey.CTRL.status)
         operateElement({
           type: "delete",

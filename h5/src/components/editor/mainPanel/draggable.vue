@@ -6,6 +6,7 @@
     :style="getElementStyle(element.style || {})"
     ref="rotate"
     v-if="element.name != 'plug-page' && !element.props.hide"
+    :data-ukey="element.ukey"
   >
     <template v-if="editingElement == element">
       <!-- 放大缩小圆点 -->

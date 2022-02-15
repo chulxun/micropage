@@ -195,7 +195,29 @@ const mutations = {
         state.editingElement.style.top = pageHeight - h;
         break;
     }
-
+  },
+  //一键排版
+  quickFormat(state: State,formatParams:{pLeft:number,pTop:number}){
+    if (state.editingPage.elements.length < 2) return
+    let newPageHeight = 0
+    for (let i = 1; i < state.editingPage.elements.length; i++) {
+      let element =  state.editingPage.elements[i]
+      // 只对可见元素排版，排除fixed定位元素
+      if (!element.props.hide && element.style.position !== 'fixed') {
+        element.style.left = formatParams.pLeft || 0
+        // 如果当前设置元素高度不能包括内容，重置元素大小
+        const { ukey } = element
+        const curEle :any= document.querySelector(`.editor_container [data-ukey="${ukey}"] .element`)
+        if (curEle.offsetHeight > element.style.height) {
+          element.style.height = curEle.offsetHeight
+        }
+        newPageHeight += formatParams.pTop || 0
+        element.style.top = newPageHeight
+        newPageHeight += element.style.height
+      }
+    }
+    if (newPageHeight < 667 || state.work.page_type === 2) newPageHeight = 667
+    state.editingPage.elements[0].props.pageHeight = newPageHeight
   }
 }
 

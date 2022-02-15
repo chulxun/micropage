@@ -10,5 +10,6 @@ const props = defineProps<{
 <style lang='less' scoped>
 img {
   object-fit: cover;
+  height: 100%;
 }
 </style>

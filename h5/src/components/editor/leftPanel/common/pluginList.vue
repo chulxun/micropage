@@ -10,7 +10,7 @@
             <Close />
           </el-icon>
         </div>
-        <el-alert show-icon title="点击或拖拽组件到编辑器" type="warning"></el-alert>
+        <el-alert show-icon title="点击或拖拽组件到编辑器" type="warning" :closable="false"></el-alert>
         <div class="con img_list" v-if="item.children.length > 0">
           <div class="plug_item" v-for="(item1, index1) in item.children" :key="index1">
             <i

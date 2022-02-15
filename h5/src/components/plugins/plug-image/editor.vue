@@ -3,11 +3,12 @@
     <el-divider content-position="left">属性</el-divider>
     <el-form label-width="80px">
       <el-form-item label="上传图片:" required>
-        <imgEditor v-model:imgUrl="element.props.imgUrl"></imgEditor>
+        <div>
+          <imgEditor v-model:imgUrl="element.props.imgUrl"></imgEditor>
+          <el-button type="primary" @click="resetWH" style="margin-top:10px">重置图片宽高</el-button>
+        </div>
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="resetWH">重置图片宽高</el-button>
-      </el-form-item>
+
       <el-form-item label="填充方式:" required>
         <el-select style="width: 100%" v-model="element.props.objectFit" placeholder="请选择填充方式">
           <el-option

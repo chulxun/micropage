@@ -30,7 +30,10 @@
         :style="rightMenuPosition"
         @hideRightKey="hideRightKey"
       ></rightKeyMenu>
-      <hotKey></hotKey>
+      <hotKey />
+      <div class="quick_icons">
+        <quickFormat />
+      </div>
     </div>
     <pagesManage v-if="work.page_type == 2"></pagesManage>
   </div>
@@ -45,6 +48,7 @@ import rightKeyMenu from "./rightKeyMenu.vue";
 import rulerTool from "./rulerTool.vue";
 import hotKey from "./hotKey.vue";
 import pagesManage from "./pagesManage.vue";
+import quickFormat from "./quickFormat.vue";
 
 const store = useStore();
 const scaleValue = computed(() => store.state.common.scaleValue);
@@ -137,5 +141,27 @@ onMounted(() => {
   position: relative;
   margin: 0 auto;
   transform-origin: center top;
+}
+// 快捷操作区
+.quick_icons {
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 40px;
+  border-radius: 5px;
+  transform: translateX(100%);
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  :deep(.icon) {
+    cursor: pointer;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+    line-height: 1.5;
+  }
 }
 </style>

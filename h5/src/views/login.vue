@@ -115,11 +115,15 @@ onMounted(async () => {
   .input_div {
     margin-top: 20px;
     display: flex;
+    :deep(.el-input__inner) {
+      height: 40px;
+    }
   }
 }
 .submit_btn {
   margin-top: 20px;
   width: 100%;
+  height: 40px;
 }
 .warning {
   text-align: center;
