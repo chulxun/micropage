@@ -10,10 +10,10 @@ const HOTKEY: any = {
     CTRL: { val: 17, status: false },
     SHIFT: { val: 16, status: false },
     DELETE: { val: 46, status: false },
-    ALT: { val: 18, status: false },
-    ESC: { val: 27, status: false },
-    UP: { val: 33, status: false },
-    DOWN: { val: 34, status: false },
+    LEFT: { val: 37, status: false },
+    UP: { val: 38, status: false },
+    RIGHT: { val: 39, status: false },
+    DOWN: { val: 40, status: false },
     C: { val: 67, status: false },
     D: { val: 68, status: false },
     X: { val: 88, status: false },
@@ -31,9 +31,9 @@ const HOTKEY: any = {
     CTRL: { val: 91, status: false },
     SHIFT: { val: 16, status: false },
     DELETE: { val: 8, status: false },
-    ALT: { val: 18, status: false },
-    ESC: { val: 27, status: false },
+    LEFT: { val: 37, status: false },
     UP: { val: 38, status: false },
+    RIGHT: { val: 39, status: false },
     DOWN: { val: 40, status: false },
     C: { val: 67, status: false },
     D: { val: 68, status: false },
@@ -56,6 +56,8 @@ const setRulerVisible = (visible: boolean) =>
 const saveWork = () => store.dispatch("editor/saveWork"); //保存作品方法
 const operateElement = (preload: any) =>
   store.commit("editor/operateElement", preload); //操作元素方法
+const moveElementPos = (moveType: string) =>
+  store.commit("editor/moveElementPos", moveType); //元素移动1px
 const changeElementAlign = (type: any) =>
   store.commit("editor/changeElementAlign", type);
 const editingElement: any = computed(
@@ -63,9 +65,14 @@ const editingElement: any = computed(
 );
 const setEditingElement = (element: any) =>
   store.commit("editor/setEditingElement", element);
-const hotKey = /Mac/gi.test(navigator.userAgent)
-  ? HOTKEY.MAC
-  : HOTKEY.WINDOW;
+const hotKey = /Mac/gi.test(navigator.userAgent) ? HOTKEY.MAC : HOTKEY.WINDOW;
+const hotKeyVal = []
+Object.values(hotKey).map(item => {
+  if (![91, 16, 17].includes(item.val)) {
+    hotKeyVal.push(item.val)
+  }
+  return item
+})
 function bindKey(e: KeyboardEvent) {
   const { nodeName } = e.target as HTMLElement
   switch (e.keyCode) {
@@ -74,9 +81,6 @@ function bindKey(e: KeyboardEvent) {
       break;
     case hotKey.SHIFT.val:
       hotKey.SHIFT.status = true;
-      break;
-    case hotKey.ALT.val:
-      hotKey.ALT.status = true;
       break;
     case hotKey.R.val: //显示隐藏标尺
       if (hotKey.CTRL.status) {
@@ -134,18 +138,40 @@ function bindKey(e: KeyboardEvent) {
         });
       break;
     case hotKey.UP.val: //上移
-      if (hotKey.CTRL.status)
+      if (hotKey.CTRL.status) {
         operateElement({
           type: "moveup",
           value: {},
         });
+      } else if (hotKey.SHIFT.status) {
+        // 选中元素 上移1px
+        moveElementPos('top')
+      }
       break;
     case hotKey.DOWN.val: //下移
-      if (hotKey.CTRL.status)
+      if (hotKey.CTRL.status) {
         operateElement({
           type: "movedown",
           value: {},
         });
+      } else if (hotKey.SHIFT.status) {
+        // 选中元素 下移1px
+        moveElementPos('bottom')
+      }
+      break;
+    // 元素left左移
+    case hotKey.LEFT.val:
+      if (hotKey.SHIFT.status) {
+        // 选中元素 左移1px
+        moveElementPos('left')
+      }
+      break;
+    // 元素left右移
+    case hotKey.RIGHT.val:
+      if (hotKey.SHIFT.status) {
+        // 选中元素 右移1px
+        moveElementPos('right')
+      }
       break;
     case hotKey.L.val: //左对齐
       if (hotKey.SHIFT.status) {
@@ -178,18 +204,9 @@ onMounted(() => {
   document.addEventListener(
     "keydown",
     function (e) {
-      const arr = [
-        hotKey.D.val,
-        hotKey.Z.val,
-        hotKey.Y.val,
-        hotKey.R.val,
-        hotKey.S.val,
-      ];
-      if (
-        arr.includes(e.keyCode) &&
-        (hotKey.CTRL.status || hotKey.ALT.status || hotKey.SHIFT.status)
-      )
-        e.preventDefault(); //?清除浏览器特定默认事件
+      if (hotKeyVal.includes(e.keyCode) && (hotKey.CTRL.status || hotKey.SHIFT.status)) {
+        e.preventDefault()
+      }
       bindKey(e);
       return false;
     },
@@ -204,10 +221,8 @@ onMounted(() => {
     "keyup",
     function (e: KeyboardEvent) {
       for (const key in hotKey) {
-        if (hotKey.hasOwnProperty(key)) {
-          if (e.keyCode == hotKey[key].val) {
-            hotKey[key].status = false;
-          }
+        if (e.keyCode == hotKey[key].val) {
+          hotKey[key].status = false;
         }
       }
     },

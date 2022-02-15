@@ -196,6 +196,26 @@ const mutations = {
         break;
     }
   },
+  //轻微调整元素位置 1px移动
+  moveElementPos(state: State, moveType: string) {
+    if (!state.editingElement) return
+    switch (moveType) {
+      case 'top':
+        state.editingElement.style.top -= 1
+        break
+      case 'left':
+        state.editingElement.style.left -= 1
+        break
+      case 'bottom':
+        state.editingElement.style.top += 1
+        break
+      case 'right':
+        state.editingElement.style.left += 1
+        break
+      default:
+        break
+    }
+  },
   //一键排版
   quickFormat(state: State,formatParams:{pLeft:number,pTop:number}){
     if (state.editingPage.elements.length < 2) return

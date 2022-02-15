@@ -88,6 +88,21 @@ const keyList = [
   {
     name: "底对齐",
     key: "Shift + B",
+  }, {
+    name: '上移1px',
+    key: 'Shift + UP',
+  },
+  {
+    name: '下移1px',
+    key: 'Shift + DOWN',
+  },
+  {
+    name: '左移1px',
+    key: 'Shift + LEFT',
+  },
+  {
+    name: '右移1px',
+    key: 'Shift + RIGHT',
   },
 ]
 const store = useStore();
@@ -106,7 +121,7 @@ function closedThis() {
   bottom: 0px;
   z-index: 1000;
   width: 350px;
-  height: 50vh;
+  height: 60vh;
   background: #fff;
   border-right: 1px solid var(--borderColor);
   box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.07);
@@ -138,6 +153,7 @@ function closedThis() {
     display: flex;
     align-items: center;
     opacity: 0.8;
+    font-size: 12px;
     .name {
       width: 80px;
     }
