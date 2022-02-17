@@ -30,7 +30,7 @@ import { ref } from "vue";
 const tabIndex = ref("props");
 
 </script>
-<style lang='less' scoped>
+<style lang='less'>
 .editor_right {
   background: #fff;
   border-left: 1px solid var(--borderColor);
@@ -41,23 +41,26 @@ const tabIndex = ref("props");
 .el-tabs--border-card {
   height: 100%;
   border: 0;
-  :deep(.el-tabs__content) {
+  .el-tabs__content {
     max-height: calc(100vh - 100px);
     overflow-y: auto;
+    //编辑器的公共属性：多次复用的样式
+    .el-form-item__label {
+      white-space: nowrap;
+    }
+    .tips {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.2;
+      padding-top: 10px;
+    }
+    .el-input__prefix-inner,
+    .el-input__suffix-inner {
+      align-items: center;
+    }
   }
 }
-//编辑器的公共属性：多次复用的样式
-:deep(.el-form-item__label) {
-  white-space: nowrap;
-}
-:deep(.tips) {
-  font-size: 12px;
-  color: #888;
-  line-height: 1.2;
-  padding-top: 10px;
-}
-</style>
-<style lang="less">
+
 .animation_drawer {
   .el-drawer__header {
     margin-bottom: 0;

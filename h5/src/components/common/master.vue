@@ -24,6 +24,12 @@
             </el-icon>
             <template #title>模版中心</template>
           </el-menu-item>
+          <el-menu-item index="/custom-template">
+            <el-icon>
+              <wind-power />
+            </el-icon>
+            <template #title>定制模版</template>
+          </el-menu-item>
           <el-menu-item index="/userEdit">
             <el-icon>
               <user />
@@ -54,7 +60,7 @@ import {
   ElAside,
   ElIcon
 } from "element-plus";
-import { Postcard, User, Document, Suitcase, DataAnalysis } from '@element-plus/icons-vue'
+import { Postcard, User, Document, Suitcase, DataAnalysis, WindPower } from '@element-plus/icons-vue'
 import comHeader from "@/components/common/comHeader.vue";
 import { useRouter } from "vue-router";
 

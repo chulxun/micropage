@@ -1,18 +1,8 @@
 <template>
-  <el-container v-if="work.work_id">
-    <el-header>
-      <com-header>
-        <topPanel :workId="workId"></topPanel>
-      </com-header>
-    </el-header>
-    <el-container class="main_container">
-      <leftPanel></leftPanel>
-      <el-main>
-        <mainPanel></mainPanel>
-      </el-main>
-      <rightPanel></rightPanel>
-    </el-container>
-  </el-container>
+  <template v-if="work.work_id">
+    <CustomEditor v-if="work.page_type === 4" :workId="workId"></CustomEditor>
+    <Editor v-else :workId="workId"></Editor>
+  </template>
   <div v-else-if="isLoading" class="loading">
     <el-icon>
       <loading />
@@ -24,11 +14,8 @@
 </template>
 <script setup lang="ts">
 import { ElContainer, ElHeader, ElMain, ElButton, ElLoading, ElEmpty, ElIcon, } from "element-plus";
-import comHeader from "@/components/common/comHeader.vue";
-import topPanel from "@/components/editor/topPanel/index.vue";
-import leftPanel from "@/components/editor/leftPanel/index.vue";
-import rightPanel from "@/components/editor/rightPanel/index.vue";
-import mainPanel from "@/components/editor/mainPanel/index.vue";
+import Editor from "@/components/editor/index.vue";
+import CustomEditor from "@/components/customEditor/index.vue";
 import { useStore } from "../store/index";
 import { onMounted, computed, ref, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
@@ -66,7 +53,7 @@ onUnmounted(() => {
   window.onbeforeunload = null;
 })
 </script>
-<style lang="less"  scoped>
+<style lang="less" >
 .main_container {
   background: var(--lightBgColor);
 }

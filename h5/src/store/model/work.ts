@@ -24,7 +24,8 @@ class Work {
     this.description = work.description || '描述'
     this.preview_img_url = work.preview_img_url || 'https://public.fanjinyan.com/weiye/weiye_default_img_squre.png'
     this.share_img_url = work.share_img_url || 'https://public.fanjinyan.com/weiye/weiye_default_img_squre.png'
-    this.page_type = work.page_type || 1 //页面类型 1长页 2多页
+    // 页面类型 1 长页； 2 翻页；  3 多路由；  4 定制模板
+    this.page_type = work.page_type || 1
     let pages = [{
       ukey: creatUkey(),
       elements: [Element.createPageEle()]

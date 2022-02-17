@@ -7,12 +7,13 @@ export interface State {
   [propName: string]: any;
 }
 const state = {
-  workMode: 'formal', //当前作品所处环境 editor formal
-  work: {},//作品model
-  editingPage: { elements: [] },//当前正在被编辑的页面
-  editingPageProps: {},//当前页面的page属性
-  editingElement: null, //当前正在编辑元素
-  copyingElement: null,//copy中的元素
+  workMode: 'formal', // 当前作品所处环境 editor formal
+  work: {},// 作品model
+  config: {}, // 作品初始化配置
+  editingPage: { elements: [] },// 当前正在被编辑的页面
+  editingPageProps: {},// 当前页面的page属性
+  editingElement: null, // 当前正在编辑元素
+  copyingElement: null,// copy中的元素
 
 
 }
@@ -89,6 +90,7 @@ const mutations = {
   //设置作品详情
   setWorkInfo(state: State, payload: any) {
     state.work = payload
+    state.config = payload.config || {}
   },
   //设置当前正在编辑元素
   setEditingElement(state: State, payload: any) {

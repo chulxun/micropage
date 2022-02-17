@@ -1,47 +1,49 @@
 <template>
   <div class="top_panel">
-    <div class="icon_list">
-      <div :class="{ icon_btn: true }" @click.stop="onRule">
-        <p>标尺</p>
-        <i class="iconfont icon-biaochi"></i>
-      </div>
-      <el-popover placement="bottom" :width="380" trigger="click">
-        <template #reference>
-          <div :class="{ icon_btn: true, disabled: !editingElement }">
-            <p>对齐</p>
-            <el-icon>
-              <grid />
-            </el-icon>
-          </div>
-        </template>
-        <alignment></alignment>
-      </el-popover>
+    <div class="top_flex">
+      <div class="icon_list">
+        <div :class="{ icon_btn: true }" @click.stop="onRule">
+          <p>标尺</p>
+          <i class="iconfont icon-biaochi"></i>
+        </div>
+        <el-popover placement="bottom" :width="380" trigger="click">
+          <template #reference>
+            <div :class="{ icon_btn: true, disabled: !editingElement }">
+              <p>对齐</p>
+              <el-icon>
+                <grid />
+              </el-icon>
+            </div>
+          </template>
+          <alignment></alignment>
+        </el-popover>
 
-      <div :class="{ icon_btn: true, disabled: !editingElement }" @click.stop="hideElement">
-        <p>隐藏</p>
-        <i class="iconfont icon-yincang"></i>
-      </div>
-      <div :class="{ icon_btn: true, disabled: !editingElement }" @click="deleteElement">
-        <p>删除</p>
-        <el-icon>
-          <delete />
-        </el-icon>
-      </div>
-      <div :class="{ icon_btn: true, disabled: !canUndo }" @click="onUndo">
-        <p>撤销</p>
-        <el-icon>
-          <refresh-left />
-        </el-icon>
-      </div>
-      <div :class="{ icon_btn: true, disabled: !canRedo }" @click="onRedo">
-        <p>重做</p>
-        <el-icon>
-          <refresh-right />
-        </el-icon>
-      </div>
-      <div class="icon_btn" @click="saveWork">
-        <p>保存</p>
-        <i class="iconfont icon-save"></i>
+        <div :class="{ icon_btn: true, disabled: !editingElement }" @click.stop="hideElement">
+          <p>隐藏</p>
+          <i class="iconfont icon-yincang"></i>
+        </div>
+        <div :class="{ icon_btn: true, disabled: !editingElement }" @click="deleteElement">
+          <p>删除</p>
+          <el-icon>
+            <delete />
+          </el-icon>
+        </div>
+        <div :class="{ icon_btn: true, disabled: !canUndo }" @click="onUndo">
+          <p>撤销</p>
+          <el-icon>
+            <refresh-left />
+          </el-icon>
+        </div>
+        <div :class="{ icon_btn: true, disabled: !canRedo }" @click="onRedo">
+          <p>重做</p>
+          <el-icon>
+            <refresh-right />
+          </el-icon>
+        </div>
+        <div class="icon_btn" @click="saveWork">
+          <p>保存</p>
+          <i class="iconfont icon-save"></i>
+        </div>
       </div>
     </div>
     <div class="precent_div">
@@ -101,7 +103,7 @@ const { token, getQiniuToken, uploadBase64Img } = qiniuUpload();
 // 生成预览图，并上传到云
 async function getPreviewImg() {
   await getQiniuToken();
-  let url: string = await onCreateImgBySvg();
+  let url: any = await onCreateImgBySvg();
   let preview_url = await uploadBase64Img(
     url,
     props.workId + "---preview.jpg"
@@ -206,49 +208,70 @@ function onRule() {
 </script>
 <style lang='less' scoped>
 .top_panel {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex: 1;
-}
-.icon_btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 12px;
-  cursor: pointer;
-  p {
-    padding-bottom: 4px;
-    font-size: 12px;
+  padding: 0 10px;
+  color: #fff;
+  .top_flex {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
   }
-  i {
-    font-size: 16px;
-  }
-  &.disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
-}
-.precent_div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 30px;
-  .text {
-    font-weight: bold;
-    padding: 0 14px;
-  }
-  :deep(button) {
-    padding: 7px;
-    i {
+  .precent_div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    .text {
       font-weight: bold;
+      padding: 0 14px;
+    }
+    :deep(button) {
+      padding: 7px;
+      i {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .icon_list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 6px 5px 5px;
+    border-radius: 5px;
+    .icon_btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 44px;
+      cursor: pointer;
+      line-height: 1;
+      p {
+        padding-bottom: 4px;
+        font-size: 12px;
+      }
+      i {
+        font-size: 16px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+      }
+      &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     }
   }
 }
 
-.icon_list {
-  display: flex;
-  justify-content: center;
-  flex: 1;
+@media screen and (max-width: 1030px) {
+  .top_panel .icon_list {
+    display: none;
+  }
 }
 </style>

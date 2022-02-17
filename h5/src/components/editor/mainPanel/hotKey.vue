@@ -205,6 +205,7 @@ onMounted(() => {
     "keydown",
     function (e) {
       if (hotKeyVal.includes(e.keyCode) && (hotKey.CTRL.status || hotKey.SHIFT.status)) {
+        console.log(e.keyCode, '拦截该键盘事件')
         e.preventDefault()
       }
       bindKey(e);

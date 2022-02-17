@@ -123,7 +123,7 @@ onMounted(() => {
   );
 });
 </script>
-<style lang='less' scoped>
+<style lang='less'>
 .editor {
   position: absolute;
   width: 100%;
@@ -138,9 +138,15 @@ onMounted(() => {
   height: 667px;
   background: url(/images/weiye_default_transparent.png) no-repeat center center;
   background-size: cover;
+  // background-color: #f1f1f1;
+  // background-image: linear-gradient(90deg, #ccc 5%, transparent 0),
+  //   linear-gradient(#ccc 5%, transparent 0);
+  // background-size: 15px 15px;
+  background-repeat: repeat;
   position: relative;
   margin: 0 auto;
   transform-origin: center top;
+  box-shadow: 0 0 10px rgba(12, 12, 12, 0.1);
 }
 // 快捷操作区
 .quick_icons {
@@ -156,7 +162,7 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   z-index: 10;
-  :deep(.icon) {
+  .icon {
     cursor: pointer;
     padding: 5px;
     width: 100%;

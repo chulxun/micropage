@@ -46,6 +46,15 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/custom-template',
+    name: 'CustomTemplate',
+    component: () => import('@/views/customList.vue'),
+    meta: {
+      requireAuth: true,
+      title: '定制模板'
+    }
+  },
+  {
     path: '/formdata',
     name: 'FormData',
     component: () => import('@/views/formData.vue'),
@@ -81,6 +90,16 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
     meta: {
       title: '作品详情'
+    }
+  },
+  {
+    path: '/custom/demo/:workId',
+    name: 'custom',
+    component: () => import('@/custom/demo/app.vue'),
+    props: true,
+    meta: {
+      requireAuth: true,
+      title: '作品编辑'
     }
   },
 ]

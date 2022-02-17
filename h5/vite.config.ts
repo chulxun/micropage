@@ -37,6 +37,7 @@ export default defineConfig({
   },
   //build配置
   build: {
+    watch: {},
     assetsDir: 'js',
     terserOptions: {
       compress: {
@@ -46,7 +47,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        viewer: resolve(__dirname, 'viewer/index.html')
+        viewer: resolve(__dirname, 'viewer/index.html'),
       },
       output: {
         manualChunks: {
@@ -58,5 +59,7 @@ export default defineConfig({
         }
       }
     }
+
+
   },
 })

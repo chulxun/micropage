@@ -3,7 +3,13 @@
 <template>
   <template v-if="imgUrl">
     <div style="width:100%">
-      <ElImage class="img" :src="imgUrl" fit="cover" :preview-src-list="[imgUrl]" v-if="type == 1"></ElImage>
+      <ElImage
+        class="img"
+        :src="imgUrl"
+        fit="contain"
+        :preview-src-list="[imgUrl]"
+        v-if="type == 1"
+      ></ElImage>
       <div v-else-if="type == 2">
         <video @click="previewVideo" preload="preload" ref="video" :src="imgUrl"></video>
         <videoPreview
