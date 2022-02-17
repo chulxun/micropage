@@ -66,8 +66,8 @@ const editingElement: any = computed(
 const setEditingElement = (element: any) =>
   store.commit("editor/setEditingElement", element);
 const hotKey = /Mac/gi.test(navigator.userAgent) ? HOTKEY.MAC : HOTKEY.WINDOW;
-const hotKeyVal = []
-Object.values(hotKey).map(item => {
+const hotKeyVal: number[] = []
+Object.values(hotKey).map((item: any) => {
   if (![91, 16, 17].includes(item.val)) {
     hotKeyVal.push(item.val)
   }

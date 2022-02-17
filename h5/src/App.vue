@@ -36,4 +36,9 @@ import zhCn from 'element-plus/lib/locale/lang/zh-cn'
     font-size: 18px;
   }
 }
+// 解决el-input-number按钮下上布局时，对不上
+.el-input-number.is-controls-right[class*="small"] [class*="decrease"],
+.el-input-number.is-controls-right[class*="small"] [class*="increase"] {
+  --el-input-number-controls-height: 50% !important;
+}
 </style>

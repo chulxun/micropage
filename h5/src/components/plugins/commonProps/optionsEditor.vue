@@ -11,7 +11,7 @@
         class="button_option"
       >
         <el-input v-model="option.val"></el-input>
-        <el-button v-if="index > 1" @click.prevent="removeOption(index)">删除</el-button>
+        <el-button v-if="index > 1" @click.prevent="removeOption(index)" type="danger" plain>删除</el-button>
       </el-form-item>
       <el-form-item>
         <el-button @click="addOption" type="primary" plain>新增</el-button>
@@ -37,6 +37,7 @@ function removeOption(index: number) {
 .button_option {
   :deep(.el-form-item__content) {
     display: flex;
+    flex-wrap: nowrap;
     button {
       margin-left: 10px;
     }

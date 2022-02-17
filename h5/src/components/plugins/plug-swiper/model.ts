@@ -12,7 +12,6 @@ const defaultElement= {
       "https://public.fanjinyan.com/weiye/weiye_default_img_width.png",
     ],
     direction: "horizontal",
-    autoplay: true,
     delay: 4000,
     showPage: true,
     pagType: "bullets",

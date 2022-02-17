@@ -8,7 +8,7 @@
     :pagination="
       element.props.showPage ? { clickable: true, type: element.props.pagType } : false
     "
-    :autoplay="element.props.autoplay && workMode == 'formal' ? true : false"
+    :autoplay="workMode === 'editor' ? false : { delay: element.props.delay || 4000 }"
     :style="{ '--swiper-pagination-color': element.props.indicatorColor }"
     v-if="ismounted"
   >

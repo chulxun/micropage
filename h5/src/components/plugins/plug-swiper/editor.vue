@@ -9,9 +9,6 @@
           <el-radio-button label="vertical">垂直</el-radio-button>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="自动切换:">
-        <el-switch v-model="element.props.autoplay"></el-switch>
-      </el-form-item>
       <el-form-item label="时间间隔:">
         <el-input-number v-model.number="element.props.delay" :min="1000" :max="10000" :step="100"></el-input-number>
       </el-form-item>

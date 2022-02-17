@@ -37,6 +37,9 @@
     <animation :element="element">
       <slot></slot>
     </animation>
+    <el-icon class="fixed_tag" v-if="element.style?.position === 'fixed'">
+      <paperclip />
+    </el-icon>
   </div>
   <div v-else-if="!element.props.hide" class="drag" :style="getElementStyle(element.style || {})">
     <slot></slot>
@@ -48,7 +51,7 @@ import { useStore } from "@/store/index";
 import { getElementStyle } from "@/utils/element";
 import animation from "./animation.vue";
 import { ElIcon } from "element-plus";
-import { RefreshLeft } from '@element-plus/icons-vue'
+import { RefreshLeft, Paperclip } from '@element-plus/icons-vue'
 const props = defineProps<{
   element: H5.Element,
 }>()
@@ -225,6 +228,14 @@ function mousedownRotate(e: MouseEvent) {
   position: absolute;
   user-select: none;
   z-index: 1;
+  .fixed_tag {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 2;
+    color: var(--successColor);
+    font-size: 15px;
+  }
 }
 .drag_active {
   outline: 1px dashed #70c0ff !important;
