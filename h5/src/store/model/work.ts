@@ -7,7 +7,7 @@ interface workInitnal {
   preview_img_url: string;
   share_img_url: string;
   page_type: number;
-  pages: Array<object>;
+  pages?: Array<object>;
   config?:object;
 }
 class Work {

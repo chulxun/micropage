@@ -29,7 +29,7 @@
     </div>
     <el-empty v-if="customTemplates.length == 0" description="暂时没有定制模板，敬请期待"></el-empty>
     <el-dialog title="定制模板预览" v-model="previewVisible" custom-class="preview_dialog" width="700px">
-      <div class="preview_content" v-if="work">
+      <div class="preview_content" v-if="curTemplate">
         <div class="preview">
           <iframe :src="previewUrl" frameborder="0" width="375px" height="667px"></iframe>
         </div>
@@ -38,8 +38,8 @@
           <div class="share" v-if="curTemplate?.info?.title">
             <div class="tt">{{ curTemplate?.info?.title }}</div>
             <div class="flex">
-              <img :src="work?.info?.share_img_url" />
-              <p>{{ work?.info?.description }}</p>
+              <img :src="curTemplate?.info?.share_img_url" />
+              <p>{{ curTemplate?.info?.description }}</p>
             </div>
           </div>
           <el-button type="primary" @click="onUse">立即使用</el-button>
@@ -49,7 +49,6 @@
   </master>
 </template>
 <script setup lang="ts">
-import { ElMenu, ElMenuItem, ElTag, ElTooltip, ElPagination, ElLoading, ElMessage, ElMessageBox, ElEmpty, ElIcon, } from 'element-plus'
 import master from '@/components/common/master.vue'
 import { onMounted, ref, reactive, computed, nextTick } from 'vue'
 import { useTemplate } from '@/api/works'
@@ -65,7 +64,7 @@ const store = useStore()
 const createWorkAction = (work: any) => store.dispatch("editor/createWork", work);
 const previewVisible = ref(false) //预览
 const previewUrl = ref('') //预览url
-const curTemplate = ref(null) // 预览的模板信息
+const curTemplate: any = ref(null) // 预览的模板信息
 //使用模板
 async function onUse(template: any) {
   let loading = ElLoading.service({ fullscreen: true })
@@ -81,7 +80,7 @@ async function onUse(template: any) {
   loading.close()
 }
 //预览
-function onPreview(template) {
+function onPreview(template: any) {
   previewVisible.value = true
   curTemplate.value = template
   previewUrl.value = `${template.config.enter}?type=preview`

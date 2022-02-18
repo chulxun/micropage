@@ -65,9 +65,6 @@
 </template>
 <script setup lang='ts'>
 import { ref, nextTick, computed } from "vue";
-import {
-  ElButton, ElLoading, ElMessage, ElPopover, ElIcon
-} from "element-plus";
 import { RefreshLeft, RefreshRight, Grid, Delete, Finished, MessageBox, Minus, Plus } from '@element-plus/icons-vue'
 import preview from "../preview/index.vue";
 import { useStore } from "@/store/index";
@@ -77,6 +74,7 @@ import publishUrl from "./publishUrl.vue";
 import { onCreateImgBySvg } from "@/utils/htmlToSvg";
 import alignment from "./alignment.vue";
 import qiniuUpload from "@/components/support/upload/qiniuUpload";
+import { ElLoading, ElMessage } from 'element-plus'
 
 const props = defineProps({
   workId: String

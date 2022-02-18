@@ -59,17 +59,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import {
-  ElForm,
-  ElFormItem,
-  ElColorPicker,
-  ElInputNumber,
-  ElInput,
-  ElDivider,
-  ElRadioGroup,
-  ElRadioButton,
-  ElSwitch,
-} from "element-plus";
 import optionsEditor from "../commonProps/optionsEditor.vue";
 const props = defineProps<{
   element: H5.Element

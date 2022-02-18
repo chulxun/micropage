@@ -13,7 +13,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElForm, ElFormItem, ElInputNumber, ElInput, ElDivider, ElDatePicker } from "element-plus";
 import { ref, computed } from "vue";
 import { useStore } from "@/store/index";
 

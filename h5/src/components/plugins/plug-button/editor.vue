@@ -20,7 +20,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElForm, ElFormItem, ElInputNumber, ElInput, ElDivider } from "element-plus";
 import clickEditor from "../commonProps/clickEditor.vue";
 import cellEditor from "../commonProps/cellEditor.vue";
 const props = defineProps<{

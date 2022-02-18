@@ -59,14 +59,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import {
-  ElForm,
-  ElFormItem,
-  ElColorPicker,
-  ElInputNumber,
-  ElSelect,
-  ElOption,
-} from "element-plus";
 import imgEditor from "@/components/plugins/commonProps/imgEditor.vue";
 import { computed } from "vue";
 import { useStore } from "@/store/index";

@@ -41,10 +41,10 @@ import {
   watch,
   reactive,
 } from "vue";
-import { ElButton, ElDialog, ElLoading, ElMessage, ElIcon } from "element-plus";
 import { TopRight } from '@element-plus/icons-vue'
 import { publishWork } from "@/api/works";
 import { useRoute } from "vue-router";
+import { ElLoading, ElMessage } from 'element-plus'
 const props = defineProps({
   workId: String,
   previewVisible: Boolean

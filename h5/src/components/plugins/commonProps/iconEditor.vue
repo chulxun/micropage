@@ -47,7 +47,6 @@
   </div>
 </template>
 <script setup lang='ts'>
-import { ElButton, ElDialog, ElTabs, ElTabPane } from "element-plus";
 import { Icon } from "vant";
 import { ref } from "vue";
 import { wireIconList, solidIconList, baseIconList } from "@/data/iconList";

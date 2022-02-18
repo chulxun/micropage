@@ -25,9 +25,10 @@
 </template>
 <script setup lang='ts'>
 import { computed } from "vue";
-import { ElMessage, ElIcon } from "element-plus";
 import { useStore } from "@/store/index";
 import { Top, Bottom, Delete, CopyDocument } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
+
 const emit = defineEmits(["hideRightKey"])
 const store = useStore();
 const editingElement: any = computed(

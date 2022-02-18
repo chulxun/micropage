@@ -10,8 +10,7 @@
         <el-table-column label="作品名称" align="center">
           <template #default="scope">
             <div class="title">
-              <el-tag size="small" v-if="scope.row.page_type == 1">长页</el-tag>
-              <el-tag size="small" type="success" v-else-if="scope.row.page_type == 2">多页</el-tag>
+              <pageTypeTag :page_type="scope.row.page_type" />
               <p>{{ scope.row.work_title }}</p>
             </div>
           </template>
@@ -47,11 +46,11 @@
   </master>
 </template>
 <script setup lang="ts">
-import { ElButton, ElTable, ElTableColumn, ElTag, ElPagination, } from "element-plus";
 import master from "@/components/common/master.vue";
 import { onMounted, reactive } from "vue";
 import { getList } from "@/api/form";
 import { useRouter } from "vue-router";
+import pageTypeTag from '@/components/common/pageTypeTag.vue'
 
 const router = useRouter();
 const dataList: any = reactive([]);

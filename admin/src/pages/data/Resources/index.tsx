@@ -117,7 +117,10 @@ const ResourceList = () => {
                     <>
                       {type === 1 && <Image src={item.url} height={200} />}
                       {type === 2 && (
-                        <img src={item.preview_url} onClick={() => handlePreview(item)} />
+                        <img
+                          src={item.url + '?vframe/jpg/offset/0'}
+                          onClick={() => handlePreview(item)}
+                        />
                       )}
                       {type === 3 && (
                         <div className="audio_item" onClick={() => handlePreview(item)}>

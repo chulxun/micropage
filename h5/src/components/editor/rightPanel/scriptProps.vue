@@ -4,8 +4,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, reactive } from "vue";
-import { ElEmpty, ElForm, ElFormItem, ElInput } from "element-plus";
+import { computed } from "vue";
 import { useStore } from "@/store/index";
 
 const store = useStore();

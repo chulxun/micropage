@@ -8,7 +8,6 @@
 </template>
 <script setup lang="ts">
 import { computed } from "vue";
-import { ElEmpty } from "element-plus";
 import { useStore } from "@/store/index";
 import plugEditor from "@/components/plugins/editor.vue";
 const store = useStore();

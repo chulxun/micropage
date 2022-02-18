@@ -20,7 +20,6 @@
   </div>
 </template>
 <script setup lang='ts'>
-import { ElForm, ElFormItem, ElInput, ElButton, ElDivider } from "element-plus";
 const props = defineProps<{
   element: H5.Element
 }>()

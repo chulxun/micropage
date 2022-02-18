@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router/index'
-import 'element-plus/dist/index.css'
 import { store, key } from './store/index'
 import axios from "axios";
 

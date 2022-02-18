@@ -53,11 +53,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {
-  ElForm, ElFormItem, ElInput, ElColorPicker,
-  ElTooltip, ElSwitch, ElRadioGroup, ElRadioButton, ElDivider, ElIcon
-} from "element-plus";
-import { reactive, ref, computed } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "@/store/index";
 import { Setting, ArrowRight } from '@element-plus/icons-vue'
 

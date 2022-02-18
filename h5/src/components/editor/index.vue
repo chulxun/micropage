@@ -15,7 +15,6 @@
   </el-container>
 </template>
 <script setup lang="ts">
-import { ElContainer, ElHeader, ElMain, } from "element-plus";
 import comHeader from "@/components/common/comHeader.vue";
 import topPanel from "@/components/editor/topPanel/index.vue";
 import leftPanel from "@/components/editor/leftPanel/index.vue";

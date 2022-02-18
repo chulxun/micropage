@@ -114,14 +114,7 @@
   </master>
 </template>
 <script setup lang="ts">
-import {
-  ElButton,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElLoading,
-  ElMessage,
-} from "element-plus";
+import { ElForm, ElLoading, ElMessage, } from "element-plus";
 import master from "@/components/common/master.vue";
 import { computed, reactive, ref } from "vue";
 import { useStore } from "@/store/index";

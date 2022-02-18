@@ -43,14 +43,6 @@
   </master>
 </template>
 <script setup lang="ts">
-import {
-  ElButton,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-  ElPagination,
-  ElLink, ElIcon,
-} from "element-plus";
 import master from "@/components/common/master.vue";
 import { onMounted, reactive } from "vue";
 import { getFormDataByWork, exportFormByWork } from "@/api/form";

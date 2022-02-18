@@ -19,7 +19,6 @@
   </div>
 </template>
 <script setup lang='ts'>
-import { ElButton, ElIcon } from "element-plus";
 import { useStore } from "@/store/index";
 import { Tickets, DocumentCopy } from '@element-plus/icons-vue'
 const props = defineProps({

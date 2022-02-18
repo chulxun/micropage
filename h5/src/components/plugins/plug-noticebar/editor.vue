@@ -50,16 +50,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import {
-  ElForm,
-  ElFormItem,
-  ElColorPicker,
-  ElInputNumber,
-  ElInput,
-  ElDivider,
-  ElRadioGroup,
-  ElRadioButton,
-} from "element-plus";
 import iconEditor from "../commonProps/iconEditor.vue";
 import clickEditor from "../commonProps/clickEditor.vue";
 const props = defineProps<{

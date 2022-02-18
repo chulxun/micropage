@@ -29,6 +29,7 @@ const props = defineProps<{
 </script>
 <style lang='less' scoped>
 .video {
+  height: 100%;
   video {
     object-fit: cover;
     background-color: #000;

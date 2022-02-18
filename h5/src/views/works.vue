@@ -9,6 +9,7 @@
       <el-menu-item index="0">全部 ({{ page.totalCount }})</el-menu-item>
       <el-menu-item index="1">长页 ({{ page.count1 }})</el-menu-item>
       <el-menu-item index="2">多页 ({{ page.count2 }})</el-menu-item>
+      <el-menu-item index="4">定制 ({{ page.count4 }})</el-menu-item>
     </el-menu>
     <div class="line"></div>
     <div class="work_list" v-if="worksList.length > 0">
@@ -35,8 +36,7 @@
           </div>
           <div class="desc">
             <div class="title" :title="work.title">
-              <el-tag size="small" v-if="work.page_type == 1">长页</el-tag>
-              <el-tag size="small" type="success" v-else-if="work.page_type == 2">多页</el-tag>
+              <pageTypeTag :page_type="work.page_type" />
               {{ work.title }}
             </div>
             <div class="date">创建时间：{{ formatDate(work.created_at) }}</div>
@@ -96,18 +96,6 @@
 </template>
 <script setup lang="ts">
 import QRCode from "qrcode";
-import {
-  ElButton,
-  ElMenu,
-  ElMenuItem,
-  ElTag,
-  ElTooltip,
-  ElDialog,
-  ElPagination,
-  ElLoading,
-  ElMessage,
-  ElEmpty, ElIcon, ElMessageBox
-} from "element-plus";
 import master from "@/components/common/master.vue";
 import createWork from "@/components/common/createWork.vue";
 import { ref, reactive, onMounted, nextTick } from "vue";
@@ -116,6 +104,8 @@ import { useRouter } from "vue-router";
 import preview from "@/components/editor/preview/index.vue";
 import { formatDate } from "@/utils/index";
 import { CirclePlusFilled, Delete, Edit, View, DataLine } from '@element-plus/icons-vue'
+import { ElMessageBox, ElMessage, ElLoading } from 'element-plus'
+import pageTypeTag from '@/components/common/pageTypeTag.vue'
 
 const router = useRouter();
 const addVisible = ref(false); //显示添加作品弹框
@@ -128,6 +118,7 @@ const page = reactive({
   totalCount: 0,
   count1: 0,
   count2: 0,
+  count4: 0,
   totalPage: 1,
   pageSize: 14,
   currentPage: 0,

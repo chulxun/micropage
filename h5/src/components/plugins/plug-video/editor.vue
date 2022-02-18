@@ -18,12 +18,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import {
-  ElForm,
-  ElFormItem,
-  ElDivider,
-  ElSwitch,
-} from "element-plus";
 import imgEditor from "../commonProps/imgEditor.vue";
 const props = defineProps<{
   element: H5.Element

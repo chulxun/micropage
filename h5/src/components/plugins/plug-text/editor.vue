@@ -42,13 +42,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import {
-  ElForm,
-  ElFormItem,
-  ElColorPicker,
-  ElInputNumber,
-  ElDivider,
-} from "element-plus";
 import textEditor from '../commonProps/textEditor.vue'
 const props = defineProps<{
   element: H5.Element

@@ -57,7 +57,6 @@
   </el-aside>
 </template>
 <script setup lang="ts">
-import { ElAside, ElButton, ElDrawer, ElTooltip, ElIcon } from "element-plus";
 import pluginList from "./common/pluginList.vue";
 import keyList from "./common/keyList.vue";
 import sourceList from "./common/sourceList.vue";

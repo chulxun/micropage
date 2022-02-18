@@ -9,6 +9,7 @@
       <el-menu-item index="0">全部 ({{ page.totalCount }})</el-menu-item>
       <el-menu-item index="1">长页 ({{ page.count1 }})</el-menu-item>
       <el-menu-item index="2">多页 ({{ page.count2 }})</el-menu-item>
+      <el-menu-item index="4">定制 ({{ page.count4 }})</el-menu-item>
     </el-menu>
     <div class="line"></div>
     <div class="work_list">
@@ -26,10 +27,10 @@
           </div>
           <div class="desc">
             <div class="title" :title="work.title">
-              <el-tag size="small" v-if="work.page_type == 1">长页</el-tag>
-              <el-tag size="small" type="success" v-else-if="work.page_type == 2">多页</el-tag>
+              <pageTypeTag :page_type="work.page_type" />
               {{ work.title }}
             </div>
+
             <div class="date">作者：{{ work.user_name }}</div>
             <div class="icon_list">
               <div class="icon" @click="onUse(work.work_id)">
@@ -88,17 +89,6 @@
 </template>
 <script setup lang="ts">
 import QRCode from "qrcode";
-import {
-  ElMenu,
-  ElMenuItem,
-  ElTag,
-  ElTooltip,
-  ElPagination,
-  ElLoading,
-  ElMessage,
-  ElMessageBox,
-  ElEmpty, ElIcon
-} from "element-plus";
 import master from "@/components/common/master.vue";
 import { onMounted, ref, reactive, computed, nextTick } from "vue";
 import { getTemplateWorksList, deleteWork, useTemplate } from "@/api/works";
@@ -106,6 +96,8 @@ import { useRouter } from "vue-router";
 import preview from "@/components/editor/preview/index.vue";
 import { useStore } from "@/store/index";
 import { CirclePlus, Delete, View, Edit } from '@element-plus/icons-vue'
+import { ElMessageBox, ElMessage, ElLoading } from 'element-plus'
+import pageTypeTag from '@/components/common/pageTypeTag.vue'
 
 const router = useRouter();
 const store = useStore();
@@ -119,6 +111,7 @@ const page = reactive({
   totalCount: 0,
   count1: 0,
   count2: 0,
+  count4: 0,
   totalPage: 1,
   pageSize: 15,
   currentPage: 0,

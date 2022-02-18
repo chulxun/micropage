@@ -88,20 +88,6 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-import {
-  ElForm,
-  ElFormItem,
-  ElColorPicker,
-  ElInputNumber,
-  ElInput,
-  ElDivider,
-  ElRadioGroup,
-  ElRadioButton,
-  ElSwitch,
-  ElPagination,
-  ElSelect,
-  ElOption, ElIcon,
-} from "element-plus";
 import { Plus, Minus } from '@element-plus/icons-vue'
 import textEditor from '../commonProps/textEditor.vue'
 const props = defineProps<{

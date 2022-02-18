@@ -22,7 +22,6 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { ElRadioGroup, ElRadioButton, ElIcon } from "element-plus";
 import list from "@/components/support/resource/list.vue";
 import { useStore } from "@/store/index";
 import { Close } from '@element-plus/icons-vue'

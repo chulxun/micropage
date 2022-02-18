@@ -19,7 +19,6 @@
   </el-aside>
 </template>
 <script setup lang="ts">
-import { ElAside, ElTabs, ElTabPane } from "element-plus";
 import layers from "./layers/index.vue";
 import workSetting from "./workSetting.vue";
 import pluginProps from "./pluginProps.vue";

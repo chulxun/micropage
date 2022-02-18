@@ -13,7 +13,6 @@
   </el-empty>
 </template>
 <script setup lang="ts">
-import { ElContainer, ElHeader, ElMain, ElButton, ElLoading, ElEmpty, ElIcon, } from "element-plus";
 import Editor from "@/components/editor/index.vue";
 import CustomEditor from "@/components/customEditor/index.vue";
 import { useStore } from "../store/index";

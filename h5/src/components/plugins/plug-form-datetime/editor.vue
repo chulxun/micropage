@@ -54,17 +54,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import {
-  ElForm,
-  ElFormItem,
-  ElInputNumber,
-  ElInput,
-  ElDivider,
-  ElSelect,
-  ElOption,
-  ElSwitch,
-  ElDatePicker,
-} from "element-plus";
 import { onMounted } from "vue";
 import cellEditor from "../commonProps/cellEditor.vue";
 const props = defineProps<{

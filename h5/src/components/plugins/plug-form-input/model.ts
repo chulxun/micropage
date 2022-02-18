@@ -2,7 +2,7 @@
 const defaultElement= {
   style: {
     width: 335,
-    height: 40,
+    height: 44,
     left: 20,
     backgroundColor: "#fff",
     borderRadius: 3,

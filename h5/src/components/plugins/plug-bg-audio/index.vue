@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{ 'bg-music-btn': true, rotate: true, playing: isPlaying }"
+    :class="{ 'music_icon': true, rotate: true, playing: isPlaying }"
     @click="togglePlay"
     :style="bgStyle"
   >
@@ -52,7 +52,7 @@ function togglePlay() {
   }
 }
 
-.bg-music-btn {
+.music_icon {
   border-radius: 15px;
   background: url("/images/weiye_bg_music.svg") no-repeat center center;
   background-size: contain;

@@ -24,7 +24,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElForm, ElFormItem, ElButton, ElDivider, ElSelect, ElOption, } from "element-plus";
 import imgEditor from "../commonProps/imgEditor.vue";
 import clickEditor from "../commonProps/clickEditor.vue";
 import { loadImg } from "@/utils/index";

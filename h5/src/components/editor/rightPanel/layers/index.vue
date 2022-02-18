@@ -46,10 +46,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, ref, computed } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "@/store/index";
 import layerItem from "./item.vue";
-import { ElTooltip, ElIcon } from "element-plus";
 import { View, ArrowRight } from '@element-plus/icons-vue'
 
 const store = useStore();

@@ -48,7 +48,6 @@
   <gallery v-model:visible="gelleryVisible" :type="type" @onChange="onChange" />
 </template>
 <script setup lang='ts'>
-import { ElImage, ElButton, ElIcon } from "element-plus";
 import { ref, onMounted, nextTick } from "vue";
 import { useStore } from "@/store/index";
 import videoPreview from "@/components/support/resource/preview.vue";

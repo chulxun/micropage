@@ -19,7 +19,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useStore } from "@/store/index";
-import { ElIcon } from 'element-plus'
 import { Close } from '@element-plus/icons-vue'
 defineProps({
   pluginType: Number

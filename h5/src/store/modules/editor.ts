@@ -2,7 +2,7 @@ import Work from '../model/work';
 import Element from '../model/element';
 import { createWork, getWorkInfo, updateWork } from '@/api/works';
 import { ActionContext } from 'vuex';
-import { ElMessage, ElMessageBox } from "element-plus";
+import { ElMessageBox, ElMessage } from 'element-plus'
 export interface State {
   [propName: string]: any;
 }

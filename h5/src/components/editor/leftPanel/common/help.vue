@@ -12,7 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import { ElEmpty, ElButton, ElIcon } from "element-plus";
 import { useStore } from "@/store/index";
 import { Close } from '@element-plus/icons-vue'
 

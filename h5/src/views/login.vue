@@ -40,7 +40,7 @@
 </template>
 <script setup lang='ts'>
 import { ref, reactive, onMounted, nextTick } from "vue";
-import { ElInput, ElButton, ElMessage, ElLoading, ElIcon } from "element-plus";
+import { ElMessage, ElLoading } from "element-plus";
 import { User, Lock, MagicStick } from '@element-plus/icons-vue'
 import { login } from "@/api/user";
 import { useStore } from "@/store/index";

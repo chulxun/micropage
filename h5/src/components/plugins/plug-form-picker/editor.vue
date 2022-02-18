@@ -31,14 +31,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import {
-  ElForm,
-  ElFormItem,
-  ElInputNumber,
-  ElInput,
-  ElDivider,
-  ElSwitch,
-} from "element-plus";
 import cellEditor from "../commonProps/cellEditor.vue";
 import optionsEditor from "../commonProps/optionsEditor.vue";
 const props = defineProps<{

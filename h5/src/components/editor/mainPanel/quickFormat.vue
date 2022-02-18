@@ -45,9 +45,9 @@
 </template>
 
 <script setup lang="ts">
-import { ElTooltip, ElDialog, ElForm, ElFormItem, ElInputNumber, ElRow, ElCol, ElMessage } from "element-plus";
 import { computed, reactive, ref } from 'vue'
 import { useStore } from "@/store/index";
+import { ElMessage } from 'element-plus'
 
 const visible = ref(false)
 const params = reactive({
@@ -58,7 +58,7 @@ const editingPage: any = computed(() => store.state.editor.editingPage);
 const quickFormat = (formatParams: { pLeft: number, pTop: number }) => store.commit('editor/quickFormat', formatParams)
 const onQuickFormat = () => {
   if (editingPage.value.elements.length < 2) {
-    ElMessage.waring('现在没有元素可排版哦，去添加组件吧')
+    ElMessage.warning('现在没有元素可排版哦，去添加组件吧')
   } else {
     quickFormat(params)
     ElMessage.success('一键排版成功')

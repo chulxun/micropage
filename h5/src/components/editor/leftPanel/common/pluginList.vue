@@ -39,7 +39,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useStore } from "@/store/index";
-import { ElEmpty, ElAlert, ElIcon } from "element-plus";
 import { Close } from '@element-plus/icons-vue'
 import { pluginList } from '@/data/pluginList'
 import { pluginDefaultElements } from '@/components/plugins/config'

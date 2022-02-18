@@ -31,7 +31,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElDropdown, ElDropdownMenu, ElDropdownItem, ElIcon } from "element-plus";
 import { useStore } from "@/store/index";
 import { useRouter, useRoute } from "vue-router";
 import { computed } from "vue";

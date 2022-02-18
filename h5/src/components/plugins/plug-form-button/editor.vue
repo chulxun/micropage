@@ -41,7 +41,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElForm, ElFormItem, ElInputNumber, ElInput, ElDivider, ElIcon } from "element-plus";
 import imgEditor from "../commonProps/imgEditor.vue";
 import cellEditor from "../commonProps/cellEditor.vue";
 import { Warning } from '@element-plus/icons-vue'

@@ -37,7 +37,7 @@ export default defineConfig({
   },
   //build配置
   build: {
-    watch: {},
+    // watch: {},
     assetsDir: 'js',
     terserOptions: {
       compress: {

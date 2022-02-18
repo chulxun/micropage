@@ -19,8 +19,6 @@
   </el-dialog>
 </template>
 <script setup lang='ts'>
-import { ElDialog } from "element-plus";
-
 const props = defineProps({
   type: Number,
   url: String,

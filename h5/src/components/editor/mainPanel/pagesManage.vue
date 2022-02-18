@@ -7,7 +7,7 @@
             <el-icon @click="copyPage(item, index)">
               <copy-document />
             </el-icon>
-            <el-icon class="close" @click="deletePage(item, index)">
+            <el-icon v-if="work.pages.length > 1" class="close" @click="deletePage(item, index)">
               <delete />
             </el-icon>
           </div>
@@ -29,10 +29,10 @@
 </template>
 <script setup lang='ts'>
 import { computed } from "vue";
-import { ElTooltip, ElMessageBox, ElMessage, ElIcon } from "element-plus";
 import { Delete, CopyDocument, Plus } from '@element-plus/icons-vue'
 import { useStore } from "@/store/index";
 import Work from "@/store/model/work";
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 const store = useStore();
 const work = computed(() => store.state.editor.work);

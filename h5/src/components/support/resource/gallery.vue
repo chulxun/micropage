@@ -13,8 +13,7 @@
   </el-dialog>
 </template>
 <script setup lang='ts'>
-import { computed, watch } from "vue";
-import { ElDialog } from "element-plus";
+import { computed } from "vue";
 import list from './list.vue'
 const props = defineProps({
   type: Number,

@@ -11,7 +11,12 @@
       <div class="item" v-for="(item, index) in dataList" :key="index">
         <div>
           <el-image v-if="type == 1" class="img" :src="item.url" fit="cover"></el-image>
-          <el-image v-else-if="type == 2" class="img" :src="item.preview_url" fit="cover"></el-image>
+          <el-image
+            v-else-if="type == 2"
+            class="img"
+            :src="item.url + '?vframe/jpg/offset/0'"
+            fit="cover"
+          ></el-image>
           <div class="audio" v-else-if="type == 3">
             <i class="iconfont icon-vynil"></i>
             <p>{{ item.url }}</p>
@@ -61,11 +66,11 @@
 
 <script setup lang="ts">
 import { computed, ref, reactive, onMounted, nextTick, } from "vue";
-import { ElImage, ElMessageBox, ElEmpty, ElButton, ElPagination, ElMessage, ElImageViewer } from "element-plus";
 import uploader from "../upload/uploader.vue";
 import { getList, deleteResources } from "@/api/resources";
 import videoPreview from "./preview.vue";
 import Clipboard from "clipboard";
+import { ElMessageBox, ElMessage } from 'element-plus'
 
 const props = defineProps({
   type: Number,

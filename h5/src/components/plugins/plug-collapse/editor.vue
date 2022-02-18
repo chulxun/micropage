@@ -71,17 +71,6 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-import {
-  ElForm,
-  ElFormItem,
-  ElColorPicker,
-  ElInput,
-  ElDivider,
-  ElSwitch,
-  ElPagination,
-  ElSelect,
-  ElOption, ElIcon,
-} from "element-plus";
 import iconEditor from "../commonProps/iconEditor.vue";
 import { Plus, Minus } from '@element-plus/icons-vue'
 const props = defineProps<{

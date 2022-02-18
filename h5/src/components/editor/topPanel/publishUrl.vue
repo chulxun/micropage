@@ -22,7 +22,8 @@
 import QRCode from "qrcode";
 import ClipboardJS from "clipboard";
 import { onMounted, ref, nextTick, watch, reactive, } from "vue";
-import { ElButton, ElDialog, ElMessage } from "element-plus";
+import { ElMessage } from 'element-plus'
+
 const props = defineProps({
   workId: String,
   publishVisible: Boolean

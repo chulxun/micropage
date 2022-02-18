@@ -11,7 +11,6 @@
   </el-aside>
 </template>
 <script setup lang="ts">
-import { ElAside } from "element-plus";
 import { computed } from "vue";
 import { useStore } from "@/store/index";
 import { customRouters } from '@/custom/list'

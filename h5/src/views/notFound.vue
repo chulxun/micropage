@@ -8,7 +8,6 @@
   </div>
 </template>
 <script setup lang='ts'>
-import { ElButton } from "element-plus";
 import { HomeFilled } from '@element-plus/icons-vue'
 
 </script>

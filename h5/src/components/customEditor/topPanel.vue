@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { ref, nextTick, computed } from "vue";
-import { ElButton, ElLoading, ElMessage } from "element-plus";
+import { ElLoading, ElMessage } from "element-plus";
 import { Finished, MessageBox } from '@element-plus/icons-vue'
 import preview from "@/components/editor/preview/index.vue";
 import { useStore } from "@/store/index";

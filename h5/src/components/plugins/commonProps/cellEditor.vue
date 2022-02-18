@@ -89,10 +89,6 @@
   </div>
 </template>
 <script setup lang='ts'>
-import {
-  ElForm, ElFormItem, ElColorPicker, ElInputNumber, ElRadioGroup, ElRadioButton,
-  ElDivider, ElRow, ElCol
-} from "element-plus";
 const props = defineProps<{
   element: H5.Element
 }>()

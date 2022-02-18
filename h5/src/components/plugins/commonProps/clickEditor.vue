@@ -27,14 +27,6 @@
   </div>
 </template>
 <script setup lang='ts'>
-import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElSelect,
-  ElOption,
-  ElDivider,
-} from "element-plus";
 import { computed } from "vue";
 const props = defineProps<{
   element: H5.Element

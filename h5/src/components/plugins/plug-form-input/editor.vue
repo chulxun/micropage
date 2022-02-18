@@ -51,16 +51,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import {
-  ElForm,
-  ElFormItem,
-  ElInputNumber,
-  ElInput,
-  ElDivider,
-  ElSelect,
-  ElOption,
-  ElSwitch,
-} from "element-plus";
 import cellEditor from "../commonProps/cellEditor.vue";
 const props = defineProps<{
   element: H5.Element

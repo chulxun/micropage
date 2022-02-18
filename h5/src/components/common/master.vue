@@ -51,15 +51,6 @@
   </el-container>
 </template>
 <script setup lang="ts">
-import {
-  ElMenu,
-  ElMenuItem,
-  ElContainer,
-  ElHeader,
-  ElMain,
-  ElAside,
-  ElIcon
-} from "element-plus";
 import { Postcard, User, Document, Suitcase, DataAnalysis, WindPower } from '@element-plus/icons-vue'
 import comHeader from "@/components/common/comHeader.vue";
 import { useRouter } from "vue-router";

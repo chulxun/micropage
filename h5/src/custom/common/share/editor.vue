@@ -17,7 +17,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElForm, ElFormItem, ElInputNumber, ElInput, ElDivider } from "element-plus";
 import { ref, computed } from "vue";
 import { useStore } from "@/store/index";
 import imgEditor from "@/components/plugins/commonProps/imgEditor.vue";

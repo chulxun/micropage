@@ -50,7 +50,6 @@ import { computed, reactive, ref } from "vue";
 import { useStore } from "@/store/index";
 import { getElementStyle } from "@/utils/element";
 import animation from "./animation.vue";
-import { ElIcon } from "element-plus";
 import { RefreshLeft, Paperclip } from '@element-plus/icons-vue'
 const props = defineProps<{
   element: H5.Element,
